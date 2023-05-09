@@ -9,7 +9,7 @@ class Promotion extends Model
 {
     use HasFactory;
 
-     function getFileAttribute($value){
-        return "http://127.0.0.1:8000/upload/images/".$value;
-    }
+    //  function getFileAttribute($value){
+    //     return "http://127.0.0.1:8000/upload/images/".$value;
+    // }
 }

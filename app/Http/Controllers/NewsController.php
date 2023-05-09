@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\News;
 use App\Models\Gallery;
 use App\Models\Family;
+use Illuminate\Support\Facades\Storage;
 
 class NewsController extends Controller
 {
@@ -61,8 +62,9 @@ class NewsController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 $check = in_array($extension,$allowedfileExtension);
                 if($check) {
-                    $name = 'community-'.time().$imgnumber.'.'.$extension;
-                    $file->move(public_path() . '/upload/images/', $name);
+                    $name = 'mpm-'.time().$imgnumber.'.'.$extension;
+                    //$file->move(public_path() . '/upload/images/', $name);
+                    Storage::disk('s3')->put($name, file_get_contents($file));
                     $imageExtension = ['APNG','jpg','png','jpeg','avif', 'gif','svg'];
                     $videoExtension = ['mp4','mov','avi', 'mkv','wmv'];
 
@@ -76,7 +78,8 @@ class NewsController extends Controller
                     }
                     $gallery = new Gallery();
                     $gallery->name = $name; 
-                    $gallery->type = $fileType;       
+                    $gallery->type = $fileType;
+                    $gallery->source = 'news';       
                     $gallery->album_name = $validatedData['title'];
                     $gallery->event_name = $validatedData['title'];
                     $gallery->save();
@@ -162,8 +165,9 @@ class NewsController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 $check = in_array($extension,$allowedfileExtension);
                 if($check) {
-                    $name = 'community-'.time().$imgnumber.'.'.$extension;
-                    $file->move(public_path() . '/upload/images/', $name);
+                    $name = 'mpm-'.time().$imgnumber.'.'.$extension;
+                    //$file->move(public_path() . '/upload/images/', $name);
+                    Storage::disk('s3')->put($name, file_get_contents($file));
                     $imageExtension = ['APNG','jpg','png','jpeg','avif', 'gif','svg'];
                     $videoExtension = ['mp4','mov','avi', 'mkv','wmv'];
 
