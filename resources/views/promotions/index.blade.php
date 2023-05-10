@@ -19,25 +19,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($promotions as $promotion)
-                            <tr>
-                                <td>{{ $promotion->id }}</td>
-                                <td><img src="{{$promotion->file}}"  width="50"></td>
-                                <td>{{ $promotion->start_date }}</td>
-                                <td>{{ $promotion->end_date }}</td>
-                                <td><a href="{{ $promotion->link }}" target="_blank">{{ $promotion->link }}</a></td>
-                                <td>{{ $promotion->created_at }}</td>
-                                <td style = "display: inline-flex; gap:70%;">
-                                    <a href="{{ route('promotions.edit', $promotion->id) }}" ><i class="fa fa-edit"></i> </a>
-                                    <form action="{{ route('promotions.destroy', $promotion->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <a href="javascript:void(0)" onclick="if (confirm('Are you sure you want to delete this News?')) { $(this).closest('form').submit(); } else { return false; }">
+                    @forelse ($promotions as $promotion)
+                        <tr>
+                            <td>{{ $promotion['id'] }}</td>
+                            <td><img src="{{ $promotion['file'] }}" width="50"></td>
+                            <td>{{ $promotion['start_date'] }}</td>
+                            <td>{{ $promotion['end_date'] }}</td>
+                            <td><a href="{{ $promotion['link'] }}" target="_blank">{{ $promotion['link'] }}</a></td>
+                            <td>{{ $promotion['created_at'] }}</td>
+                            <td>
+                                <a href="{{ route('promotions.edit', $promotion['id']) }}"><i class="fa fa-edit"></i></a>
+                                <form action="{{ route('promotions.destroy', $promotion['id']) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="javascript:void(0)" onclick="if (confirm('Are you sure you want to delete this News?')) { $(this).closest('form').submit(); } else { return false; }">
                                         <i class="fa fa-trash"></i> 
                                     </a>
-                                    </form>
-                                </td>
-                            </tr>
+                                </form>
+                            </td>
+                        </tr>
                         @empty
                             <tr>
                                 <td colspan="7">No promotions found.</td>
@@ -45,7 +45,7 @@
                         @endforelse
                     </tbody>
                 </table>
-                {{ $promotions->links() }}
+                {{ $media->links() }}
             </div>
         </div>
     </div>

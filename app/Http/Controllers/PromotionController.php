@@ -11,8 +11,16 @@ class PromotionController extends Controller
 {
     public function index()
     {
-        $promotions = Promotion::orderByDesc('created_at')->paginate(10);
-        return view('promotions.index', compact('promotions'));
+        $media = Promotion::orderByDesc('created_at')->paginate(10);
+        $promotions = [];
+        for($i = 0; $i < sizeof($media); $i++){
+            $temporarySignedUrl = Storage::disk('s3')->temporaryUrl($media[$i]['file'], now()->addMinutes(10));
+
+            $promotions[] = ["id" => $media[$i]['id'],"file" => $temporarySignedUrl, "start_date" => $media[$i]['start_date'], "end_date" => $media[$i]['end_date'], "created_at" => $media[$i]['created_at'], "link" => $media[$i]['link']];                        
+        }
+
+        $promotions = collect($promotions);
+        return view('promotions.index', compact('promotions', 'media'));
     }
 
     public function create()
@@ -23,12 +31,13 @@ class PromotionController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'file' => 'required|file|max:10240', // max 10MB
+            'file' => 'required|file|',
             'start_date' => 'required|date|after_or_equal:today',
             'end_date' => 'required|date|after:start_date',
         ]);
 
         $count = Promotion::whereDate('start_date', $request->start_date)->count();
+        
 
         if ($count >= 3) {
             return back()->with('error', 'You cannot have more than 3 promotions in one day.');
@@ -36,20 +45,20 @@ class PromotionController extends Controller
 
         if($request->hasFile('file')) {
             $allowedfileExtension=['jpg','png','jpeg', 'avif'];
-            $files = $request->file('file'); 
+            $file = $request->file('file'); 
             $errors = [];
 
-            $extension = $files->getClientOriginalExtension();
+            $extension = $file->getClientOriginalExtension();
             $check = in_array($extension,$allowedfileExtension);
             if($check) {
                 $name = 'community-'.time().'.'.$extension;
-                $files->move(public_path() . '/upload/images/', $name);
+                    Storage::disk('s3')->put($name, file_get_contents($file));
 
                 
             }
             
         }
-
+        
         $promotion = new Promotion;
         $promotion->file = $name;
         $promotion->start_date = $validatedData['start_date'];
