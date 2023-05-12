@@ -27,21 +27,49 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label for="head_occupation">{{ __('Occupation') }}</label>
+                                            <input type="text" name="head_occupation" class="form-control" id="head_occupation" value="{{ $family->head_occupation }}" required>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label for="head_mobile_number">{{ __('Mobile Number') }}</label>
+                                            <input type="text" name="head_mobile_number" class="form-control" id="head_mobile_number" value="{{ $family->head_mobile_number }}" required>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label for="head_dob">{{ __('Date of Birth') }}</label>
+                                            <input type="text" name="head_dob" class="form-control" id="head_dob" value="{{ $family->head_dob }}" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label for="relationship_with_head">{{ __('Relationship With Head') }}</label>
+                                            <input type="text" name="relationship_with_head" class="form-control" id="relationship_with_head" value="{{ $family->relationship_with_head }}"  required>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label for="qualification">{{ __('Qualification') }}</label>
+                                            <input type="text" name="qualification" class="form-control" id="qualification" value="{{ $family->qualification }}" required>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label for="degree">{{ __('Degree') }}</label>
+                                             <input type="text" name="degree" class="form-control" id="degree" value="{{ $family->degree }}" required>
+                                        </div>
+                                    </div>
+                                </div>
 
                             <div class="form-group">
-                                <label for="head_occupation">{{ __('Family Head Occupation') }}</label>
-                                <input type="text" name="head_occupation" class="form-control" id="head_occupation" value="{{ $family->head_occupation }}" required>
+                                <label for="address">{{ __('Address') }}</label>
+                                <textarea type="text" name="address" class="form-control" id="address" value="{{ $family->address }}" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="marital_status">{{ __('Marital Status') }}</label>
+                                <input type="text" name="marital_status" class="form-control" id="marital_status" value="{{ $family->marital_status }}" required>
                             </div>
 
-                            <div class="form-group">
-                                <label for="head_mobile_number">{{ __('Family Head Mobile Number') }}</label>
-                                <input type="text" name="head_mobile_number" class="form-control" id="head_mobile_number" value="{{ $family->head_mobile_number }}" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="head_dob">{{ __('Date of Birth') }}</label>
-                                <input type="text" name="head_dob" class="form-control" id="head_dob" value="{{ $family->head_dob }}" required>
-                            </div>
 
                             <hr>
 
@@ -53,25 +81,65 @@
 
                             @foreach($family->members as $member)
                             <div class="member-form">
-                                <div class="form-group">
-                                    <label for="member_name_{{ $memberIndex }}">{{ __('Member Name') }}</label>
-                                    <input type="text" name="members[{{ $memberIndex }}][name]" class="form-control" id="member_name_{{ $memberIndex }}" value="{{ $member->name }}" required>
-                                </div>
+                            <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <label for="member_first_name_0">{{ __(' First Name') }}</label>
+                                                     <input type="text" name="members[0][first_name]" class="form-control" id="member_first_name_0" value="{{ $member->first_name }}" required> 
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="member_middle_name_0">{{ __(' Middle Name') }}</label>
+                                                    <input type="text" name="members[0][middle_name]" class="form-control" id="member_middle_name_0" value="{{ $member->middle_name }}" required>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="member_last_name_0">{{ __(' Last Name') }}</label>
+                                                    <input type="text" name="members[0][last_name]" class="form-control" id="member_last_name_0" value="{{ $member->last_name }}" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <label for="member_occupation_0">{{ __('Occupation') }}</label>
+                                                    <input type="text" name="members[0][occupation]" class="form-control" id="member_occupation_0" value="{{ $member->occupation }}" required>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="member_mobile_number_0">{{ __('Mobile Number') }}</label>
+                                                    <input type="text" name="members[0][mobile_number]" class="form-control" id="member_mobile_number_0" value="{{ $member->mobile_number }}" required>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="member_dob_0">{{ __('Date of Birth') }}</label>
+                                                    <input type="text" name="members[0][dob]" class="form-control" id="member_dob_0" value="{{ $member->dob}}" required>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                <div class="form-group">
-                                    <label for="member_occupation_{{ $memberIndex }}">{{ __('Member Occupation') }}</label>
-                                    <input type="text" name="members[{{ $memberIndex }}][occupation]" class="form-control" id="member_occupation_{{ $memberIndex }}" value="{{ $member->occupation }}" required>
-                                </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <label for="member_relationship_with_head_0">{{ __(' Relationship With Head') }}</label>
+                                                    <input type="text" name="members[0][relationship_with_head]" class="form-control" id="member_relationship_with_head_0" value="{{ $member->relationship_with_head }}" required>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="member_qualification_0">{{ __('Qualification') }}</label>
+                                                    <input type="text" name="members[0][qualification]" class="form-control" id="member_qualification_0" value="{{ $member->qualification }}" required>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="member_degree_0">{{ __('Degree') }}</label>
+                                                    <input type="text" name="members[0][degree]" class="form-control" id="member_degree_0" value="{{ $member->degree }}" required>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                                <div class="form-group">
-                                    <label for="member_mobile_number_{{ $memberIndex }}">{{ __('Member Mobile Number') }}</label>
-                                    <input type="text" name="members[{{ $memberIndex }}][mobile_number]" class="form-control" id="member_mobile_number_{{ $memberIndex }}" value="{{ $member->mobile_number }}" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="member_age_{{ $memberIndex }}">{{ __('Member Age') }}</label>
-                                    <input type="number" name="members[{{ $memberIndex }}][age]" class="form-control" id="member_age_{{ $memberIndex }}" value="{{ $member->age }}" required>
-                                </div>
+                                    <div class="form-group">
+                                        <label for="member_address_0">{{ __('Address') }}</label>
+                                        <textarea type="text" name="members[0][address]" class="form-control" id="member_address_0" value="{{ $member->address }}" required></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="member_marital_status_0">{{ __('Marital Status') }}</label>
+                                        <input type="text" name="members[0][marital_status]" class="form-control" id="member_marital_status_0" value="{{ $member->marital_status }}" required>
+                                    </div>
+                                 
 
                                 <button type="button" class="btn btn-danger" onclick="$(this).closest('.member-form').remove()">{{ __('Delete Member') }}</button>
                             </div>
@@ -109,4 +177,9 @@
                 format: 'yyyy-mm-dd'
             });
         </script>
+        <script>
+        $('#member_dob_0').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+    </script>
 @endsection

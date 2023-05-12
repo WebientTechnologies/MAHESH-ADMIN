@@ -61,15 +61,27 @@ class FamilyController extends Controller
             'head_last_name' => $request->input('head_last_name'),
             'head_occupation' => $request->input('head_occupation'),
             'head_mobile_number' => $request->input('head_mobile_number'),
+            'relationship_with_head' => $request->input('relationship_with_head'),
+            'qualification' => $request->input('qualification'),
+            'degree' => $request->input('degree'),
+            'address' => $request->input('address'),
+            'marital_status' => $request->input('marital_status'),
             'head_dob' => $headDob,
         ]);
         // dd($family);
         $members = collect($request->input('members'))->map(function ($member) {
             return new FamilyMember([
-                'name' => $member['name'],
+                'first_name' => $member['first_name'],
+                'middle_name' => $member['middle_name'],
+                'last_name' => $member['last_name'],
                 'occupation' => $member['occupation'],
-                'age' => $member['age'],
+                'dob' => $member['dob'],
                 'mobile_number' => $member['mobile_number'],
+                'relationship_with_head' => $member['relationship_with_head'],
+                'qualification' => $member['qualification'],
+                'degree' => $member['degree'],
+                'address' => $member['address'],
+                'marital_status' => $member['marital_status'],
             ]);
         });
 
@@ -98,23 +110,42 @@ class FamilyController extends Controller
             'head_last_name' => $request->input('head_last_name'),
             'head_occupation' => $request->input('head_occupation'),
             'head_mobile_number' => $request->input('head_mobile_number'),
+            'relationship_with_head' => $request->input('relationship_with_head'),
+            'qualification' => $request->input('qualification'),
+            'degree' => $request->input('degree'),
+            'address' => $request->input('address'),
+            'marital_status' => $request->input('marital_status'),
             'head_dob' => $request->input('head_dob'),
         ]);
 
         $members = collect($request->input('members'))->map(function ($member) use ($family) {
             if (isset($member['id'])) {
                 return FamilyMember::find($member['id'])->fill([
-                    'name' => $member['name'],
+                    'first_name' => $member['first_name'],
+                    'middle_name' => $member['middle_name'],
+                    'last_name' => $member['last_name'],
                     'occupation' => $member['occupation'],
                     'dob' => $member['dob'],
                     'mobile_number' => $member['mobile_number'],
+                    'relationship_with_head' => $member['relationship_with_head'],
+                    'qualification' => $member['qualification'],
+                    'degree' => $member['degree'],
+                    'address' => $member['address'],
+                    'marital_status' => $member['marital_status'],
                 ]);
             } else {
                 return new FamilyMember([
-                    'name' => $member['name'],
+                    'first_name' => $member['first_name'],
+                    'middle_name' => $member['middle_name'],
+                    'last_name' => $member['last_name'],
                     'occupation' => $member['occupation'],
-                    'age' => $member['age'],
+                    'dob' => $member['dob'],
                     'mobile_number' => $member['mobile_number'],
+                    'relationship_with_head' => $member['relationship_with_head'],
+                    'qualification' => $member['qualification'],
+                    'degree' => $member['degree'],
+                    'address' => $member['address'],
+                    'marital_status' => $member['marital_status'],
                 ]);
             }
         });
