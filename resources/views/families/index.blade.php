@@ -70,7 +70,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Age</th>
+                    <th>Dob</th>
                     <th>Mobile</th>
                     <th>Occupation</th>
                 </tr>
@@ -95,7 +95,7 @@
 
             familyMembers.forEach(function(familyMember) {
                 var tr = document.createElement('tr');
-                tr.innerHTML = '<td>' + familyMember.name + '</td><td>' + familyMember.age + '</td><td>' + familyMember.mobile_number + '</td><td>' + familyMember.occupation + '</td>';
+                tr.innerHTML = '<td>'+ familyMember.first_name + ' ' + (familyMember.middle_name ? familyMember.middle_name + ' ' : '') + familyMember.last_name +'</td><td>' + familyMember.dob + '</td><td>' + familyMember.mobile_number + '</td><td>' + familyMember.occupation + '</td>';
                 tableBody.appendChild(tr);
             });
 
