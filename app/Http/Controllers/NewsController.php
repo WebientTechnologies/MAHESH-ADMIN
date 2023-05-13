@@ -80,6 +80,7 @@ class NewsController extends Controller
                     $gallery->name = $name; 
                     $gallery->type = $fileType;
                     $gallery->source = 'news';       
+                    $gallery->description = $validatedData['description'];       
                     $gallery->album_name = $validatedData['title'];
                     $gallery->event_name = $validatedData['title'];
                     $gallery->save();
@@ -181,7 +182,9 @@ class NewsController extends Controller
                     }
                     $gallery = new Gallery();
                     $gallery->name = $name; 
-                    $gallery->type = $fileType;       
+                    $gallery->type = $fileType;   
+                    $gallery->source = 'news';       
+                    $gallery->description = $validatedData['description'];     
                     $gallery->album_name = $validatedData['title'];
                     $gallery->event_name = $validatedData['title'];
                     $gallery->save();
