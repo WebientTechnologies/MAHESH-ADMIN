@@ -63,6 +63,7 @@ class GalleryController extends Controller
                 $gallery = new Gallery();
                 $gallery->name = $name; 
                 $gallery->type = $fileType; 
+                $gallery->description = $request->description;
                 $gallery->source = 'media';       
                 $gallery->album_name = $request->album_name;
                 $gallery->event_name = $request->event_name;

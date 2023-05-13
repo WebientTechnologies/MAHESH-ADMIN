@@ -51,6 +51,8 @@ class NewsController extends Controller
         $news = new News;
         $news->title = $validatedData['title'];
         $news->description = $validatedData['description'];
+        $news->created_by = auth()->user()->id;
+        $news->save();
 
         // upload the file and store the file name in the 'file' column
         if ($request->hasFile('file')) {
@@ -78,9 +80,10 @@ class NewsController extends Controller
                     }
                     $gallery = new Gallery();
                     $gallery->name = $name; 
-                    $gallery->type = $fileType;
-                    $gallery->source = 'news';       
-                    $gallery->description = $validatedData['description'];       
+                    $gallery->type = $fileType; 
+                    $gallery->description =  $validatedData['description'];
+                    $gallery->source = 'news'; 
+                    $gallery->news_id = $news->id;       
                     $gallery->album_name = $validatedData['title'];
                     $gallery->event_name = $validatedData['title'];
                     $gallery->save();
@@ -92,8 +95,7 @@ class NewsController extends Controller
         }
 
         // set the created_by and updated_by columns
-        $news->created_by = auth()->user()->id;
-        $news->updated_by = auth()->user()->id;
+        
 
         // send notification
         $families = $request->input('families');
@@ -128,7 +130,7 @@ class NewsController extends Controller
         $response = curl_exec($ch);
         //dd($response);
         // save the News object to the database
-        $news->save();
+       
 
         // redirect to the index page with a success message
         return redirect()->route('newses.index')->with('success', 'News created successfully.');
@@ -182,9 +184,10 @@ class NewsController extends Controller
                     }
                     $gallery = new Gallery();
                     $gallery->name = $name; 
-                    $gallery->type = $fileType;   
-                    $gallery->source = 'news';       
-                    $gallery->description = $validatedData['description'];     
+                    $gallery->type = $fileType; 
+                    $gallery->description =  $validatedData['description'];
+                    $gallery->source = 'news'; 
+                    $gallery->news_id = $news->id;       
                     $gallery->album_name = $validatedData['title'];
                     $gallery->event_name = $validatedData['title'];
                     $gallery->save();

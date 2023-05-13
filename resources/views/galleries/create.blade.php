@@ -26,6 +26,13 @@
                                 <input id="event_name" type="text" class="form-control" name="event_name" value="{{ old('event_name') }}" >
                             </div>
                         </div>
+                        <div class="form-group row">
+                                <label for="description" class="col-md-4 control-label">{{ __('Description') }}</label>
+
+                                    <textarea id="description" class="form-control" name="description" required>{{ old('description') }}</textarea>
+
+                            
+                            </div>
 
                         <div class="form-group row">
                             <label for="file" class="col-md-4 col-form-label text-md-right">{{ __('File') }}</label>

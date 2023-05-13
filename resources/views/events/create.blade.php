@@ -8,7 +8,7 @@
                     <div class="panel-heading">Create Event</div>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{ route('events.store') }}">
+                        <form class="form-horizontal" method="POST" action="{{ route('events.store') }}"  enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
@@ -65,6 +65,11 @@
                                         </span>
                                     @endif
                                 </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="file">File</label>
+                                 <input id="file" type="file" class="form-control" name="file[]" accept="image/*,video/*" multiple required>
                             </div>
 
                             <div class="form-group">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\Gallery;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -33,6 +35,46 @@ class EventController extends Controller
         $event->event_end_at = $request->event_end_at;
         $event->created_by = auth()->user()->id;
         $event->save();
+        
+         // upload the file and store the file name in the 'file' column
+         if ($request->hasFile('file')) {
+            $allowedfileExtension=['APNG','jpg','png','jpeg','avif', 'gif','svg','mp4','mov','avi', 'mkv','wmv' ];
+            $files = $request->file('file'); 
+            $errors = [];
+            $imgnumber = 0;
+            foreach ($files as $key => $file) { 
+                $extension = $file->getClientOriginalExtension();
+                $check = in_array($extension,$allowedfileExtension);
+                if($check) {
+                    $name = 'mpm-'.time().$imgnumber.'.'.$extension;
+                    //$file->move(public_path() . '/upload/images/', $name);
+                    Storage::disk('s3')->put($name, file_get_contents($file));
+                    $imageExtension = ['APNG','jpg','png','jpeg','avif', 'gif','svg'];
+                    $videoExtension = ['mp4','mov','avi', 'mkv','wmv'];
+
+                    $checkImg = in_array($extension,$imageExtension);
+                    if($checkImg){
+                        $fileType = 'image';
+                    }
+                    $checkImg = in_array($extension,$videoExtension);
+                    if($checkImg){
+                        $fileType = 'video';
+                    }
+                    $gallery = new Gallery();
+                    $gallery->name = $name; 
+                    $gallery->type = $fileType;
+                    $gallery->description = $request->description;
+                    $gallery->source = 'event';
+                    $gallery->event_id = $event->id;        
+                    $gallery->album_name = $request->title;
+                    $gallery->event_name = $request->title;
+                    $gallery->save();
+                
+                    
+                }
+                $imgnumber++;
+            }
+        }
         return redirect()->route('events.index')->with('success','Event added successfully.');
     }
 
@@ -52,6 +94,46 @@ class EventController extends Controller
         $event->description = $request->description;
         $event->event_start_at = $request->event_start_at;
         $event->event_end_at = $request->event_end_at;
+        // upload the file and update the 'file' column
+        if ($request->hasFile('file')) {
+            
+            $allowedfileExtension=['APNG','jpg','png','jpeg','avif', 'gif','svg','mp4','mov','avi', 'mkv','wmv' ];
+            $files = $request->file('file'); 
+            $errors = [];
+            $imgnumber = 0;
+            foreach ($files as $key => $file) { 
+                $extension = $file->getClientOriginalExtension();
+                $check = in_array($extension,$allowedfileExtension);
+                if($check) {
+                    $name = 'mpm-'.time().$imgnumber.'.'.$extension;
+                    //$file->move(public_path() . '/upload/images/', $name);
+                    Storage::disk('s3')->put($name, file_get_contents($file));
+                    $imageExtension = ['APNG','jpg','png','jpeg','avif', 'gif','svg'];
+                    $videoExtension = ['mp4','mov','avi', 'mkv','wmv'];
+
+                    $checkImg = in_array($extension,$imageExtension);
+                    if($checkImg){
+                        $fileType = 'image';
+                    }
+                    $checkImg = in_array($extension,$videoExtension);
+                    if($checkImg){
+                        $fileType = 'video';
+                    }
+                    $gallery = new Gallery();
+                    $gallery->name = $name; 
+                    $gallery->type = $fileType;
+                    $gallery->description = $request->description;
+                    $gallery->source = 'event';
+                    $gallery->event_id = $event->id;        
+                    $gallery->album_name = $request->title;
+                    $gallery->event_name = $request->title;
+                    $gallery->save();
+                
+                    
+                }
+                $imgnumber++;
+            }
+        }
         $event->updated_by = auth()->user()->id;
         $event->save();
         return redirect()->route('events.index')->with('success','Event updated successfully.');

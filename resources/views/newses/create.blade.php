@@ -66,6 +66,7 @@
     firebase.initializeApp(firebaseConfig);
     const messaging = firebase.messaging();
     function initFirebaseMessagingRegistration() {
+        debugger;
             messaging
             .requestPermission()
             .then(function () {
