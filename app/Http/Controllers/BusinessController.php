@@ -39,6 +39,8 @@ class BusinessController extends Controller
         $business->owner_name = $validatedData['owner_name'];
         $business->category_id = $validatedData['category_id'];
         $business->subcategory_id = json_encode($request->subcategory_id); 
+        $business->address = $request->address;
+        $business->contact_number = $request->contact_number;
         // $business->created_by = Auth::user()->id;
     
         $business->save();
@@ -67,6 +69,8 @@ class BusinessController extends Controller
         $business->owner_name = $validatedData['owner_name'];
         $business->category_id = $validatedData['category_id'];
         $business->subcategory_id = json_encode($validatedData['subcategory_id']); 
+        $business->address = $request->address;
+        $business->contact_number = $request->contact_number;
         // $business->updated_by = Auth::user()->id;
     
         $business->save();

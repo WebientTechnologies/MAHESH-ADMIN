@@ -20,9 +20,10 @@
                                     <th>ID</th>
                                     <th>Business Name</th>
                                     <th>Owner Name</th>
+                                    <th>Contact Number</th>
                                     <th>Category</th>
                                     <th>Subcategories</th>
-                                    <th>Created At</th>
+                                    <th>Address</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -32,6 +33,7 @@
                                         <td>{{ $business->id }}</td>
                                         <td>{{ $business->business_name }}</td>
                                         <td>{{ $business->owner_name }}</td>
+                                        <td>{{ $business->contact_number }}</td>
                                         <td>{{ $business->category->name }}</td>
                                         <td>
                                             @foreach ($business->subcategories as $subcategory)
@@ -41,7 +43,7 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td>{{ $business->created_at->format('d/m/Y') }}</td>
+                                        <td>{{ $business->address }}</td>
                                         <td style = "display: inline-flex; gap:70%;">
                                             <a href="{{ route('businesses.edit', $business->id) }}" ><i class="fa fa-edit"></i> </a>
                                             <form action="{{ route('businesses.destroy', $business->id) }}" method="POST">
