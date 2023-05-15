@@ -20,7 +20,7 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="head_middle_name">{{ __('Middle Name') }}</label>
-                                            <input type="text" name="head_middle_name" class="form-control" id="head_middle_name" required>
+                                            <input type="text" name="head_middle_name" class="form-control" id="head_middle_name">
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="head_last_name">{{ __('Last Name') }}</label>
@@ -41,7 +41,7 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="head_dob">{{ __('Date of Birth') }}</label>
-                                            <input type="text" name="head_dob" class="form-control" id="head_dob" required>
+                                            <input type="text" name="head_dob" class="form-control" id="head_dob" >
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_middle_name_0">{{ __(' Middle Name') }}</label>
-                                                    <input type="text" name="members[0][middle_name]" class="form-control" id="member_middle_name_0" required>
+                                                    <input type="text" name="members[0][middle_name]" class="form-control" id="member_middle_name_0">
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_last_name_0">{{ __(' Last Name') }}</label>
@@ -108,7 +108,7 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_dob_0">{{ __('Date of Birth') }}</label>
-                                                    <input type="text" name="members[0][dob]" class="form-control" id="member_dob_0" required>
+                                                    <input type="text" name="members[0][dob]" class="form-control" id="member_dob_0">
                                                 </div>
                                             </div>
                                         </div>

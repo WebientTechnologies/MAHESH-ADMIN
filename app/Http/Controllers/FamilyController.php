@@ -46,14 +46,18 @@ class FamilyController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'head_first_name' => 'required|string|max:255',
-            'head_middle_name' => 'required|string|max:255',
             'head_last_name' => 'required|string|max:255',
         ]);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
         }
-        $headDob = Carbon::createFromFormat('Y-m-d', $request->input('head_dob'));
+        if(($request->input('head_dob')) == null){
+            $headDob = null ;
+        }else{
+            $headDob = Carbon::createFromFormat('Y-m-d', $request->input('head_dob'));
+
+        }
        // dd($headDob);
         $family = Family::create([
             'head_first_name' => $request->input('head_first_name'),
