@@ -42,6 +42,32 @@
                     </span>
                 @enderror
             </div>
+            <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
+                <label for="address" class="col-md-4 control-label">Address</label>
+
+                <div class="col-md-6">
+                    <textarea id="address" type="text" class="form-control" name="address" >{{ $event->address }}</textarea>
+
+                    @if ($errors->has('address'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('address') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
+            <div class="form-group{{ $errors->has('contact_number') ? ' has-error' : '' }}">
+                <label for="contact_number" class="col-md-4 control-label">Contact Number</label>
+
+                <div class="col-md-6">
+                    <input id="contact_number" type="text" class="form-control" name="contact_number" value="{{ $event->contact_number }}" >
+
+                    @if ($errors->has('contact_number'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('contact_number') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">
                     {{ __('Save') }}

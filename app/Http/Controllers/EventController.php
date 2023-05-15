@@ -33,6 +33,8 @@ class EventController extends Controller
         $event->description = $request->description;
         $event->event_start_at = $request->event_start_at;
         $event->event_end_at = $request->event_end_at;
+        $event->address = $request->address;
+        $event->contact_number = $request->contact_number;
         $event->created_by = auth()->user()->id;
         $event->save();
         
@@ -94,6 +96,8 @@ class EventController extends Controller
         $event->description = $request->description;
         $event->event_start_at = $request->event_start_at;
         $event->event_end_at = $request->event_end_at;
+        $event->address = $request->address;
+        $event->contact_number = $request->contact_number;
         // upload the file and update the 'file' column
         if ($request->hasFile('file')) {
             
