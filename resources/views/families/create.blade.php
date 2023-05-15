@@ -132,7 +132,7 @@
 
                                     <div class="form-group">
                                         <label for="member_address_0">{{ __('Address') }}</label>
-                                        <textarea type="text" name="members[0][address]" class="form-control" id="member_address_0" required></textarea>
+                                        <input type="text" name="members[0][address]" class="form-control" id="member_address_0" required>
                                     </div>
                                     <div class="form-group">
                                         <label for="member_marital_status_0">{{ __('Marital Status') }}</label>
