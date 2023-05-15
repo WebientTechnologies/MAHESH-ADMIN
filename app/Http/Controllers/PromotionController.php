@@ -52,7 +52,7 @@ class PromotionController extends Controller
             $check = in_array($extension,$allowedfileExtension);
             if($check) {
                 $name = 'community-'.time().'.'.$extension;
-                    Storage::disk('s3')->put($name, file_get_contents($file));
+                Storage::disk('s3')->put($name, file_get_contents($file));
 
                 
             }
@@ -82,18 +82,23 @@ class PromotionController extends Controller
             'end_date' => 'required|date|after:start_date',
         ]);
 
-        if ($request->hasFile('file')) {
-            Storage::delete('public/promotions/' . $promotion->file);
+        if($request->hasFile('file')) {
+            $allowedfileExtension=['jpg','png','jpeg', 'avif'];
+            $file = $request->file('file'); 
+            $errors = [];
 
-            $file = $request->file('file');
-            $filename = time() . '_' . $file->getClientOriginalName();
-            $path = $file->storeAs('public/promotions', $filename);
-
-            $promotion->file = $filename;
+            $extension = $file->getClientOriginalExtension();
+            $check = in_array($extension,$allowedfileExtension);
+            if($check) {
+                $name = 'community-'.time().'.'.$extension;
+                Storage::disk('s3')->put($name, file_get_contents($file));     
+            }
+            
         }
 
         $promotion->start_date = $validatedData['start_date'];
         $promotion->end_date = $validatedData['end_date'];
+        $promotion->file = $name;
         $promotion->link = $request->input('link');
         $promotion->updated_by = auth()->id();
         $promotion->save();

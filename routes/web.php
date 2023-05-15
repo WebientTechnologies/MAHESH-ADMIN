@@ -60,7 +60,8 @@ Route::middleware('auth')->group(function () {
     //QUize Route//
     //Event Route//
     Route::resource('quizzes', 'App\Http\Controllers\QuizController');
-    Route::get('/quizzes/{id}', [App\Http\Controllers\QuizController::class, 'show'])->name('quizzes.show');
+
+    Route::resource('winners', 'App\Http\Controllers\WinnerController');
 
 
     // Route to show the notification form

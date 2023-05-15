@@ -14,13 +14,16 @@ class QuizController extends Controller
 {
     public function index()
     {
-        $quizzes = Quiz::all();
-        return view('quizzes.index', compact('quizzes'));
-    }
-    public function show($id)
-    {
-        $quiz = Quiz::findOrFail($id);
-        return view('quizzes.show', compact('quiz'));
+        $media = Quiz::orderByDesc('created_at')->paginate(10);
+        $quizes = [];
+        for($i = 0; $i < sizeof($media); $i++){
+            $temporarySignedUrl = Storage::disk('s3')->temporaryUrl($media[$i]['file'], now()->addMinutes(10));
+
+            $quizes[] = ["id" => $media[$i]['id'],"file" => $temporarySignedUrl, "start_time" => $media[$i]['start_time'], "end_time" => $media[$i]['end_time'], "title" => $media[$i]['title'], "link" => $media[$i]['link'], "description" => $media[$i]['description']];                        
+        }
+
+        $quizes = collect($quizes);
+        return view('quizzes.index', compact('quizes', 'media'));
     }
 
     public function create()
@@ -30,42 +33,75 @@ class QuizController extends Controller
 
     public function store(Request $request)
     {
-        $quiz = Quiz::create([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'start_time' => $request->input('start_time'),
-            'end_time' => $request->input('end_time'),
-        ]);
 
-        foreach ($request->input('questions') as $question) {
-            QuizQuestion::create([
-                'quiz_id' => $quiz->id,
-                'question' => $question['question'],
-                'options' => json_encode($question['options']),
-                'answer' => $question['answer'],
-            ]);
+        if($request->hasFile('file')) {
+            $allowedfileExtension=['jpg','png','jpeg', 'avif'];
+            $file = $request->file('file'); 
+            $errors = [];
+
+            $extension = $file->getClientOriginalExtension();
+            $check = in_array($extension,$allowedfileExtension);
+            if($check) {
+                $name = 'community-'.time().'.'.$extension;
+                Storage::disk('s3')->put($name, file_get_contents($file));
+
+                
+            }
+            
         }
+        
+        $quiz = new Quiz;
+        $quiz->title = $request->input('title');
+        $quiz->description = $request->input('description');
+        $quiz->file = $name;
+        $quiz->start_time = $request->input('start_time');
+        $quiz->end_time = $request->input('end_time');
+        $quiz->link = $request->input('link');
+        $quiz->created_by = auth()->id();
+        $quiz->save();
 
-        // Notify all users
-        Notification::send(User::all(), new QuizCreated($quiz));
-
-        return redirect()->route('quizzes.index');
+        return redirect()->route('quizzes.index')->with('success', 'Quize created successfully.');
     }
 
-    public function destroy($id)
+    public function edit(Quiz $quiz)
     {
-        $quiz = Quiz::findOrFail($id);
-        $quizQuestions = $quiz->questions;
+        return view('quizzes.edit', compact('quiz'));
+    }
 
-        // Delete all quiz questions associated with this quiz
-        foreach ($quizQuestions as $question) {
-            $question->delete();
+    public function update(Request $request, Quiz $quiz)
+    {
+
+        if($request->hasFile('file')) {
+            $allowedfileExtension=['jpg','png','jpeg', 'avif'];
+            $file = $request->file('file'); 
+            $errors = [];
+
+            $extension = $file->getClientOriginalExtension();
+            $check = in_array($extension,$allowedfileExtension);
+            if($check) {
+                $name = 'community-'.time().'.'.$extension;
+                Storage::disk('s3')->put($name, file_get_contents($file));     
+            }
+            
         }
 
-        // Delete the quiz itself
+        $quiz->title = $request->input('title');
+        $quiz->description = $request->input('description');
+        $quiz->file = $name;
+        $quiz->start_time = $request->input('start_time');
+        $quiz->end_time = $request->input('end_time');
+        $quiz->link = $request->input('link');
+        $quiz->created_by = auth()->id();
+        $quiz->save();
+
+        return redirect()->route('quizzes.index')->with('success', 'Quiz updated successfully.');
+    }
+
+    public function destroy(Quiz $quiz)
+    {
+        Storage::delete('public/promotions/' . $quiz->file);
         $quiz->delete();
 
-        return redirect()->route('quizzes.index')
-            ->with('success', 'Quiz deleted successfully.');
+        return redirect()->route('quizzes.index')->with('success', 'Quiz deleted successfully.');
     }
 }

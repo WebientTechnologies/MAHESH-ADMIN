@@ -102,6 +102,14 @@
                     </p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('winners.index') }}" class="nav-link">
+                    <i class="nav-icon fas fa-question"></i>
+                    <p>
+                        {{ __('Winner') }}
+                    </p>
+                </a>
+            </li>
         </ul>
     </nav>
     <!-- /.sidebar-menu -->
