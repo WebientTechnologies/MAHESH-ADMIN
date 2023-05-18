@@ -24,20 +24,22 @@
                                     @enderror
                                 </div>
                             </div>
-
+                            <input type="hidden" name="owner_name" id="owner_name">
                             <div class="form-group row">
-                                <label for="owner_name" class="col-md-4 col-form-label text-md-right">{{ __('Owner Name') }}</label>
-
+                            <label for="owner" class="col-md-4 col-form-label text-md-right">{{ __('Owner') }}</label>
                                 <div class="col-md-6">
-                                    <input id="owner_name" type="text" class="form-control @error('owner_name') is-invalid @enderror" name="owner_name" value="{{ old('owner_name') }}" required autocomplete="owner_name">
-
-                                    @error('owner_name')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    <select name="owner_id" id="owner_id" class="form-control">
+                                        <option value="">Select Owner</option>
+                                        @foreach ($heads as $head)
+                                            <option value="{{ $head->id }}" data-name="{{ $head->head_first_name }} {{ $head->head_middle_name }} {{ $head->head_last_name }}">Head - {{ $head->head_first_name }} {{ $head->head_middle_name }} {{ $head->head_last_name }}</option>
+                                        @endforeach
+                                        @foreach ($members as $member)
+                                            <option value="{{ $member->id }}" data-name="{{ $member->first_name }} {{ $member->middle_name }} {{ $member->last_name }}">Member - {{ $member->first_name }} {{ $member->middle_name }} {{ $member->last_name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
+
 
                             <div class="form-group row">
                                 <label for="category_id" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
@@ -62,7 +64,7 @@
                                 <label for="subcategory_id" class="col-md-4 col-form-label text-md-right">{{ __('Subcategory') }}</label>
 
                                 <div class="col-md-6">
-                                <select id="subcategory_id" name="subcategory_id[]" class="form-control @error('subcategory_id') is-invalid @enderror" multiple>
+                                <select id="subcategory_id" name="subcategory_id" class="form-control @error('subcategory_id') is-invalid @enderror" required>
                                         <option value="">-- Select Subcategory --</option>
                                         @foreach ($subcategories as $subcategory)
                                             <option value="{{ $subcategory->id }}" @if(old('subcategory_id') == $subcategory->id) selected @endif>{{ $subcategory->name }}</option>
@@ -121,4 +123,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#owner_id').on('change', function() {
+            var selectedOption = $(this).find('option:selected');
+            var ownerId = selectedOption.val();
+            var ownerName = selectedOption.data('name');
+            $('input[name="owner_id"]').val(ownerId);
+            $('input[name="owner_name"]').val(ownerName);
+        });
+    });
+</script>
+
+
+
 @endsection

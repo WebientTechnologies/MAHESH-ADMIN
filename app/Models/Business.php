@@ -23,7 +23,7 @@ class Business extends Model
 
     public function subcategories()
     {
-        return $this->hasMany(SubCategory::class, 'id');
+        return $this->belongsTo(SubCategory::class);
     }
 }
 

@@ -22,7 +22,6 @@
                                     <th>Owner Name</th>
                                     <th>Contact Number</th>
                                     <th>Category</th>
-                                    <th>Subcategories</th>
                                     <th>Address</th>
                                     <th>Action</th>
                                 </tr>
@@ -35,14 +34,6 @@
                                         <td>{{ $business->owner_name }}</td>
                                         <td>{{ $business->contact_number }}</td>
                                         <td>{{ $business->category->name }}</td>
-                                        <td>
-                                            @foreach ($business->subcategories as $subcategory)
-                                                {{ $subcategory->name }}
-                                                @if (!$loop->last)
-                                                    ,
-                                                @endif
-                                            @endforeach
-                                        </td>
                                         <td>{{ $business->address }}</td>
                                         <td style = "display: inline-flex; gap:70%;">
                                             <a href="{{ route('businesses.edit', $business->id) }}" ><i class="fa fa-edit"></i> </a>
