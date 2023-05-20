@@ -69,8 +69,13 @@
                             </div>
                             <div class="form-group">
                                 <label for="marital_status">{{ __('Marital Status') }}</label>
-                                <input type="text" name="marital_status" class="form-control" id="marital_status" required>
+                                <select name="marital_status" class="form-control" id="marital_status" required>
+                                    <option value="Single">Single</option>
+                                    <option value="Married">Married</option>
+                                    <option value="Divorced">Divorced</option>
+                                </select>
                             </div>
+
 
                                <hr>
 
@@ -129,15 +134,28 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-8">
+                                                    <label for="member_address_0">{{ __('Address') }}</label>
+                                                    <input type="text" name="members[0][address]" class="form-control" id="member_address_0" required>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="same_address_0">{{ __('Choose Address Same as Family Head') }}</label>
+                                                    <input type="checkbox" name="members[0][same_address]" class="form-control" id="same_address_0">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="marital_status">{{ __('Marital Status') }}</label>
+                                            <select name="marital_status" class="form-control" id="marital_status" required>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Divorced">Divorced</option>
+                                            </select>
+                                        </div>
 
-                                    <div class="form-group">
-                                        <label for="member_address_0">{{ __('Address') }}</label>
-                                        <input type="text" name="members[0][address]" class="form-control" id="member_address_0" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="member_marital_status_0">{{ __('Marital Status') }}</label>
-                                        <input type="text" name="members[0][marital_status]" class="form-control" id="member_marital_status_0" required>
-                                    </div>
 
 
                                     </div>
@@ -170,6 +188,19 @@
                 $('.member-form').last().after($('<hr>'));
                 newMemberForm.appendTo('#members_section');
                 nextMemberIndex++;
+            });
+
+            $(document).on('change', 'input[type="checkbox"][name^="members"][name$="[same_address]"]', function() {
+                var checkbox = $(this);
+                var addressInput = checkbox.closest('.form-group').find('input[name^="members"][name$="[address]"]');
+
+                if (checkbox.is(':checked')) {
+                    addressInput.val($('#address').val()); // Copy family head's address
+                    addressInput.prop('readonly', true); // Make the address input readonly
+                } else {
+                    addressInput.val(''); // Clear the copied address
+                    addressInput.prop('readonly', false); // Make the address input editable
+                }
             });
         });
         

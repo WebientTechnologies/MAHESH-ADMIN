@@ -28,7 +28,7 @@
                             <div class="form-group row">
                             <label for="owner" class="col-md-4 col-form-label text-md-right">{{ __('Owner') }}</label>
                                 <div class="col-md-6">
-                                    <select name="owner_id" id="owner_id" class="form-control">
+                                    <select name="owner_id" id="owner_id" class="form-control select2">
                                         <option value="">Select Owner</option>
                                         @foreach ($heads as $head)
                                             <option value="{{ $head->id }}" data-name="{{ $head->head_first_name }} {{ $head->head_middle_name }} {{ $head->head_last_name }}">Head - {{ $head->head_first_name }} {{ $head->head_middle_name }} {{ $head->head_last_name }}</option>
@@ -126,6 +126,11 @@
 
 <script>
     $(document).ready(function() {
+
+        $('.select2').select2({
+            placeholder: 'Select an Owner',
+            allowClear: true
+        });
         $('#owner_id').on('change', function() {
             var selectedOption = $(this).find('option:selected');
             var ownerId = selectedOption.val();

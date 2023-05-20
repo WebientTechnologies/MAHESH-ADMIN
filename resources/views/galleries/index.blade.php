@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="row">
                     <div class="col-md-12 mb-3">
-                        <a href="{{ route('galleries.create') }}" class="btn btn-primary float-right" >Create</a>
+                        <a href="{{ route('galleries.create') }}" class="btn btn-primary float-right">Create</a>
                     </div>
                 </div>
                 <div class="card-header">{{ __('Gallery') }}</div>
@@ -29,7 +29,6 @@
                         <div class="tab-pane fade show active" id="images">
                             <div class="row mt-4">
                                 @foreach($media->where('source', 'media') as $gallery)
-                                
                                 <div class="col-sm-4 mb-4">
                                     <div class="card">
                                         <form action="{{ route('galleries.destroy', $gallery['id']) }}" method="POST" style="display: inline-block; margin-top: 8px;">
@@ -39,7 +38,7 @@
                                                 <i class="fa fa-trash"></i> 
                                             </a>
                                         </form>
-                                        <img src="{{ $gallery['name']}}" class="card-img-top">
+                                        <img src="{{ $gallery['name'] }}" class="card-img-top" style="object-fit: cover; height: 200px;">
                                         <div class="card-body">
                                             <p class="card-text"><strong>{{ __('Album Name') }}:</strong> {{ $gallery['album_name'] ?? '-' }}</p>
                                         </div>
@@ -61,30 +60,12 @@
                                                 <i class="fa fa-trash"></i> 
                                             </a>
                                         </form>
-                                        <img src="{{ $gallery['name']}}" class="card-img-top">
+                                        <img src="{{ $gallery['name'] }}" class="card-img-top" style="object-fit: cover; height: 200px;">
                                         <div class="card-body">
                                             <p class="card-text"><strong>{{ __('Album Name') }}:</strong> {{ $gallery['album_name'] ?? '-' }}</p>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="col-sm-4 mb-4">
-                                    <div class="card">
-                                        <form action="{{ route('galleries.destroy', $gallery['id']) }}" method="POST" style="display: inline-block; margin-top: 8px;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <a href="javascript:void(0)" onclick="if (confirm('Are you sure you want to delete this file?')) { $(this).closest('form').submit(); } else { return false; }" style="float: right; margin-right: 17px">
-                                                <i class="fa fa-trash"></i> 
-                                            </a>
-                                        </form>
-                                        <video width="100%" height="240" controls>
-                                            <source src="{{ $gallery['name']}}" type="video/{{ $gallery['type'] }}">
-                                            <div class="card-body">    
-                                                <p class="card-text"><strong>{{ __('Event Name') }}:</strong> {{ $gallery['event_name'] ?? '-' }}</p>
-                                            </div>
-                                            Your browser does not support the video tag.
-                                        </video>
-                                    </div>
-                                </div> -->
                                 @endforeach
                             </div>
                         </div>
@@ -101,7 +82,7 @@
                                                 <i class="fa fa-trash"></i> 
                                             </a>
                                         </form>
-                                        <img src="{{ $gallery['name']}}" class="card-img-top">
+                                        <img src="{{ $gallery['name'] }}" class="card-img-top" style="object-fit: cover; height: 200px;">
                                         <div class="card-body">
                                             <p class="card-text"><strong>{{ __('Album Name') }}:</strong> {{ $gallery['album_name'] ?? '-' }}</p>
                                         </div>
@@ -110,7 +91,6 @@
                                 @endforeach
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

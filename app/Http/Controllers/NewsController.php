@@ -8,6 +8,7 @@ use App\Models\News;
 use App\Models\Gallery;
 use App\Models\Family;
 use Illuminate\Support\Facades\Storage;
+use Kreait\Firebase\Factory;
 
 class NewsController extends Controller
 {
@@ -38,6 +39,24 @@ class NewsController extends Controller
 
     public function store(Request $request)  
     {
+
+    //    $firebaseConfig = [
+    //         'apiKey' => 'AIzaSyB50ZW8U8iGfBpJKq54Y442CtCO7n--h-U',
+    //         'authDomain' => 'maheskwari-community.firebaseapp.com',
+    //         'projectId' => 'maheskwari-community',
+    //         'storageBucket' => 'maheskwari-community.appspot.com',
+    //         'messagingSenderId' => '84169887754',
+    //         'appId' => '1:84169887754:web:df1f52f3cd68d9546f0ff3',
+    //         'measurementId' => 'G-MHZK709NQ5',
+    //     ];
+        
+    //     $factory = (new Factory)
+    // ->withServiceAccount($firebaseConfig);
+
+    // $firebase = $factory->createFirestore();
+    // $firestore = $firebase->getFirestore();
+
+    //     dd($firestore);
         // validation rules for the form data
         $rules = [
             'title' => 'required|max:255',
@@ -94,21 +113,27 @@ class NewsController extends Controller
             }
         }
 
-        // set the created_by and updated_by columns
+        $galleries = Gallery::where('deleted_at',null)
+                                ->where('news_id', $news->id)
+                                ->get(['id', 'name']);
         
+        $temporarySignedUrl = Storage::disk('s3')->temporaryUrl($galleries[0]['name'], now()->addMinutes(10));
+           
+       // dd($temporarySignedUrl);
 
         // send notification
         $families = $request->input('families');
 
         $firebaseToken = Family::whereIn('id', $families)->whereNotNull('device_token')->pluck('device_token')->toArray();
         // dd($firebaseToken);
-        $SERVER_API_KEY = 'AAAAugvBV5Q:APA91bFWHSEC9-2mmscnfuDxuE6jZjcf8GVjL0jI6VpGD4ocWAhXIYQnXbCmmVeTwhp-fb4kEHEZICYQp_kXOZx5-sWqPnLEn83sF9jJpBZXeVTA6OgZ77ECGhq7K4yTZnrJRLa9Q82C';
+        $SERVER_API_KEY = 'AAAAE5jqkAo:APA91bFsgwMzxnepmUXlA1OV6v98438A_OHJdVDX0NB24ft6MSRezbvRswrSmL5n-FjLpgc1kSzsOr4DiqH1pWcKR6RSvRGzWxhgxxVa5QZXj11JH_YzrAYORRHd4ftswapvuBpYCBlb';
 
         $data = [
             "registration_ids" => $firebaseToken,
             "notification" => [
                 "title" => $request->title,
                 "body" => $request->description,
+                "imageUrl"=> $temporarySignedUrl,
             ]
         ];
         $dataString = json_encode($data);
