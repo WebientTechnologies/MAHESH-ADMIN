@@ -17,7 +17,11 @@
                                 {{ session('success') }}
                             </div>
                         @endif
-
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search">
+                            </div>
+                    </div>
                         <table class="table">
                             <thead>
                                 <tr>
@@ -30,7 +34,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($winners as $winner)
-                                    <tr>
+                                    <tr class="winner-row">
                                         <td>{{ $winner->quiz_id }}</td>
                                         <td>{{ $winner->first_winner }}</td>
                                         <td>{{ $winner->second_winner }}</td>
@@ -56,4 +60,17 @@
             </div>
         </div>
     </div>
+    @section('scripts')
+    <script>
+        $(document).ready(function() {
+            debugger;
+            $('#searchInput').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $('.winner~-row').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+@endsection
 @endsection

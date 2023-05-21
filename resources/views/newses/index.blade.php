@@ -9,6 +9,11 @@
                         News List
                         <a href="{{ route('newses.create') }}" class="btn btn-primary btn-sm float-right">Add News</a>
                     </div>
+                    <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search">
+                            </div>
+                    </div>
                     <div class="card-body">
                         @if (session('success'))
                             <div class="alert alert-success">{{ session('success') }}</div>
@@ -25,7 +30,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($newses as $news)
-                                    <tr>
+                                    <tr class="news-row">
                                         <td>{{ $news->id }}</td>
                                         <td>{{ $news->title }}</td>
                                         <td>{{ $news->description }}</td>
@@ -49,4 +54,17 @@
             </div>
         </div>
     </div>
+    @section('scripts')
+    <script>
+        $(document).ready(function() {
+            debugger;
+            $('#searchInput').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $('.news-row').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+@endsection
 @endsection

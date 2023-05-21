@@ -77,6 +77,7 @@
                             </div>
 
 
+
                                <hr>
 
                                 <h5>{{ __('Members Details') }}</h5>
@@ -148,13 +149,15 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="marital_status">{{ __('Marital Status') }}</label>
-                                            <select name="marital_status" class="form-control" id="marital_status" required>
+                                            <label for="member_marital_status_0">{{ __('Marital Status') }}</label>
+                                            <select name="members[0][marital_status]" class="form-control" id="member_marital_status_0" required>
                                                 <option value="Single">Single</option>
                                                 <option value="Married">Married</option>
                                                 <option value="Divorced">Divorced</option>
                                             </select>
                                         </div>
+
+
 
 
 

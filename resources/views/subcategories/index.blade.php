@@ -13,7 +13,11 @@
                             <a href="{{ route('subcategories.create') }}" class="btn btn-primary">{{ __('Add Subcategory') }}</a>
                         </div>
                     </div>
-
+                    <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search">
+                            </div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover">
                             <thead>
@@ -26,7 +30,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($subCategories as $subcategory)
-                                    <tr>
+                                    <tr class="subcategory-row">
                                         <td>{{ $subcategory->name }}</td>
                                         <td>{{ $subcategory->category->name }}</td>
                                         <td>{{ $subcategory->created_at->format('d/m/Y') }}</td>
@@ -50,4 +54,17 @@
         </div>
     </div>
 </div>
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            debugger;
+            $('#searchInput').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $('.subcategory-row').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+@endsection
 @endsection

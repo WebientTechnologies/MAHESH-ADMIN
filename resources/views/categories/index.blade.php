@@ -11,6 +11,11 @@
                                 <a href="{{ route('categories.create') }}" class="btn btn-primary float-right" style="margin-top: -27px;">Create Category</a>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search">
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <table class="table">
@@ -24,7 +29,7 @@
                             </thead>
                             <tbody>
                                 @foreach($categories as $category)
-                                    <tr>
+                                <tr class="category-row">
                                         <td>{{ $category->id }}</td>
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->created_at }}</td>
@@ -47,4 +52,17 @@
             </div>
         </div>
     </div>
+    @section('scripts')
+    <script>
+        $(document).ready(function() {
+            debugger;
+            $('#searchInput').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $('.category-row').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+@endsection
 @endsection

@@ -11,6 +11,11 @@
                         News List
                         <a href="{{ route('events.create') }}" class="btn btn-primary btn-sm float-right">Add Event</a>
                     </div>
+                    <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search">
+                            </div>
+                    </div>
                     <div class="card-body">
                         @if (session('success'))
                             <div class="alert alert-success">{{ session('success') }}</div>
@@ -28,7 +33,7 @@
                             </thead>
                             <tbody>
                             @foreach($events as $event)
-                                    <tr>
+                                    <tr class="event-row">
                                         <td>{{ $event->title }}</td>
                                         <td>{{ $event->description }}</td>
                                         <td>{{ $event->event_start_at}}</td>
@@ -54,4 +59,17 @@
             </div>
         </div>
     </div>
+    @section('scripts')
+    <script>
+        $(document).ready(function() {
+            debugger;
+            $('#searchInput').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $('.event-row').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+@endsection
 @endsection

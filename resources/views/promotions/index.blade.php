@@ -5,6 +5,11 @@
         <h1>Promotions
         <a href="{{ route('promotions.create') }}" class="btn btn-primary btn-sm float-right">Add Promotion</a></h1>
         <div class="row">
+                     <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search">
+                            </div>
+                    </div>
             <div class="col-md-12">
                 <table class="table">
                     <thead>
@@ -20,7 +25,7 @@
                     </thead>
                     <tbody>
                     @forelse ($promotions as $promotion)
-                        <tr>
+                         <tr class="promotion-row">
                             <td>{{ $promotion['id'] }}</td>
                             <td><img src="{{ $promotion['file'] }}" width="50"></td>
                             <td>{{ $promotion['start_date'] }}</td>
@@ -49,4 +54,17 @@
             </div>
         </div>
     </div>
+    @section('scripts')
+    <script>
+        $(document).ready(function() {
+            debugger;
+            $('#searchInput').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $('.promotion-row').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+@endsection
 @endsection

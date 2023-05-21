@@ -12,9 +12,11 @@
                             <div class="col-md-12">
                                 <a href="{{ route('families.create') }}" class="btn btn-primary float-right" style="margin-top: -27px;">Create Family</a>
                             </div>
-                            <!-- <div class="col-md-3">
-                                <a href="{{ route('families.create') }}" class="btn btn-primary float-right" style="margin-top: -27px;">Create Member</a>
-                            </div> -->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search">
+                            </div>
                         </div>
                     </div>
 
@@ -31,7 +33,7 @@
                         </thead>
                         <tbody>
                             @foreach($families as $family)
-                                <tr>
+                                <tr class="family-row">
                                     
                                     <td>{{ $family->id }}</td>
                                     <td>{{ $family->head_first_name }} {{ $family->head_middle_name }} {{ $family->head_last_name}}</td>
@@ -114,7 +116,22 @@
     }
 </script>
 
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            debugger;
+            $('#searchInput').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $('.family-row').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
 @endsection
+
+@endsection
+
 
 @push('styles')
     <style>

@@ -22,6 +22,11 @@
             <div id="all-quiz" class="tab-pane fade show active">
                 <h4>All Quiz</h4>
                 <div class="table-responsive">
+                    <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search">
+                            </div>
+                    </div>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -36,7 +41,7 @@
                         </thead>
                         <tbody>
                             @forelse ($quizes as $quiz)
-                                <tr>
+                                <tr class="quiz-row">
                                     <td>{{ $quiz['id'] }}</td>
                                     <td><img src="{{ $quiz['file'] }}" width="50"></td>
                                     <td>{{ $quiz['start_time'] }}</td>
@@ -65,6 +70,11 @@
             <div id="upcoming-quiz" class="tab-pane fade">
                 <h4>Upcoming Quiz</h4>
                 <div class="table-responsive">
+                    <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search">
+                            </div>
+                    </div>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -79,7 +89,7 @@
                         </thead>
                         <tbody>
                             @forelse ($quizes->where('start_time', '>', now()) as $quiz)
-                                <tr>
+                                <tr class="quiz-row">
                                     <td>{{ $quiz['id'] }}</td>
                                     <td><img src="{{ $quiz['file'] }}" width="50"></td>
                                     <td>{{ $quiz['start_time'] }}</td>
@@ -107,6 +117,11 @@
             <div id="completed-quiz" class="tab-pane fade">
                 <h4>Completed Quiz</h4>
                 <div class="table-responsive">
+                    <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search">
+                            </div>
+                    </div>
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -121,7 +136,7 @@
                         </thead>
                         <tbody>
                             @forelse ($quizes->where('end_time', '<', now()) as $quiz)
-                                <tr>
+                                <tr class="quiz-row">
                                     <td>{{ $quiz['id'] }}</td>
                                     <td><img src="{{ $quiz['file'] }}" width="50"></td>
                                     <td>{{ $quiz['start_time'] }}</td>
@@ -148,4 +163,18 @@
             </div>
         </div>
     </div>
+
+    @section('scripts')
+    <script>
+        $(document).ready(function() {
+            debugger;
+            $('#searchInput').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $('.promotion-row').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+@endsection
 @endsection

@@ -11,6 +11,12 @@
                                 <a href="{{ route('businesses.create') }}" class="btn btn-primary float-right" style="margin-top: -27px;">Create Business</a>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <input type="text" id="searchInput" class="form-control" placeholder="Search">
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="card-body">
@@ -28,7 +34,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($businesses as $business)
-                                    <tr>
+                                    <tr class="business-row">
                                         <td>{{ $business->id }}</td>
                                         <td>{{ $business->business_name }}</td>
                                         <td>{{ $business->owner_name }}</td>
@@ -54,4 +60,19 @@
             </div>
         </div>
     </div>
+    @section('scripts')
+    <script>
+        $(document).ready(function() {
+            debugger;
+            $('#searchInput').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $('.business-row').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                });
+            });
+        });
+    </script>
+@endsection
+
+
 @endsection

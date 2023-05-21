@@ -51,6 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('categories', 'App\Http\Controllers\CategoryController');
     Route::resource('subcategories', 'App\Http\Controllers\SubCategoryController');
     Route::resource('businesses', 'App\Http\Controllers\BusinessController');
+    Route::get('businesses/search', 'App\Http\Controllers\BusinessController@search')->name('businesses.search');
+    Route::get('businesses/{business}', 'App\Http\Controllers\BusinessController@show')->name('businesses.show');
 
     //News Route//
     Route::resource('newses', 'App\Http\Controllers\NewsController');
