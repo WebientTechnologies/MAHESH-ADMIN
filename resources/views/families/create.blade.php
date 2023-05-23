@@ -45,7 +45,7 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="head_mobile_number">{{ __('Mobile Number') }}</label>
-                                            <input type="text" name="head_mobile_number" class="form-control" id="head_mobile_number" required>
+                                            <input type="text" name="head_mobile_number" class="form-control" id="head_mobile_number"  required maxlength="10">
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="head_dob">{{ __('Date of Birth') }}</label>
@@ -150,7 +150,7 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_mobile_number_0">{{ __('Mobile Number') }}</label>
-                                                    <input type="text" name="members[0][mobile_number]" class="form-control" id="member_mobile_number_0" required>
+                                                    <input type="text" name="members[0][mobile_number]" class="form-control" id="member_mobile_number_0" required maxlength="10">
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_dob_0">{{ __('Date of Birth') }}</label>
@@ -192,14 +192,16 @@
                                                 <div class="col-sm-4">
                                                     <label for="member_degree_0">{{ __('Degree') }}</label>
                                                     <select name="members[0][degree]" class="form-control" id="member_degree_0" required>
-                                                        <option value="Primary School">Primary School</option>
-                                                        <option value="High School">High School</option>
-                                                        <option value="Junior College">Junior College</option>
-                                                        <option value="Under-Graduate">Under-Graduate</option>
-                                                        <option value="Bachelors">Bachelors</option>
-                                                        <option value="Masters">Masters</option>
-                                                        <option value="Doctoral">Doctoral</option>
-                                                        <option value="CA">CA</option>
+                                                        <option value="Matricuation">Matricuation</option>
+                                                        <option value="I.Sc">I.Sc</option>
+                                                        <option value="I.Com">I.Com</option>
+                                                        <option value="I.A.">I.A.</option>
+                                                        <option value="B.A">B.A</option>
+                                                        <option value="B.Sc">B.Sc</option>
+                                                        <option value="B.COm">B.COm</option>
+                                                        <option value="Engineering">Engineering</option>
+                                                        <option value="Doctorate">Doctorate</option>
+                                                        <option value="MBA">MBA</option>
                                                         <option value="Other">Other</option>
                                                     </select>
                                                 </div>
@@ -288,4 +290,5 @@
             format: 'yyyy-mm-dd'
         });
     </script>
+    
 @endsection
