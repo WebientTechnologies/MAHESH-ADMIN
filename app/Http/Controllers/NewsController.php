@@ -20,7 +20,7 @@ class NewsController extends Controller
 
     public function index()
     {
-        $newses = News::all();
+        $newses = News::orderBy('id', 'desc')->get();
         return view('newses.index', compact('newses'));
     }
 

@@ -11,7 +11,7 @@ class PromotionController extends Controller
 {
     public function index()
     {
-        $media = Promotion::orderByDesc('created_at')->paginate(10);
+        $media = Promotion::orderByDesc('created_at')->orderBy('id', 'desc')->get();;
         $promotions = [];
         for($i = 0; $i < sizeof($media); $i++){
             $temporarySignedUrl = Storage::disk('s3')->temporaryUrl($media[$i]['file'], now()->addMinutes(10));

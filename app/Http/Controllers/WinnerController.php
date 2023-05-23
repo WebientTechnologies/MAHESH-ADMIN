@@ -8,7 +8,7 @@ class WinnerController extends Controller
 {
     public function index()
     {
-        $winners = Winner::all();
+        $winners = Winner::orderBy('id', 'desc')->get();
 
         return view('winners.index', compact('winners'));
     }

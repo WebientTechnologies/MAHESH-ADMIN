@@ -14,7 +14,7 @@ class BusinessController extends Controller
 {
     public function index()
     {
-        $businesses = Business::with('category')->with('subcategories')->get();
+        $businesses = Business::with('category')->with('subcategories')->orderBy('id', 'desc')->get();
         //dd($businesses);
         return view('businesses.index', compact('businesses'));
     }

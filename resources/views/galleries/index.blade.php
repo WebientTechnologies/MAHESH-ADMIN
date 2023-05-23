@@ -38,7 +38,11 @@
                                                 <i class="fa fa-trash"></i> 
                                             </a>
                                         </form>
-                                        <img src="{{ $gallery['name'] }}" class="card-img-top" style="object-fit: cover; height: 200px;">
+                                        @if ($gallery['type'] === 'video')
+                                            <video src="{{ $gallery['name'] }}" class="card-img-top" style="object-fit: cover; height: 200px;" controls></video>
+                                        @else
+                                            <img src="{{ $gallery['name'] }}" class="card-img-top" style="object-fit: cover; height: 200px;">
+                                        @endif
                                         <div class="card-body">
                                             <p class="card-text"><strong>{{ __('Album Name') }}:</strong> {{ $gallery['album_name'] ?? '-' }}</p>
                                         </div>
@@ -60,7 +64,11 @@
                                                 <i class="fa fa-trash"></i> 
                                             </a>
                                         </form>
-                                        <img src="{{ $gallery['name'] }}" class="card-img-top" style="object-fit: cover; height: 200px;">
+                                        @if ($gallery['type'] === 'video')
+                                            <video src="{{ $gallery['name'] }}" class="card-img-top" style="object-fit: cover; height: 200px;" controls></video>
+                                        @else
+                                            <img src="{{ $gallery['name'] }}" class="card-img-top" style="object-fit: cover; height: 200px;">
+                                        @endif
                                         <div class="card-body">
                                             <p class="card-text"><strong>{{ __('Album Name') }}:</strong> {{ $gallery['album_name'] ?? '-' }}</p>
                                         </div>
@@ -82,7 +90,11 @@
                                                 <i class="fa fa-trash"></i> 
                                             </a>
                                         </form>
-                                        <img src="{{ $gallery['name'] }}" class="card-img-top" style="object-fit: cover; height: 200px;">
+                                        @if ($gallery['type'] === 'video')
+                                            <video src="{{ $gallery['name'] }}" class="card-img-top" style="object-fit: cover; height: 200px;" controls></video>
+                                        @else
+                                            <img src="{{ $gallery['name'] }}" class="card-img-top" style="object-fit: cover; height: 200px;">
+                                        @endif
                                         <div class="card-body">
                                             <p class="card-text"><strong>{{ __('Album Name') }}:</strong> {{ $gallery['album_name'] ?? '-' }}</p>
                                         </div>

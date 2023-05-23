@@ -33,7 +33,15 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <label for="head_occupation">{{ __('Occupation') }}</label>
-                                            <input type="text" name="head_occupation" class="form-control" id="head_occupation" required>
+                                            <select name="head_occupation" class="form-control" id="head_occupation" required>
+                                                <option value="Student">Student</option>
+                                                <option value="Profession">Profession</option>
+                                                <option value="Business">Business</option>
+                                                <option value="Private Service">Private Service</option>
+                                                <option value="Goverment Service">Goverment Service</option>
+                                                <option value="Home Maker">Home Maker</option>
+                                                <option value="Other">Other</option>
+                                            </select>
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="head_mobile_number">{{ __('Mobile Number') }}</label>
@@ -50,15 +58,39 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <label for="relationship_with_head">{{ __('Relationship With Head') }}</label>
-                                            <input type="text" name="relationship_with_head" class="form-control" id="relationship_with_head" required>
+                                            <select name="relationship_with_head" class="form-control" id="relationship_with_head" required>
+                                                <option value="Self">Self</option>
+                                            </select>
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="qualification">{{ __('Qualification') }}</label>
-                                            <input type="text" name="qualification" class="form-control" id="qualification" required>
+                                            <select name="qualification" class="form-control" id="qualification" required>
+                                                <option value="Primary School">Primary School</option>
+                                                <option value="High School">High School</option>
+                                                <option value="Junior College">Junior College</option>
+                                                <option value="Under-Graduate">Under-Graduate</option>
+                                                <option value="Bachelors">Bachelors</option>
+                                                <option value="Masters">Masters</option>
+                                                <option value="Doctoral">Doctoral</option>
+                                                <option value="CA">CA</option>
+                                                <option value="Other">Other</option>
+                                            </select>
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="degree">{{ __('Degree') }}</label>
-                                             <input type="text" name="degree" class="form-control" id="degree" required>
+                                            <select name="degree" class="form-control" id="degree" required>
+                                                <option value="Matricuation">Matricuation</option>
+                                                <option value="I.Sc">I.Sc</option>
+                                                <option value="I.Com">I.Com</option>
+                                                <option value="I.A.">I.A.</option>
+                                                <option value="B.A">B.A</option>
+                                                <option value="B.Sc">B.Sc</option>
+                                                <option value="B.COm">B.COm</option>
+                                                <option value="Engineering">Engineering</option>
+                                                <option value="Doctorate">Doctorate</option>
+                                                <option value="MBA">MBA</option>
+                                                <option value="Other">Other</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +138,15 @@
                                             <div class="row">
                                                 <div class="col-sm-4">
                                                     <label for="member_occupation_0">{{ __('Occupation') }}</label>
-                                                    <input type="text" name="members[0][occupation]" class="form-control" id="member_occupation_0" required>
+                                                    <select name="members[0][occupation]" class="form-control" id="member_occupation_0" required>
+                                                        <option value="Student">Student</option>
+                                                        <option value="Profession">Profession</option>
+                                                        <option value="Business">Business</option>
+                                                        <option value="Private Service">Private Service</option>
+                                                        <option value="Goverment Service">Goverment Service</option>
+                                                        <option value="Home Maker">Home Maker</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_mobile_number_0">{{ __('Mobile Number') }}</label>
@@ -123,15 +163,45 @@
                                             <div class="row">
                                                 <div class="col-sm-4">
                                                     <label for="member_relationship_with_head_0">{{ __(' Relationship With Head') }}</label>
-                                                    <input type="text" name="members[0][relationship_with_head]" class="form-control" id="member_relationship_with_head_0" required>
+                                                    <select name="members[0][relationship_with_head]" class="form-control" id="member_relationship_with_head_0" required>
+                                                        <option value="Self">Self</option>
+                                                        <option value="Son">Son</option>
+                                                        <option value="Grand Son">Grandson</option>
+                                                        <option value="Daughter">Daughter</option>
+                                                        <option value="Grand Daughter">Grand Daughter</option>
+                                                        <option value="Wife">Wife</option>
+                                                        <option value="Brother">Brother</option>
+                                                        <option value="Sister">Sister</option>
+                                                        <option value="Uncle">Uncle</option>
+                                                    </select>
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_qualification_0">{{ __('Qualification') }}</label>
-                                                    <input type="text" name="members[0][qualification]" class="form-control" id="member_qualification_0" required>
+                                                    <select name="members[0][qualification]" class="form-control" id="member_qualification_0" required>
+                                                        <option value="Primary School">Primary School</option>
+                                                        <option value="High School">High School</option>
+                                                        <option value="Junior College">Junior College</option>
+                                                        <option value="Under-Graduate">Under-Graduate</option>
+                                                        <option value="Bachelors">Bachelors</option>
+                                                        <option value="Masters">Masters</option>
+                                                        <option value="Doctoral">Doctoral</option>
+                                                        <option value="CA">CA</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_degree_0">{{ __('Degree') }}</label>
-                                                    <input type="text" name="members[0][degree]" class="form-control" id="member_degree_0" required>
+                                                    <select name="members[0][degree]" class="form-control" id="member_degree_0" required>
+                                                        <option value="Primary School">Primary School</option>
+                                                        <option value="High School">High School</option>
+                                                        <option value="Junior College">Junior College</option>
+                                                        <option value="Under-Graduate">Under-Graduate</option>
+                                                        <option value="Bachelors">Bachelors</option>
+                                                        <option value="Masters">Masters</option>
+                                                        <option value="Doctoral">Doctoral</option>
+                                                        <option value="CA">CA</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>

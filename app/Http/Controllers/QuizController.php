@@ -14,7 +14,7 @@ class QuizController extends Controller
 {
     public function index()
     {
-        $media = Quiz::orderByDesc('created_at')->paginate(10);
+        $media = Quiz::orderByDesc('created_at')->orderBy('id', 'desc')->get();;
         $quizes = [];
         for($i = 0; $i < sizeof($media); $i++){
             $temporarySignedUrl = Storage::disk('s3')->temporaryUrl($media[$i]['file'], now()->addMinutes(10));
