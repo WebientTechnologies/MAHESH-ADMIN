@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{{ asset('images/mpm_logo.png') }}">
     <title>{{ config('app.name', 'Community') }}</title>
 
     <!-- Google Font: Source Sans Pro -->
@@ -107,9 +108,9 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="/home" class="brand-link">
-            <img src="{{ asset('images/AdminLTELogo.png') }}" alt="AdminLTE Logo"
-                 class="brand-image img-circle elevation-3"
-                 style="opacity: .8">
+            <img src="{{ asset('images/mpm_logo.png') }}" alt="AdminLTE Logo"
+                 class="brand-image  elevation-3"
+                 style="opacity: 1">
             <span class="brand-text font-weight-light">COMMUNITY</span>
         </a>
 
