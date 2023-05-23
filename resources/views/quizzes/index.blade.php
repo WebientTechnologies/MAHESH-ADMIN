@@ -65,7 +65,6 @@
                         </tbody>
                     </table>
                 </div>
-                {{ $media->links() }}
             </div>
             <div id="upcoming-quiz" class="tab-pane fade">
                 <h4>Upcoming Quiz</h4>
