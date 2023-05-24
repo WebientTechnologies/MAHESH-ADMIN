@@ -44,14 +44,7 @@ class FamilyController extends Controller
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'head_first_name' => 'required|string|max:255',
-            'head_last_name' => 'required|string|max:255',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator);
-        }
+       
         if(($request->input('head_dob')) == null){
             $headDob = null ;
         }else{

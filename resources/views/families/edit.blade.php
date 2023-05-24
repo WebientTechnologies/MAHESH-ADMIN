@@ -15,7 +15,7 @@
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <label for="head_first_name">{{ __('First Name') }}</label>
-                                        <input type="text" name="head_first_name" class="form-control" id="head_first_name" value="{{ $family->head_first_name }}" required>
+                                        <input type="text" name="head_first_name" class="form-control" id="head_first_name" value="{{ $family->head_first_name }}" >
                                     </div>
                                     <div class="col-sm-4">
                                         <label for="head_middle_name">{{ __('Middle Name') }}</label>
@@ -23,7 +23,7 @@
                                     </div>
                                     <div class="col-sm-4">
                                         <label for="head_last_name">{{ __('Last Name') }}</label>
-                                        <input type="text" name="head_last_name" class="form-control" id="head_last_name" value="{{ $family->head_last_name }}" required>
+                                        <input type="text" name="head_last_name" class="form-control" id="head_last_name" value="{{ $family->head_last_name }}" >
                                     </div>
                                 </div>
                             </div>
@@ -31,7 +31,7 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <label for="head_occupation">{{ __('Occupation') }}</label>
-                                            <select name="head_occupation" class="form-control" id="head_occupation" required>
+                                            <select name="head_occupation" class="form-control" id="head_occupation">
                                                 <option value="Student" @if($family->head_occupation == 'Student') selected @endif>Student</option>
                                                 <option value="Profession" @if($family->head_occupation == 'Profession') selected @endif>Profession</option>
                                                 <option value="Business" @if($family->head_occupation == 'Business') selected @endif>Business</option>
@@ -43,7 +43,7 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="head_mobile_number">{{ __('Mobile Number') }}</label>
-                                            <input type="text" name="head_mobile_number" class="form-control" id="head_mobile_number" value="{{ $family->head_mobile_number }}" required maxlength="10">
+                                            <input type="text" name="head_mobile_number" class="form-control" id="head_mobile_number" value="{{ $family->head_mobile_number }}"  maxlength="10">
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="head_dob">{{ __('Date of Birth') }}</label>
@@ -55,7 +55,7 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <label for="gender">{{ __('Gender') }}</label>
-                                            <select name="gender" class="form-control" id="gender" required>
+                                            <select name="gender" class="form-control" id="gender" >
                                                 <option value="Male" @if($family->gender == 'Male') selected @endif>Male</option>
                                                 <option value="Female" @if($family->gender == 'Female') selected @endif>Female</option>
                                                 <option value="Other" @if($family->gender == 'Other') selected @endif>Other</option>
@@ -63,7 +63,7 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="marital_status">{{ __('Marital Status') }}</label>
-                                            <select name="marital_status" class="form-control" id="marital_status" required>
+                                            <select name="marital_status" class="form-control" id="marital_status" >
                                                 <option value="Single" @if($family->marital_status == 'Single') selected @endif>Single</option>
                                                 <option value="Married" @if($family->marital_status == 'Married') selected @endif>Married</option>
                                                 <option value="Divorced" @if($family->marital_status == 'Divorced') selected @endif>Divorced</option>
@@ -81,11 +81,11 @@
                                     <div class="row">
                                         <div class="col-sm-4">
                                             <label for="relationship_with_head">{{ __('Relationship With Head') }}</label>
-                                            <input type="text" name="relationship_with_head" class="form-control" id="relationship_with_head" value="{{ $family->relationship_with_head }}"  required>
+                                            <input type="text" name="relationship_with_head" class="form-control" id="relationship_with_head" value="{{ $family->relationship_with_head }}"  >
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="qualification">{{ __('Qualification') }}</label>
-                                            <select name="qualification" class="form-control" id="qualification" required>
+                                            <select name="qualification" class="form-control" id="qualification" >
                                                 <option value="Primary School" {{ $family->qualification == 'Primary School' ? 'selected' : '' }}>Primary School</option>
                                                 <option value="High School" {{ $family->qualification == 'High School' ? 'selected' : '' }}>High School</option>
                                                 <option value="Junior College" {{ $family->qualification == 'Junior College' ? 'selected' : '' }}>Junior College</option>
@@ -99,7 +99,7 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="degree">{{ __('Degree') }}</label>
-                                            <select name="degree" class="form-control" id="degree" required>
+                                            <select name="degree" class="form-control" id="degree" >
                                                 <option value="Matricuation" @if($family->degree == 'Matricuation') selected @endif>Matricuation</option>
                                                 <option value="I.Sc" @if($family->degree == 'I.Sc') selected @endif>I.Sc</option>
                                                 <option value="I.Com" @if($family->degree == 'I.Com') selected @endif>I.Com</option>
@@ -118,7 +118,7 @@
 
                             <div class="form-group">
                                 <label for="address">{{ __('Address') }}</label>
-                                <textarea type="text" name="address" class="form-control" id="address" value="{{ $family->address }}" required>{{$family->address }}</textarea>
+                                <textarea type="text" name="address" class="form-control" id="address" value="{{ $family->address }}">{{$family->address }}</textarea>
                             </div>
 
 
@@ -136,7 +136,7 @@
                                             <div class="row">
                                                 <div class="col-sm-4">
                                                     <label for="member_first_name_0">{{ __(' First Name') }}</label>
-                                                     <input type="text" name="members[0][first_name]" class="form-control" id="member_first_name_0" value="{{ $member->first_name }}" required> 
+                                                     <input type="text" name="members[0][first_name]" class="form-control" id="member_first_name_0" value="{{ $member->first_name }}" > 
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_middle_name_0">{{ __(' Middle Name') }}</label>
@@ -144,7 +144,7 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_last_name_0">{{ __(' Last Name') }}</label>
-                                                    <input type="text" name="members[0][last_name]" class="form-control" id="member_last_name_0" value="{{ $member->last_name }}" required>
+                                                    <input type="text" name="members[0][last_name]" class="form-control" id="member_last_name_0" value="{{ $member->last_name }}" >
                                                 </div>
                                             </div>
                                         </div>
@@ -152,7 +152,7 @@
                                             <div class="row">
                                                 <div class="col-sm-4">
                                                     <label for="member_gender_0">{{ __('Gender') }}</label>
-                                                    <select name="members[0][gender]" class="form-control" id="member_gender_0" required>
+                                                    <select name="members[0][gender]" class="form-control" id="member_gender_0">
                                                         <option value="Male" {{ $family->members[0]['marital_status'] == 'Male' ? 'selected' : '' }}>Male</option>
                                                         <option value="Female" {{ $family->members[0]['marital_status'] == 'Female' ? 'selected' : '' }}>Female</option>
                                                         <option value="Other" {{ $family->members[0]['marital_status'] == 'Other' ? 'selected' : '' }}>Other</option>
@@ -161,7 +161,7 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_marital_status_0">{{ __('Marital Status') }}</label>
-                                                    <select name="members[0][marital_status]" class="form-control" id="member_marital_status_0" required>
+                                                    <select name="members[0][marital_status]" class="form-control" id="member_marital_status_0">
                                                         <option value="Single" {{ $family->members[0]['marital_status'] == 'Single' ? 'selected' : '' }}>Single</option>
                                                         <option value="Married" {{ $family->members[0]['marital_status'] == 'Married' ? 'selected' : '' }}>Married</option>
                                                         <option value="Divorced" {{ $family->members[0]['marital_status'] == 'Divorced' ? 'selected' : '' }}>Divorced</option>
@@ -177,7 +177,7 @@
                                             <div class="row">
                                                 <div class="col-sm-4">
                                                     <label for="member_occupation_0">{{ __('Occupation') }}</label>
-                                                    <select name="members[0][occupation]" class="form-control" id="member_occupation_0" required>
+                                                    <select name="members[0][occupation]" class="form-control" id="member_occupation_0" >
                                                         <option value="Student" @if($member['occupation'] == 'Student') selected @endif>Student</option>
                                                         <option value="Profession" @if($member['occupation'] == 'Profession') selected @endif>Profession</option>
                                                         <option value="Business" @if($member['occupation'] == 'Business') selected @endif>Business</option>
@@ -190,7 +190,7 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_mobile_number_0">{{ __('Mobile Number') }}</label>
-                                                    <input type="text" name="members[0][mobile_number]" class="form-control" id="member_mobile_number_0" value="{{ $member->mobile_number }}" required maxlength="10">
+                                                    <input type="text" name="members[0][mobile_number]" class="form-control" id="member_mobile_number_0" value="{{ $member->mobile_number }}"  maxlength="10">
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_dob_0">{{ __('Date of Birth') }}</label>
@@ -203,7 +203,7 @@
                                             <div class="row">
                                                 <div class="col-sm-4">
                                                     <label for="member_relationship_with_head_0">{{ __(' Relationship With Head') }}</label>
-                                                    <select name="members[0][relationship_with_head]" class="form-control" id="member_relationship_with_head_0" required>
+                                                    <select name="members[0][relationship_with_head]" class="form-control" id="member_relationship_with_head_0" >
                                                         <option value="Self" @if($member['relationship_with_head'] == 'Self') selected @endif>Self</option>
                                                         <option value="Son" @if($member['relationship_with_head'] == 'Son') selected @endif>Son</option>
                                                         <option value="Grand Son" @if($member['relationship_with_head'] == 'Grand Son') selected @endif>Grandson</option>
@@ -218,7 +218,7 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_qualification_0">{{ __('Qualification') }}</label>
-                                                    <select name="members[0][qualification]" class="form-control" id="member_qualification_0" required>
+                                                    <select name="members[0][qualification]" class="form-control" id="member_qualification_0" >
                                                         <option value="Primary School" @if($family->members[0]['qualification'] == 'Primary School') selected @endif>Primary School</option>
                                                         <option value="High School" @if($family->members[0]['qualification'] == 'High School') selected @endif>High School</option>
                                                         <option value="Junior College" @if($family->members[0]['qualification'] == 'Junior College') selected @endif>Junior College</option>
@@ -233,7 +233,7 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_degree_0">{{ __('Degree') }}</label>
-                                                    <select name="members[0][degree]" class="form-control" id="member_degree_0" required>
+                                                    <select name="members[0][degree]" class="form-control" id="member_degree_0" >
                                                         <option value="Matricuation" @if($family->members[0]['degree'] == 'Matricuation') selected @endif>Matricuation</option>
                                                         <option value="I.Sc" @if($family->members[0]['degree'] == 'I.Sc') selected @endif>I.Sc</option>
                                                         <option value="I.Com" @if($family->members[0]['degree'] == 'I.Com') selected @endif>I.Com</option>
@@ -253,7 +253,7 @@
 
                                     <div class="form-group">
                                         <label for="member_address_0">{{ __('Address') }}</label>
-                                        <input type="text" name="members[0][address]" class="form-control" id="member_address_0" value="{{ $member->address }}" required>
+                                        <input type="text" name="members[0][address]" class="form-control" id="member_address_0" value="{{ $member->address }}" >
                                     </div>
                                  
 
