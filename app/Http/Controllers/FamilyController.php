@@ -58,6 +58,13 @@ class FamilyController extends Controller
             $headDob = Carbon::createFromFormat('Y-m-d', $request->input('head_dob'));
 
         }
+
+        if(($request->input('date_of_anniversary')) == null){
+            $headAnniversary = null ;
+        }else{
+            $headAnniversary = Carbon::createFromFormat('Y-m-d', $request->input('date_of_anniversary'));
+
+        }
        // dd($headDob);
         $family = Family::create([
             'head_first_name' => $request->input('head_first_name'),
@@ -71,9 +78,12 @@ class FamilyController extends Controller
             'address' => $request->input('address'),
             'marital_status' => $request->input('marital_status'),
             'head_dob' => $headDob,
+            'date_of_anniversary' => $headAnniversary,
+            'gender' => $request->input('gender'),
         ]);
         // dd($family);
         $members = collect($request->input('members'))->map(function ($member) {
+
             return new FamilyMember([
                 'first_name' => $member['first_name'],
                 'middle_name' => $member['middle_name'],
@@ -86,6 +96,8 @@ class FamilyController extends Controller
                 'degree' => $member['degree'],
                 'address' => $member['address'],
                 'marital_status' => $member['marital_status'],
+                'date_of_anniversary' => $member['date_of_anniversary'],
+                'gender' => $member['gender'],
             ]);
         });
 
@@ -120,6 +132,8 @@ class FamilyController extends Controller
             'address' => $request->input('address'),
             'marital_status' => $request->input('marital_status'),
             'head_dob' => $request->input('head_dob'),
+            'date_of_anniversary' => $request->input('date_of_anniversary'),
+            'gender' => $request->input('gender'),
         ]);
 
         $members = collect($request->input('members'))->map(function ($member) use ($family) {
@@ -136,6 +150,8 @@ class FamilyController extends Controller
                     'degree' => $member['degree'],
                     'address' => $member['address'],
                     'marital_status' => $member['marital_status'],
+                    'date_of_anniversary' => $member['date_of_anniversary'],
+                    'gender' => $member['gender'],
                 ]);
             } else {
                 return new FamilyMember([
@@ -150,6 +166,8 @@ class FamilyController extends Controller
                     'degree' => $member['degree'],
                     'address' => $member['address'],
                     'marital_status' => $member['marital_status'],
+                    'date_of_anniversary' => $member['date_of_anniversary'],
+                    'gender' => $member['gender'],
                 ]);
             }
         });

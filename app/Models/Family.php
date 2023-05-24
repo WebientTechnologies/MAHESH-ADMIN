@@ -20,7 +20,10 @@ class Family extends Model
         'address',
         'relationship_with_head',
         'qualification',
-        'degree'
+        'degree',
+        'date_of_anniversary',
+        'gender',
+        'image'
 
     ];
     

@@ -32,6 +32,32 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-sm-4">
+                                            <label for="gender">{{ __('Gender') }}</label>
+                                            <select name="gender" class="form-control" id="gender" required>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Other">Other</option>
+                                            </select>  
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label for="marital_status">{{ __('Marital Status') }}</label>
+                                            <select name="marital_status" class="form-control" id="marital_status" required>
+                                                <option value="Single">Single</option>
+                                                <option value="Married">Married</option>
+                                                <option value="Divorced">Divorced</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <label for="date_of_anniversary">{{ __('Date of Anniversary') }}</label>
+                                            <input type="text" name="date_of_anniversary" class="form-control" id="date_of_anniversary">
+                                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-4">
                                             <label for="head_occupation">{{ __('Occupation') }}</label>
                                             <select name="head_occupation" class="form-control" id="head_occupation" required>
                                                 <option value="Student">Student</option>
@@ -53,6 +79,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
 
                                 <div class="form-group">
                                     <div class="row">
@@ -94,21 +121,14 @@
                                         </div>
                                     </div>
                                 </div>
-
                             <div class="form-group">
                                 <label for="address">{{ __('Address') }}</label>
                                 <textarea type="text" name="address" class="form-control" id="address" required></textarea>
                             </div>
                             <div class="form-group">
-                                <label for="marital_status">{{ __('Marital Status') }}</label>
-                                <select name="marital_status" class="form-control" id="marital_status" required>
-                                    <option value="Single">Single</option>
-                                    <option value="Married">Married</option>
-                                    <option value="Divorced">Divorced</option>
-                                </select>
+                                <label for="head_image">{{ __('Head Image') }}</label>
+                                <input type="file" name="head_image" class="form-control-file" id="head_image">
                             </div>
-
-
 
                                <hr>
 
@@ -133,12 +153,45 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <label for="member_gender_0">{{ __('Gender') }}</label>
+                                                    <select name="members[0][gender]" class="form-control" id="member_gender_0" required>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
+
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="member_marital_status_0">{{ __('Marital Status') }}</label>
+                                                    <select name="members[0][marital_status]" class="form-control" id="member_marital_status_0" required>
+                                                        <option value="Single">Single</option>
+                                                        <option value="Married">Married</option>
+                                                        <option value="Divorced">Divorced</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <label for="member_date_of_anniversary_0">{{ __('Date of Anniversary') }}</label>
+                                                    <input type="text" name="members[0][date_of_anniversary]" class="form-control" id="member_date_of_anniversary_0">
+                                                </div>
+                                            </div>
+                                        </div>
 
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-4">
                                                     <label for="member_occupation_0">{{ __('Occupation') }}</label>
-                                                    <input type="text" name="members[0][occupation]" class="form-control" id="member_occupation_0" required>
+                                                    <select name="members[0][occupation]" class="form-control" id="member_occupation_0" required>
+                                                        <option value="Student">Student</option>
+                                                        <option value="Profession">Profession</option>
+                                                        <option value="Business">Business</option>
+                                                        <option value="Private Service">Private Service</option>
+                                                        <option value="Goverment Service">Goverment Service</option>
+                                                        <option value="Home Maker">Home Maker</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_mobile_number_0">{{ __('Mobile Number') }}</label>
@@ -155,17 +208,49 @@
                                             <div class="row">
                                                 <div class="col-sm-4">
                                                     <label for="member_relationship_with_head_0">{{ __(' Relationship With Head') }}</label>
-                                                    <input name="members[0][relationship_with_head]" class="form-control" id="member_relationship_with_head_0" required>
+                                                    <select name="members[0][relationship_with_head]" class="form-control" id="member_relationship_with_head_0" required>
+                                                        <option value="Self">Self</option>
+                                                        <option value="Son">Son</option>
+                                                        <option value="Grand Son">Grandson</option>
+                                                        <option value="Daughter">Daughter</option>
+                                                        <option value="Grand Daughter">Grand Daughter</option>
+                                                        <option value="Wife">Wife</option>
+                                                        <option value="Brother">Brother</option>
+                                                        <option value="Sister">Sister</option>
+                                                        <option value="Uncle">Uncle</option>
+                                                    </select>
                                                         
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_qualification_0">{{ __('Qualification') }}</label>
-                                                    <input name="members[0][qualification]" class="form-control" id="member_qualification_0" required>
+                                                    <select name="members[0][qualification]" class="form-control" id="member_qualification_0" required>
+                                                        <option value="Primary School">Primary School</option>
+                                                        <option value="High School">High School</option>
+                                                        <option value="Junior College">Junior College</option>
+                                                        <option value="Under-Graduate">Under-Graduate</option>
+                                                        <option value="Bachelors">Bachelors</option>
+                                                        <option value="Masters">Masters</option>
+                                                        <option value="Doctoral">Doctoral</option>
+                                                        <option value="CA">CA</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
                                                        
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_degree_0">{{ __('Degree') }}</label>
-                                                    <input name="members[0][degree]" class="form-control" id="member_degree_0" required>
+                                                    <select name="members[0][degree]" class="form-control" id="member_degree_0" required>
+                                                        <option value="Matricuation">Matricuation</option>
+                                                        <option value="I.Sc">I.Sc</option>
+                                                        <option value="I.Com">I.Com</option>
+                                                        <option value="I.A.">I.A.</option>
+                                                        <option value="B.A">B.A</option>
+                                                        <option value="B.Sc">B.Sc</option>
+                                                        <option value="B.COm">B.COm</option>
+                                                        <option value="Engineering">Engineering</option>
+                                                        <option value="Doctorate">Doctorate</option>
+                                                        <option value="MBA">MBA</option>
+                                                        <option value="Other">Other</option>
+                                                    </select>
                                                        
                                                 </div>
                                             </div>
@@ -184,14 +269,9 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label for="member_marital_status_0">{{ __('Marital Status') }}</label>
-                                            <input name="members[0][marital_status]" class="form-control" id="member_marital_status_0" required>
-                                                
+                                            <label for="member_image_0">{{ __('Member Image') }}</label>
+                                            <input type="file" name="members[0][image]" class="form-control-file" id="member_image_0">
                                         </div>
-
-
-
-
 
                                     </div>
                                 </div>
@@ -214,7 +294,7 @@
                 var subheading = $('<h5>').text('Member ' + (nextMemberIndex + 1));
                 subheading.insertAfter(newMemberForm);
 
-                newMemberForm.find('input').each(function() {
+                newMemberForm.find('input, select').each(function() {
                     var inputName = $(this).attr('name').replace('[0]', '[' + nextMemberIndex + ']');
                     $(this).attr('name', inputName);
                     $(this).val('');
@@ -247,6 +327,16 @@
     </script>
     <script>
         $('#member_dob_0').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+    </script>
+    <script>
+        $('#date_of_anniversary').datepicker({
+            format: 'yyyy-mm-dd'
+        });
+    </script>
+    <script>
+        $('#member_date_of_anniversary_0').datepicker({
             format: 'yyyy-mm-dd'
         });
     </script>
