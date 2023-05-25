@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\Models\Winner;
+use App\Models\Quiz;
+use App\Models\Family;
+use App\Models\FamilyMember;
 use Illuminate\Http\Request;
 
 class WinnerController extends Controller
@@ -15,8 +18,11 @@ class WinnerController extends Controller
 
     public function create()
     {
-        // Show the form to create a new winner
-        return view('winners.create');
+        $quizzes = Quiz::all(); // Fetch all quizzes from the database
+        
+        $heads = Family::select('id', 'head_first_name', 'head_middle_name', 'head_last_name')->get();
+        $members = FamilyMember::select('id', 'first_name', 'middle_name', 'last_name')->get();
+        return view('winners.create', compact('quizzes', 'heads', 'members'));
     }
 
     public function store(Request $request)
@@ -38,8 +44,9 @@ class WinnerController extends Controller
 
     public function edit(Winner $winner)
     {
-        // Show the form to edit an existing winner
-        return view('winners.edit', compact('winner'));
+        $quizzes = Quiz::all(); // Fetch all quizzes from the database
+
+        return view('winners.edit', compact('winner', 'quizzes'));
     }
 
     public function update(Request $request, Winner $winner)
