@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('families', 'App\Http\Controllers\FamilyController');
     Route::post('/search-family', 'FamilyController@search')->name('families.search');
     Route::get('/family-members/{familyId}', [FamilyController::class,'getFamilyMembers']);
+    Route::get('/families/search', 'FamilyController@search')->name('families.search');
 
 
     Route::resource('families.members', 'App\Http\Controllers\FamilyMemberController');

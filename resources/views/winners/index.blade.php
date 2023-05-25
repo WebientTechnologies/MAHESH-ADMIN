@@ -25,7 +25,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Quiz ID</th>
+                                    <th>Quiz Name</th>
                                     <th>First Winner</th>
                                     <th>Second Winner</th>
                                     <th>Third Winner</th>
@@ -35,7 +35,7 @@
                             <tbody>
                                 @foreach ($winners as $winner)
                                     <tr class="winner-row">
-                                        <td>{{ $winner->quiz_id }}</td>
+                                        <td>{{ $winner->quiz->title }}</td>
                                         <td>{{ $winner->first_winner }}</td>
                                         <td>{{ $winner->second_winner }}</td>
                                         <td>{{ $winner->third_winner }}</td>

@@ -4,11 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Family;
 use App\Models\FamilyMember;
+use App\Models\MaritalStatus;
+use App\Models\Occupation;
+use App\Models\Qualification;
+use App\Models\Relationship;
+use App\Models\Degree;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class FamilyController extends Controller
 {
@@ -21,13 +27,13 @@ class FamilyController extends Controller
 
     public function search(Request $request)
     {
-        $family = Family::find($request->input('family_id'));
-
-        if (!$family) {
-            return redirect()->back()->with('error', 'Family not found');
-        }
-
-        return view('families.member', compact('family'));
+        $query = $request->input('query');
+    
+        // Perform the search operation based on the query and retrieve the filtered data
+        $filteredFamilies = Family::where('column_name', 'LIKE', '%' . $query . '%')->paginate(10);
+    
+        // Return the filtered data as a JSON response
+        return response()->json(['families' => $filteredFamilies]);
     }
 
     public function getFamilyMembers($familyId)
@@ -39,7 +45,13 @@ class FamilyController extends Controller
     public function create()
     {
         $members = FamilyMember::all();
-        return view('families.create', compact('members'));
+        $maritals = MaritalStatus::all();
+        $occupations = Occupation::all();
+        $qualifications = Qualification::all();
+        $relationships = Relationship::all();
+        $degrees = Degree::all();
+        
+        return view('families.create', compact('members', 'maritals', 'occupations', 'qualifications', 'relationships', 'degrees'));
     }
 
     public function store(Request $request)
@@ -58,7 +70,7 @@ class FamilyController extends Controller
             $headAnniversary = Carbon::createFromFormat('Y-m-d', $request->input('date_of_anniversary'));
 
         }
-       // dd($headDob);
+
         $family = Family::create([
             'head_first_name' => $request->input('head_first_name'),
             'head_middle_name' => $request->input('head_middle_name'),
@@ -108,7 +120,12 @@ class FamilyController extends Controller
 
     public function edit(Family $family)
     {
-        return view('families.edit', compact('family'));
+        $maritals = MaritalStatus::all();
+        $occupations = Occupation::all();
+        $qualifications = Qualification::all();
+        $relationships = Relationship::all();
+        $degrees = Degree::all();
+        return view('families.edit', compact('family', 'maritals', 'occupations', 'qualifications', 'relationships', 'degrees'));
     }
 
     public function update(Request $request, Family $family)
@@ -127,9 +144,11 @@ class FamilyController extends Controller
             'head_dob' => $request->input('head_dob'),
             'date_of_anniversary' => $request->input('date_of_anniversary'),
             'gender' => $request->input('gender'),
+            
         ]);
 
-        $members = collect($request->input('members'))->map(function ($member) use ($family) {
+        $members = collect($request->input('members'))->map(function ($member) use ($request) {
+         
             if (isset($member['id'])) {
                 return FamilyMember::find($member['id'])->fill([
                     'first_name' => $member['first_name'],
@@ -165,7 +184,7 @@ class FamilyController extends Controller
             }
         });
 
-        $family->members()->delete();
+        // $family->members()->delete();
         $family->members()->saveMany($members);
 
         return redirect()->route('families.index');

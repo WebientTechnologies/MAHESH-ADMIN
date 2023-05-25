@@ -14,4 +14,9 @@ class Winner extends Model
         'third_winner',
     ];
     use HasFactory;
+
+    public function quiz()
+    {
+        return $this->belongsTo(Quiz::class);
+    }
 }

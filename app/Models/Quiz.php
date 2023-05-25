@@ -11,8 +11,8 @@ class Quiz extends Model
 
     protected $fillable = ['title', 'description', 'start_time', 'end_time'];
 
-    public function questions()
+    public function winners()
     {
-        return $this->hasMany(QuizQuestion::class);
+        return $this->hasMany(Winner::class);
     }
 }

@@ -31,4 +31,29 @@ class Family extends Model
     {
         return $this->hasMany('App\Models\FamilyMember', 'family_id');
     }
+
+    public function marital()
+    {
+        return $this->belongsTo(MaritalStatus::class);
+    }
+
+    public function occupation()
+    {
+        return $this->belongsTo(Occupation::class);
+    }
+
+    public function qualification()
+    {
+        return $this->belongsTo(Qualification::class);
+    }
+    public function relationship()
+    {
+        return $this->belongsTo(Relationship::class);
+    }
+
+    public function degree()
+    {
+        return $this->belongsTo(Degree::class);
+    }
+    
 }

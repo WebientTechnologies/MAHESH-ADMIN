@@ -42,9 +42,10 @@
                                         <div class="col-sm-4">
                                             <label for="marital_status">{{ __('Marital Status') }}</label>
                                             <select name="marital_status" class="form-control" id="marital_status" >
-                                                <option value="Single">Single</option>
-                                                <option value="Married">Married</option>
-                                                <option value="Divorced">Divorced</option>
+                                                <option value="">Select Marital Status</option>
+                                                @foreach ($maritals as $marital)
+                                                    <option value="{{ $marital->name }}">{{ $marital->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-sm-4">
@@ -60,13 +61,10 @@
                                         <div class="col-sm-4">
                                             <label for="head_occupation">{{ __('Occupation') }}</label>
                                             <select name="head_occupation" class="form-control" id="head_occupation" >
-                                                <option value="Student">Student</option>
-                                                <option value="Profession">Profession</option>
-                                                <option value="Business">Business</option>
-                                                <option value="Private Service">Private Service</option>
-                                                <option value="Goverment Service">Goverment Service</option>
-                                                <option value="Home Maker">Home Maker</option>
-                                                <option value="Other">Other</option>
+                                                <option value="">Select Occupation</option>
+                                                @foreach ($occupations as $occup)
+                                                    <option value="{{ $occup->name }}">{{ $occup->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-sm-4">
@@ -92,31 +90,19 @@
                                         <div class="col-sm-4">
                                             <label for="qualification">{{ __('Qualification') }}</label>
                                             <select name="qualification" class="form-control" id="qualification" >
-                                                <option value="Primary School">Primary School</option>
-                                                <option value="High School">High School</option>
-                                                <option value="Junior College">Junior College</option>
-                                                <option value="Under-Graduate">Under-Graduate</option>
-                                                <option value="Bachelors">Bachelors</option>
-                                                <option value="Masters">Masters</option>
-                                                <option value="Doctoral">Doctoral</option>
-                                                <option value="CA">CA</option>
-                                                <option value="Other">Other</option>
+                                                <option value="">Select Qualification</option>
+                                                @foreach ($qualifications as $qualification)
+                                                    <option value="{{ $qualification->name }}">{{ $qualification->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="degree">{{ __('Degree') }}</label>
                                             <select name="degree" class="form-control" id="degree" >
-                                                <option value="Matricuation">Matricuation</option>
-                                                <option value="I.Sc">I.Sc</option>
-                                                <option value="I.Com">I.Com</option>
-                                                <option value="I.A.">I.A.</option>
-                                                <option value="B.A">B.A</option>
-                                                <option value="B.Sc">B.Sc</option>
-                                                <option value="B.COm">B.COm</option>
-                                                <option value="Engineering">Engineering</option>
-                                                <option value="Doctorate">Doctorate</option>
-                                                <option value="MBA">MBA</option>
-                                                <option value="Other">Other</option>
+                                                    <option value="">Select Degree</option>
+                                                @foreach ($degrees as $degree)
+                                                    <option value="{{ $degree->name }}">{{ $degree->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -163,9 +149,10 @@
                                                 <div class="col-sm-4">
                                                     <label for="member_marital_status_0">{{ __('Marital Status') }}</label>
                                                     <select name="members[0][marital_status]" class="form-control" id="member_marital_status_0" >
-                                                        <option value="Single">Single</option>
-                                                        <option value="Married">Married</option>
-                                                        <option value="Divorced">Divorced</option>
+                                                        <option value="">Select Marital Status</option>
+                                                        @foreach ($maritals as $marital)
+                                                            <option value="{{ $marital->name }}">{{ $marital->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -180,13 +167,10 @@
                                                 <div class="col-sm-4">
                                                     <label for="member_occupation_0">{{ __('Occupation') }}</label>
                                                     <select name="members[0][occupation]" class="form-control" id="member_occupation_0" >
-                                                        <option value="Student">Student</option>
-                                                        <option value="Profession">Profession</option>
-                                                        <option value="Business">Business</option>
-                                                        <option value="Private Service">Private Service</option>
-                                                        <option value="Goverment Service">Goverment Service</option>
-                                                        <option value="Home Maker">Home Maker</option>
-                                                        <option value="Other">Other</option>
+                                                        <option value="">Select Occupation</option>
+                                                        @foreach ($occupations as $occup)
+                                                            <option value="{{ $occup->name }}">{{ $occup->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -205,47 +189,30 @@
                                                 <div class="col-sm-4">
                                                     <label for="member_relationship_with_head_0">{{ __(' Relationship With Head') }}</label>
                                                     <select name="members[0][relationship_with_head]" class="form-control" id="member_relationship_with_head_0" >
-                                                        <option value="Self">Self</option>
-                                                        <option value="Son">Son</option>
-                                                        <option value="Grand Son">Grandson</option>
-                                                        <option value="Daughter">Daughter</option>
-                                                        <option value="Grand Daughter">Grand Daughter</option>
-                                                        <option value="Wife">Wife</option>
-                                                        <option value="Brother">Brother</option>
-                                                        <option value="Sister">Sister</option>
-                                                        <option value="Uncle">Uncle</option>
+                                                            <option value="">Select Relation</option>
+                                                        @foreach ($relationships as $relation)
+                                                            <option value="{{ $relation->name }}">{{ $relation->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                         
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_qualification_0">{{ __('Qualification') }}</label>
                                                     <select name="members[0][qualification]" class="form-control" id="member_qualification_0" >
-                                                        <option value="Primary School">Primary School</option>
-                                                        <option value="High School">High School</option>
-                                                        <option value="Junior College">Junior College</option>
-                                                        <option value="Under-Graduate">Under-Graduate</option>
-                                                        <option value="Bachelors">Bachelors</option>
-                                                        <option value="Masters">Masters</option>
-                                                        <option value="Doctoral">Doctoral</option>
-                                                        <option value="CA">CA</option>
-                                                        <option value="Other">Other</option>
+                                                            <option value="">Select Qualification</option>
+                                                        @foreach ($qualifications as $qualification)
+                                                            <option value="{{ $qualification->name }}">{{ $qualification->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                        
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_degree_0">{{ __('Degree') }}</label>
                                                     <select name="members[0][degree]" class="form-control" id="member_degree_0" >
-                                                        <option value="Matricuation">Matricuation</option>
-                                                        <option value="I.Sc">I.Sc</option>
-                                                        <option value="I.Com">I.Com</option>
-                                                        <option value="I.A.">I.A.</option>
-                                                        <option value="B.A">B.A</option>
-                                                        <option value="B.Sc">B.Sc</option>
-                                                        <option value="B.COm">B.COm</option>
-                                                        <option value="Engineering">Engineering</option>
-                                                        <option value="Doctorate">Doctorate</option>
-                                                        <option value="MBA">MBA</option>
-                                                        <option value="Other">Other</option>
+                                                            <option value="">Select Degree</option>
+                                                        @foreach ($degrees as $degree)
+                                                            <option value="{{ $degree->name }}">{{ $degree->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                        
                                                 </div>
@@ -290,8 +257,13 @@
                     var inputName = $(this).attr('name').replace('[0]', '[' + nextMemberIndex + ']');
                     $(this).attr('name', inputName);
                     $(this).val('');
-                });
 
+                    if ($(this).attr('name').includes('[last_name]')) {
+                    var headLastName = $('#head_last_name').val();
+                    $(this).val(headLastName);
+                }
+                });
+                
                 $('.member-form').last().after($('<hr>'));
                 newMemberForm.appendTo('#members_section');
                 nextMemberIndex++;
@@ -332,5 +304,33 @@
             format: 'yyyy-mm-dd'
         });
     </script>
+
+<script>
+    const maritalStatusSelect = document.getElementById('marital_status');
+    const anniversaryInput = document.getElementById('date_of_anniversary');
+
+    maritalStatusSelect.addEventListener('change', function() {
+        if (maritalStatusSelect.value === 'Married') {
+            anniversaryInput.disabled = false;
+        } else {
+            anniversaryInput.disabled = true;
+            anniversaryInput.value = ''; // Clear the value if disabled
+        }
+    });
+</script>
+
+<script>
+    const maritalStatus = document.getElementById('member_marital_status_0');
+    const anniversary = document.getElementById('member_date_of_anniversary_0');
+
+    maritalStatus.addEventListener('change', function() {
+        if (maritalStatus.value === 'Married') {
+            anniversary.disabled = false;
+        } else {
+            anniversary.disabled = true;
+            anniversary.value = ''; // Clear the value if disabled
+        }
+    });
+</script>
     
 @endsection

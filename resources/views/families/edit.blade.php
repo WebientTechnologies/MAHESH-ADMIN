@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Edit Family') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('families.update', $family->id) }}">
+                        <form method="POST" action="{{ route('families.update', $family->id) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class="form-group">
@@ -32,13 +32,10 @@
                                         <div class="col-sm-4">
                                             <label for="head_occupation">{{ __('Occupation') }}</label>
                                             <select name="head_occupation" class="form-control" id="head_occupation">
-                                                <option value="Student" @if($family->head_occupation == 'Student') selected @endif>Student</option>
-                                                <option value="Profession" @if($family->head_occupation == 'Profession') selected @endif>Profession</option>
-                                                <option value="Business" @if($family->head_occupation == 'Business') selected @endif>Business</option>
-                                                <option value="Private Service" @if($family->head_occupation == 'Private Service') selected @endif>Private Service</option>
-                                                <option value="Government Service" @if($family->head_occupation == 'Government Service') selected @endif>Government Service</option>
-                                                <option value="Home Maker" @if($family->head_occupation == 'Home Maker') selected @endif>Home Maker</option>
-                                                <option value="Other" @if($family->head_occupation == 'Other') selected @endif>Other</option>
+                                                <option value="">Select Occupation</option>
+                                                @foreach ($occupations as $occup)
+                                                    <option value="{{ $occup->name }}" @if ($occup->name == $family->head_occupation) selected @endif>{{ $occup->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-sm-4">
@@ -64,9 +61,10 @@
                                         <div class="col-sm-4">
                                             <label for="marital_status">{{ __('Marital Status') }}</label>
                                             <select name="marital_status" class="form-control" id="marital_status" >
-                                                <option value="Single" @if($family->marital_status == 'Single') selected @endif>Single</option>
-                                                <option value="Married" @if($family->marital_status == 'Married') selected @endif>Married</option>
-                                                <option value="Divorced" @if($family->marital_status == 'Divorced') selected @endif>Divorced</option>
+                                                <option value="">Select Marital Status</option>
+                                                @foreach ($maritals as $marital)
+                                                <option value="{{ $marital->name }}" @if ($marital->name == $family->marital_status) selected @endif>{{ $marital->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-sm-4">
@@ -86,31 +84,19 @@
                                         <div class="col-sm-4">
                                             <label for="qualification">{{ __('Qualification') }}</label>
                                             <select name="qualification" class="form-control" id="qualification" >
-                                                <option value="Primary School" {{ $family->qualification == 'Primary School' ? 'selected' : '' }}>Primary School</option>
-                                                <option value="High School" {{ $family->qualification == 'High School' ? 'selected' : '' }}>High School</option>
-                                                <option value="Junior College" {{ $family->qualification == 'Junior College' ? 'selected' : '' }}>Junior College</option>
-                                                <option value="Under-Graduate" {{ $family->qualification == 'Under-Graduate' ? 'selected' : '' }}>Under-Graduate</option>
-                                                <option value="Bachelors" {{ $family->qualification == 'Bachelors' ? 'selected' : '' }}>Bachelors</option>
-                                                <option value="Masters" {{ $family->qualification == 'Masters' ? 'selected' : '' }}>Masters</option>
-                                                <option value="Doctoral" {{ $family->qualification == 'Doctoral' ? 'selected' : '' }}>Doctoral</option>
-                                                <option value="CA" {{ $family->qualification == 'CA' ? 'selected' : '' }}>CA</option>
-                                                <option value="Other" {{ $family->qualification == 'Other' ? 'selected' : '' }}>Other</option>
+                                                <option value="">Select Qualification</option>
+                                                @foreach ($qualifications as $qualification)
+                                                    <option value="{{ $qualification->name }}" @if ($qualification->name == $family->qualification) selected @endif>{{ $qualification->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="degree">{{ __('Degree') }}</label>
                                             <select name="degree" class="form-control" id="degree" >
-                                                <option value="Matricuation" @if($family->degree == 'Matricuation') selected @endif>Matricuation</option>
-                                                <option value="I.Sc" @if($family->degree == 'I.Sc') selected @endif>I.Sc</option>
-                                                <option value="I.Com" @if($family->degree == 'I.Com') selected @endif>I.Com</option>
-                                                <option value="I.A." @if($family->degree == 'I.A.') selected @endif>I.A.</option>
-                                                <option value="B.A" @if($family->degree == 'B.A') selected @endif>B.A</option>
-                                                <option value="B.Sc" @if($family->degree == 'B.Sc') selected @endif>B.Sc</option>
-                                                <option value="B.COm" @if($family->degree == 'B.COm') selected @endif>B.COm</option>
-                                                <option value="Engineering" @if($family->degree == 'Engineering') selected @endif>Engineering</option>
-                                                <option value="Doctorate" @if($family->degree == 'Doctorate') selected @endif>Doctorate</option>
-                                                <option value="MBA" @if($family->degree == 'MBA') selected @endif>MBA</option>
-                                                <option value="Other" @if($family->degree == 'Other') selected @endif>Other</option>
+                                            <option value="">Select Degree</option>
+                                                @foreach ($degrees as $degree)
+                                                    <option value="{{ $degree->name }}" @if ($degree->name == $family->degree) selected @endif>{{ $degree->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -162,9 +148,10 @@
                                                 <div class="col-sm-4">
                                                     <label for="member_marital_status_0">{{ __('Marital Status') }}</label>
                                                     <select name="members[0][marital_status]" class="form-control" id="member_marital_status_0">
-                                                        <option value="Single" {{ $family->members[0]['marital_status'] == 'Single' ? 'selected' : '' }}>Single</option>
-                                                        <option value="Married" {{ $family->members[0]['marital_status'] == 'Married' ? 'selected' : '' }}>Married</option>
-                                                        <option value="Divorced" {{ $family->members[0]['marital_status'] == 'Divorced' ? 'selected' : '' }}>Divorced</option>
+                                                            <option value="">Select Marital Status</option>
+                                                        @foreach ($maritals as $marital)
+                                                        <option value="{{ $marital->name }}" @if ($marital->name == $member->marital_status) selected @endif>{{ $marital->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-4">
@@ -177,14 +164,11 @@
                                             <div class="row">
                                                 <div class="col-sm-4">
                                                     <label for="member_occupation_0">{{ __('Occupation') }}</label>
-                                                    <select name="members[0][occupation]" class="form-control" id="member_occupation_0" >
-                                                        <option value="Student" @if($member['occupation'] == 'Student') selected @endif>Student</option>
-                                                        <option value="Profession" @if($member['occupation'] == 'Profession') selected @endif>Profession</option>
-                                                        <option value="Business" @if($member['occupation'] == 'Business') selected @endif>Business</option>
-                                                        <option value="Private Service" @if($member['occupation'] == 'Private Service') selected @endif>Private Service</option>
-                                                        <option value="Government Service" @if($member['occupation'] == 'Government Service') selected @endif>Government Service</option>
-                                                        <option value="Home Maker" @if($member['occupation'] == 'Home Maker') selected @endif>Home Maker</option>
-                                                        <option value="Other" @if($member['occupation'] == 'Other') selected @endif>Other</option>
+                                                    <select name="members[0][occupation]" class="form-control" id="member_occupation_0">
+                                                        <option value="">Select Occupation</option>
+                                                        @foreach ($occupations as $occup)
+                                                            <option value="{{ $occup->name }}" @if ($occup->name == $member->occupation) selected @endif >{{ $occup->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                        
                                                 </div>
@@ -204,47 +188,30 @@
                                                 <div class="col-sm-4">
                                                     <label for="member_relationship_with_head_0">{{ __(' Relationship With Head') }}</label>
                                                     <select name="members[0][relationship_with_head]" class="form-control" id="member_relationship_with_head_0" >
-                                                        <option value="Self" @if($member['relationship_with_head'] == 'Self') selected @endif>Self</option>
-                                                        <option value="Son" @if($member['relationship_with_head'] == 'Son') selected @endif>Son</option>
-                                                        <option value="Grand Son" @if($member['relationship_with_head'] == 'Grand Son') selected @endif>Grandson</option>
-                                                        <option value="Daughter" @if($member['relationship_with_head'] == 'Daughter') selected @endif>Daughter</option>
-                                                        <option value="Grand Daughter" @if($member['relationship_with_head'] == 'Grand Daughter') selected @endif>Grand Daughter</option>
-                                                        <option value="Wife" @if($member['relationship_with_head'] == 'Wife') selected @endif>Wife</option>
-                                                        <option value="Brother" @if($member['relationship_with_head'] == 'Brother') selected @endif>Brother</option>
-                                                        <option value="Sister" @if($member['relationship_with_head'] == 'Sister') selected @endif>Sister</option>
-                                                        <option value="Uncle" @if($member['relationship_with_head'] == 'Uncle') selected @endif>Uncle</option>
+                                                        <option value="">Select Relation</option>
+                                                        @foreach ($relationships as $relation)
+                                                            <option value="{{ $relation->name }}" @if ($relation->name == $member->relationship_with_head) selected @endif>{{ $relation->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                        
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_qualification_0">{{ __('Qualification') }}</label>
                                                     <select name="members[0][qualification]" class="form-control" id="member_qualification_0" >
-                                                        <option value="Primary School" @if($family->members[0]['qualification'] == 'Primary School') selected @endif>Primary School</option>
-                                                        <option value="High School" @if($family->members[0]['qualification'] == 'High School') selected @endif>High School</option>
-                                                        <option value="Junior College" @if($family->members[0]['qualification'] == 'Junior College') selected @endif>Junior College</option>
-                                                        <option value="Under-Graduate" @if($family->members[0]['qualification'] == 'Under-Graduate') selected @endif>Under-Graduate</option>
-                                                        <option value="Bachelors" @if($family->members[0]['qualification'] == 'Bachelors') selected @endif>Bachelors</option>
-                                                        <option value="Masters" @if($family->members[0]['qualification'] == 'Masters') selected @endif>Masters</option>
-                                                        <option value="Doctoral" @if($family->members[0]['qualification'] == 'Doctoral') selected @endif>Doctoral</option>
-                                                        <option value="CA" @if($family->members[0]['qualification'] == 'CA') selected @endif>CA</option>
-                                                        <option value="Other" @if($family->members[0]['qualification'] == 'Other') selected @endif>Other</option>
+                                                        <option value="">Select Qualification</option>
+                                                        @foreach ($qualifications as $qualification)
+                                                            <option value="{{ $qualification->name }}" @if ($qualification->name == $member->qualification) selected @endif>{{ $qualification->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                        
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_degree_0">{{ __('Degree') }}</label>
                                                     <select name="members[0][degree]" class="form-control" id="member_degree_0" >
-                                                        <option value="Matricuation" @if($family->members[0]['degree'] == 'Matricuation') selected @endif>Matricuation</option>
-                                                        <option value="I.Sc" @if($family->members[0]['degree'] == 'I.Sc') selected @endif>I.Sc</option>
-                                                        <option value="I.Com" @if($family->members[0]['degree'] == 'I.Com') selected @endif>I.Com</option>
-                                                        <option value="I.A." @if($family->members[0]['degree'] == 'I.A.') selected @endif>I.A.</option>
-                                                        <option value="B.A" @if($family->members[0]['degree'] == 'B.A') selected @endif>B.A</option>
-                                                        <option value="B.Sc" @if($family->members[0]['degree'] == 'B.Sc') selected @endif>B.Sc</option>
-                                                        <option value="B.COm" @if($family->members[0]['degree'] == 'B.COm') selected @endif>B.COm</option>
-                                                        <option value="Engineering" @if($family->members[0]['degree'] == 'Engineering') selected @endif>Engineering</option>
-                                                        <option value="Doctorate" @if($family->members[0]['degree'] == 'Doctorate') selected @endif>Doctorate</option>
-                                                        <option value="MBA" @if($family->members[0]['degree'] == 'MBA') selected @endif>MBA</option>
-                                                        <option value="Other" @if($family->members[0]['degree'] == 'Other') selected @endif>Other</option>
+                                                            <option value="">Select Degree</option>
+                                                        @foreach ($degrees as $degree)
+                                                            <option value="{{ $degree->name }}" @if ($degree->name == $member->degree) selected @endif>{{ $degree->name }}</option>
+                                                        @endforeach
                                                     </select>
                                                       
                                                 </div>
@@ -275,23 +242,36 @@
         </div>
 
         <script>
-            $('#add_member_button').click(function() {
-                var lastMemberForm = $('.member-form').last();
-                var lastMemberIndex = parseInt(lastMemberForm.data('index'));
-                var newMemberIndex = lastMemberIndex + 1;
+            $(document).ready(function() {
+                var nextMemberIndex = {{ $family->members->count() }};
 
-                var newMemberForm = lastMemberForm.clone();
+                $('#add_member_button').click(function() {
+                    var newMemberForm = $('.member-form').first().clone();
+                    var memberId = 'member_' + nextMemberIndex; // Unique identifier for each member form
 
-                newMemberForm.find('input, select').each(function() {
-                    var inputName = $(this).attr('name').replace(/\[(\d+)\]/, '[' + newMemberIndex + ']');
-                    $(this).attr('name', inputName);
-                    $(this).val('');
+                    var subheading = $('<h5>').text('Member ' + (nextMemberIndex + 1));
+                    subheading.insertAfter(newMemberForm);
+
+                    newMemberForm.attr('id', memberId); // Assign unique ID to the new member form
+
+                    newMemberForm.find('input, select').each(function() {
+                        var inputName = $(this).attr('name').replace('[0]', '[' + nextMemberIndex + ']');
+                        $(this).attr('name', inputName);
+                        $(this).val('');
+
+                        if ($(this).attr('name').includes('[last_name]')) {
+                            var headLastName = $('#head_last_name').val();
+                            $(this).val(headLastName);
+                        }
+                    });
+
+                    $('.member-form').last().after($('<hr>'));
+                    newMemberForm.appendTo('#members_section');
+                    nextMemberIndex++;
                 });
-
-                newMemberForm.data('index', newMemberIndex);
-                newMemberForm.appendTo('#members_section');
             });
         </script>
+
 
          <script>
             $('#head_dob').datepicker({
