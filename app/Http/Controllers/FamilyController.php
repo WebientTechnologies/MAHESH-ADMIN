@@ -101,7 +101,7 @@ class FamilyController extends Controller
                 'degree' => $member['degree'],
                 'address' => $member['address'],
                 'marital_status' => $member['marital_status'],
-                'date_of_anniversary' => $member['date_of_anniversary'],
+                'date_of_anniversary' => isset($member['date_of_anniversary'])?$member['date_of_anniversary']:null,
                 'gender' => $member['gender'],
             ]);
         });
@@ -162,7 +162,7 @@ class FamilyController extends Controller
                     'degree' => $member['degree'],
                     'address' => $member['address'],
                     'marital_status' => $member['marital_status'],
-                    'date_of_anniversary' => $member['date_of_anniversary'],
+                    'date_of_anniversary' => isset($member['date_of_anniversary'])?$member['date_of_anniversary']:null,
                     'gender' => $member['gender'],
                 ]);
             } else {
@@ -178,7 +178,7 @@ class FamilyController extends Controller
                     'degree' => $member['degree'],
                     'address' => $member['address'],
                     'marital_status' => $member['marital_status'],
-                    'date_of_anniversary' => $member['date_of_anniversary'],
+                    'date_of_anniversary' => isset($member['date_of_anniversary'])?$member['date_of_anniversary']:null,
                     'gender' => $member['gender'],
                 ]);
             }
