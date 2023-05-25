@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\News;
 use App\Models\Gallery;
 use App\Models\Family;
+use App\Models\FamilyMember;
 use Illuminate\Support\Facades\Storage;
 use Kreait\Firebase\Factory;
+use Illuminate\Support\Facades\Http;
 
 class NewsController extends Controller
 {
@@ -33,31 +35,16 @@ class NewsController extends Controller
 
     public function create()
     {
-        $families = Family::all();
-        return view('newses.create', compact('families'));
+        
+        $heads = Family::select('id', 'head_first_name', 'head_middle_name', 'head_last_name')->get();
+        $members = FamilyMember::select('id', 'first_name', 'middle_name', 'last_name')->get();
+        return view('newses.create', compact('heads', 'members'));
     }
 
     public function store(Request $request)  
     {
 
-    //    $firebaseConfig = [
-    //         'apiKey' => 'AIzaSyB50ZW8U8iGfBpJKq54Y442CtCO7n--h-U',
-    //         'authDomain' => 'maheskwari-community.firebaseapp.com',
-    //         'projectId' => 'maheskwari-community',
-    //         'storageBucket' => 'maheskwari-community.appspot.com',
-    //         'messagingSenderId' => '84169887754',
-    //         'appId' => '1:84169887754:web:df1f52f3cd68d9546f0ff3',
-    //         'measurementId' => 'G-MHZK709NQ5',
-    //     ];
         
-    //     $factory = (new Factory)
-    // ->withServiceAccount($firebaseConfig);
-
-    // $firebase = $factory->createFirestore();
-    // $firestore = $firebase->getFirestore();
-
-    //     dd($firestore);
-        // validation rules for the form data
         $rules = [
             'title' => 'required|max:255',
             'description' => 'required',
@@ -118,46 +105,36 @@ class NewsController extends Controller
                                 ->get(['id', 'name']);
         
         $temporarySignedUrl = Storage::disk('s3')->temporaryUrl($galleries[0]['name'], now()->addMinutes(10));
-           
-       // dd($temporarySignedUrl);
 
-        // send notification
-        $families = $request->input('families');
+        $selectedUsers = $request->input('users');
 
-        $firebaseToken = Family::whereIn('id', $families)->whereNotNull('device_token')->pluck('device_token')->toArray();
-        // dd($firebaseToken);
-        $SERVER_API_KEY = 'AAAAE5jqkAo:APA91bFsgwMzxnepmUXlA1OV6v98438A_OHJdVDX0NB24ft6MSRezbvRswrSmL5n-FjLpgc1kSzsOr4DiqH1pWcKR6RSvRGzWxhgxxVa5QZXj11JH_YzrAYORRHd4ftswapvuBpYCBlb';
+        if (in_array('all', $selectedUsers)) {
+            // If 'all' option is selected, retrieve mobile numbers from both tables
+            $mobileNumbers = array_merge(
+                Family::pluck('head_mobile_number')->toArray(),
+                FamilyMember::pluck('mobile_number')->toArray()
+            );
+        } else {
+            // Retrieve mobile numbers for the selected users
+            $mobileNumbers = array_merge(
+                Family::whereIn('id', $selectedUsers)->pluck('head_mobile_number')->toArray(),
+                FamilyMember::whereIn('id', $selectedUsers)->pluck('mobile_number')->toArray()
+            );
+        }
+        
+       foreach ($mobileNumbers as $mobileNumber) {
+        //dd($mobileNumber);
+        $response = Http::post('https://nkybahfpvbf3tlxe5tdzwxnns40tfghu.lambda-url.ap-south-1.on.aws/send-notification', [
+            'title' => $request->title,
+            'body' => $request->description,
+            'type' => 'news',
+            'image_url' => $temporarySignedUrl,
+            'mobile_number' => $mobileNumber,
+        ]);
 
-        $data = [
-            "registration_ids" => $firebaseToken,
-            "notification" => [
-                "title" => $request->title,
-                "body" => $request->description,
-                "imageUrl"=> $temporarySignedUrl,
-            ]
-        ];
-        $dataString = json_encode($data);
+    }
 
-        $headers = [
-            'Authorization: key=' . $SERVER_API_KEY,
-            'Content-Type: application/json',
-        ];
-
-        $ch = curl_init();
-
-        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $dataString);
-
-        $response = curl_exec($ch);
-        //dd($response);
-        // save the News object to the database
-       
-
-        // redirect to the index page with a success message
+        
         return redirect()->route('newses.index')->with('success', 'News created successfully.');
     }
 

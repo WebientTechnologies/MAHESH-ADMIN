@@ -9,6 +9,7 @@ use App\Models\FamilyMember;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BusinessController extends Controller
 {
@@ -36,14 +37,21 @@ class BusinessController extends Controller
             'business_name' => 'required|string|max:255',
             'owner_name' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
+            
         ]);
         $ownerId = $request->input('owner_id');
         $ownerName = $request->input('owner_name');
-
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = time().'.'.$image->getClientOriginalExtension();
+            Storage::disk('s3')->put($filename, file_get_contents($image));
+            
+        }
         $business = new Business();
         $business->business_name = $validatedData['business_name'];
         $business->owner_name = $ownerName;
         $business->owner_id = $ownerId;
+        $business->file = $filename;
         $business->category_id = $validatedData['category_id'];
         $business->subcategory_id = $request->subcategory_id; 
         $business->address = $request->address;
@@ -76,6 +84,20 @@ class BusinessController extends Controller
     
         $ownerId = $request->input('owner_id');
         $ownerName = $request->input('owner_name');
+
+        if($request->hasFile('file')) {
+            $allowedfileExtension=['jpg','png','jpeg', 'avif'];
+            $file = $request->file('file'); 
+            $errors = [];
+
+            $extension = $file->getClientOriginalExtension();
+            $check = in_array($extension,$allowedfileExtension);
+            if($check) {
+                $name = 'community-'.time().'.'.$extension;
+                Storage::disk('s3')->put($name, file_get_contents($file));     
+            }
+            $business->file = $name;
+        }
         
         $business->business_name = $validatedData['business_name'];
         $business->owner_name = $ownerName;

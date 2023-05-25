@@ -4,9 +4,6 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <center>
-                    <button id="btn-nft-enable" onclick="initFirebaseMessagingRegistration()" class="btn btn-danger btn-xs btn-flat">Allow for Notification</button>
-                </center>
                 <div class="card">
                     <div class="card-header">Add News</div>
                     <div class="card-body">
@@ -19,16 +16,23 @@
                                 </ul>
                             </div>
                         @endif
-                        <form action="{{ route('send.notification') }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('send.notification') }}" method="POST">
                             @csrf
+
                             <div class="form-group">
-                                <label for="families">Select Families:</label>
-                                <select name="families[]" id="families" class="form-control" multiple>
-                                    @foreach ($families as $family)
-                                        <option value="{{ $family->id }}">{{ $family->head_first_name }} {{ $family->head_last_name }}</option>
+                                <label for="users">Select Users</label>
+                                <select name="users[]" id="users" class="form-control" multiple>
+                                    <option value="all">All</option>
+                                    @foreach($heads as $head)
+                                        <option value="{{ $head->id }}">{{ $head->head_first_name }} {{ $head->head_middle_name }} {{ $head->head_last_name }} (Head)</option>
+                                    @endforeach
+                                    @foreach($members as $member)
+                                        <option value="{{ $member->id }}">{{ $member->first_name }} {{ $member->middle_name }} {{ $member->last_name }} (Member)</option>
                                     @endforeach
                                 </select>
                             </div>
+
+                            
                             <div class="form-group">
                                 <label for="title">Title</label>
                                 <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}">
@@ -36,10 +40,6 @@
                             <div class="form-group">
                                 <label for="description">Description</label>
                                 <textarea name="description" id="description" rows="5" class="form-control">{{ old('description') }}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="file">File</label>
-                                 <input id="file" type="file" class="form-control" name="file[]" accept="image/*,video/*" multiple required>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                             <a href="{{ route('newses.index') }}" class="btn btn-secondary">Cancel</a>
@@ -111,11 +111,6 @@
             icon: payload.notification.icon,
         };
         new Notification(noteTitle, noteOptions);
-    });
-</script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#families').select2();
     });
 </script>
 @endsection

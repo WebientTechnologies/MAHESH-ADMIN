@@ -50,7 +50,7 @@
                         @endforelse
                     </tbody>
                 </table>
-                {{ $media->links() }}
+                
             </div>
         </div>
     </div>
