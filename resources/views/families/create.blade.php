@@ -304,33 +304,5 @@
             format: 'yyyy-mm-dd'
         });
     </script>
-
-<script>
-    const maritalStatusSelect = document.getElementById('marital_status');
-    const anniversaryInput = document.getElementById('date_of_anniversary');
-
-    maritalStatusSelect.addEventListener('change', function() {
-        if (maritalStatusSelect.value === 'Married') {
-            anniversaryInput.disabled = false;
-        } else {
-            anniversaryInput.disabled = true;
-            anniversaryInput.value = ''; // Clear the value if disabled
-        }
-    });
-</script>
-
-<script>
-    const maritalStatus = document.getElementById('member_marital_status_0');
-    const anniversary = document.getElementById('member_date_of_anniversary_0');
-
-    maritalStatus.addEventListener('change', function() {
-        if (maritalStatus.value === 'Married') {
-            anniversary.disabled = false;
-        } else {
-            anniversary.disabled = true;
-            anniversary.value = ''; // Clear the value if disabled
-        }
-    });
-</script>
     
 @endsection

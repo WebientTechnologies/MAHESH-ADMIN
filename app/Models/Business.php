@@ -14,6 +14,7 @@ class Business extends Model
         'owner_name',
         'category_id',
         'subcategory_id',
+        'file',
     ];
 
     public function category()

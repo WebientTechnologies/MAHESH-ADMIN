@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Create Business') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('businesses.store') }}">
+                    <form method="POST" action="{{ route('businesses.store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">
@@ -102,7 +102,7 @@
                             <label for="contact_number" class="col-md-4 col-form-label text-md-right">{{ __('Contact Number') }}</label>
 
                             <div class="col-md-6">
-                                <input id="contact_number" type="text" class="form-control @error('contact_number') is-invalid @enderror" name="contact_number" value="{{ old('contact_number') }}" required autocomplete="contact_number">
+                                <input id="contact_number" type="text" class="form-control @error('contact_number') is-invalid @enderror" name="contact_number" value="{{ old('contact_number') }}" required autocomplete="contact_number" maxlength="10">
 
                                 @error('contact_number')
                                 <span class="invalid-feedback" role="alert">
@@ -110,6 +110,11 @@
                                 </span>
                                 @enderror
                             </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="image">Image</label>
+                            <input type="file" class="form-control-file" id="image" name="image" required>
                         </div>
 
                         <div class="form-group row mb-0">
