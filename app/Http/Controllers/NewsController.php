@@ -52,6 +52,7 @@ class NewsController extends Controller
 
         // validate the form data
         $validatedData = $request->validate($rules);
+        
 
         // create a new News object
         $news = new News;
@@ -59,14 +60,14 @@ class NewsController extends Controller
         $news->description = $validatedData['description'];
         $news->created_by = auth()->user()->id;
         $news->save();
-
-        // upload the file and store the file name in the 'file' column
+// dd($news->id);
         if ($request->hasFile('file')) {
             $allowedfileExtension=['APNG','jpg','png','jpeg','avif', 'gif','svg','mp4','mov','avi', 'mkv','wmv' ];
             $files = $request->file('file'); 
             $errors = [];
             $imgnumber = 0;
             foreach ($files as $key => $file) { 
+                // dd($file);
                 $extension = $file->getClientOriginalExtension();
                 $check = in_array($extension,$allowedfileExtension);
                 if($check) {
@@ -99,6 +100,10 @@ class NewsController extends Controller
                 $imgnumber++;
             }
         }
+        
+
+        // upload the file and store the file name in the 'file' column
+        
 
         $galleries = Gallery::where('deleted_at',null)
                                 ->where('news_id', $news->id)
