@@ -118,77 +118,80 @@ class FamilyController extends Controller
         return view('families.show', compact('family'));
     }
 
-    public function edit(Family $family)
-    {
-        $maritals = MaritalStatus::all();
-        $occupations = Occupation::all();
-        $qualifications = Qualification::all();
-        $relationships = Relationship::all();
-        $degrees = Degree::all();
-        return view('families.edit', compact('family', 'maritals', 'occupations', 'qualifications', 'relationships', 'degrees'));
+    public function edit($id)
+{
+    $family = Family::findOrFail($id);
+    $members = FamilyMember::where('family_id', $id)->get();
+    $maritals = MaritalStatus::all();
+    $occupations = Occupation::all();
+    $qualifications = Qualification::all();
+    $relationships = Relationship::all();
+    $degrees = Degree::all();
+    
+    return view('families.edit', compact('family', 'members', 'maritals', 'occupations', 'qualifications', 'relationships', 'degrees'));
+}
+
+public function update(Request $request, $id)
+{
+    $family = Family::findOrFail($id);
+    
+    if(($request->input('head_dob')) == null){
+        $headDob = null;
+    } else {
+        $headDob = Carbon::createFromFormat('Y-m-d', $request->input('head_dob'));
     }
-
-    public function update(Request $request, Family $family)
-    {
-        $family->update([
-            'head_first_name' => $request->input('head_first_name'),
-            'head_middle_name' => $request->input('head_middle_name'),
-            'head_last_name' => $request->input('head_last_name'),
-            'head_occupation' => $request->input('head_occupation'),
-            'head_mobile_number' => $request->input('head_mobile_number'),
-            'relationship_with_head' => $request->input('relationship_with_head'),
-            'qualification' => $request->input('qualification'),
-            'degree' => $request->input('degree'),
-            'address' => $request->input('address'),
-            'marital_status' => $request->input('marital_status'),
-            'head_dob' => $request->input('head_dob'),
-            'date_of_anniversary' => $request->input('date_of_anniversary'),
-            'gender' => $request->input('gender'),
-            
-        ]);
-
-        $members = collect($request->input('members'))->map(function ($member) use ($request) {
-         
-            if (isset($member['id'])) {
-                return FamilyMember::find($member['id'])->fill([
-                    'first_name' => $member['first_name'],
-                    'middle_name' => $member['middle_name'],
-                    'last_name' => $member['last_name'],
-                    'occupation' => $member['occupation'],
-                    'dob' => $member['dob'],
-                    'mobile_number' => $member['mobile_number'],
-                    'relationship_with_head' => $member['relationship_with_head'],
-                    'qualification' => $member['qualification'],
-                    'degree' => $member['degree'],
-                    'address' => $member['address'],
-                    'marital_status' => $member['marital_status'],
-                    'date_of_anniversary' => isset($member['date_of_anniversary'])?$member['date_of_anniversary']:null,
-                    'gender' => $member['gender'],
-                ]);
-            } else {
-                return new FamilyMember([
-                    'first_name' => $member['first_name'],
-                    'middle_name' => $member['middle_name'],
-                    'last_name' => $member['last_name'],
-                    'occupation' => $member['occupation'],
-                    'dob' => $member['dob'],
-                    'mobile_number' => $member['mobile_number'],
-                    'relationship_with_head' => $member['relationship_with_head'],
-                    'qualification' => $member['qualification'],
-                    'degree' => $member['degree'],
-                    'address' => $member['address'],
-                    'marital_status' => $member['marital_status'],
-                    'date_of_anniversary' => isset($member['date_of_anniversary'])?$member['date_of_anniversary']:null,
-                    'gender' => $member['gender'],
-                ]);
-            }
-        });
-
-        // $family->members()->delete();
-        $family->members()->saveMany($members);
-
-        return redirect()->route('families.index');
+    
+    if(($request->input('date_of_anniversary')) == null){
+        $headAnniversary = null;
+    } else {
+        $headAnniversary = Carbon::createFromFormat('Y-m-d', $request->input('date_of_anniversary'));
     }
+    
+    $family->update([
+        'head_first_name' => $request->input('head_first_name'),
+        'head_middle_name' => $request->input('head_middle_name'),
+        'head_last_name' => $request->input('head_last_name'),
+        'head_occupation' => $request->input('head_occupation'),
+        'head_mobile_number' => $request->input('head_mobile_number'),
+        'relationship_with_head' => $request->input('relationship_with_head'),
+        'qualification' => $request->input('qualification'),
+        'degree' => $request->input('degree'),
+        'address' => $request->input('address'),
+        'marital_status' => $request->input('marital_status'),
+        'head_dob' => $headDob,
+        'date_of_anniversary' => $headAnniversary,
+        'gender' => $request->input('gender'),
+    ]);
+    
+    // Update members
+    $membersData = collect($request->input('members'))->map(function ($member) {
+        return [
+            'first_name' => $member['first_name'],
+            'middle_name' => $member['middle_name'],
+            'last_name' => $member['last_name'],
+            'occupation' => $member['occupation'],
+            'dob' => $member['dob'],
+            'mobile_number' => $member['mobile_number'],
+            'relationship_with_head' => $member['relationship_with_head'],
+            'qualification' => $member['qualification'],
+            'degree' => $member['degree'],
+            'address' => $member['address'],
+            'marital_status' => $member['marital_status'],
+            'date_of_anniversary' => isset($member['date_of_anniversary']) ? $member['date_of_anniversary'] : null,
+            'gender' => $member['gender'],
+        ];
+    });
+    
+    $family->members()->delete(); // Delete existing members
+    
+    $members = collect($membersData)->map(function ($member) use ($family) {
+        return new FamilyMember($member);
+    });
+    
+    $family->members()->saveMany($members); // Save updated members
+    
+    return redirect()->route('families.index');
+}
 
     public function destroy(Family $family)
     {
