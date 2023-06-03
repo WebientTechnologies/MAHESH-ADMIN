@@ -5,10 +5,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Business List
+                    <div class="card-header">Occupation List
                         <div class="row">
                             <div class="col-md-12 mb-3">
-                                <a href="{{ route('businesses.create') }}" class="btn btn-primary float-right" style="margin-top: -27px;">Create Business</a>
+                                <a href="{{ route('businesses.create') }}" class="btn btn-primary float-right" style="margin-top: -27px;">Create Occupation</a>
                             </div>
                         </div>
                         <div class="row">
@@ -23,8 +23,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Business Name</th>
+                                    <th>Occupation Name</th>
                                     <th>Owner Name</th>
                                     <th>Contact Number</th>
                                     <th>Category</th>
@@ -35,7 +34,6 @@
                             <tbody>
                                 @foreach ($businesses as $business)
                                     <tr class="business-row">
-                                        <td>{{ $business->id }}</td>
                                         <td>{{ $business->business_name }}</td>
                                         <td>{{ $business->owner_name }}</td>
                                         <td>{{ $business->contact_number }}</td>

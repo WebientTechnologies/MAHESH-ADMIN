@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Create Business Category') }}</div>
+                    <div class="card-header">{{ __('Create Occupation Category') }}</div>
                     <div class="card-body">
                         <form action="{{ route('categories.store') }}" method="POST">
                             @csrf

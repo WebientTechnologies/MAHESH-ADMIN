@@ -5,14 +5,14 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Create Business') }}</div>
+                <div class="card-header">{{ __('Create Occupation') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('businesses.store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group row">
-                            <label for="business_name" class="col-md-4 col-form-label text-md-right">{{ __('Business Name') }}</label>
+                            <label for="business_name" class="col-md-4 col-form-label text-md-right">{{ __('Occupation Name') }}</label>
 
                             <div class="col-md-6">
                                 <input id="business_name" type="text" class="form-control @error('business_name') is-invalid @enderror" name="business_name" value="{{ old('business_name') }}" required autocomplete="business_name" autofocus>
@@ -119,7 +119,7 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">{{ __('Create Business') }}</button>
+                                <button type="submit" class="btn btn-primary">{{ __('Create Occupation') }}</button>
                                 <a href="{{ route('businesses.index') }}" class="btn btn-secondary">{{ __('Cancel') }}</a>
                             </div>
                         </div>

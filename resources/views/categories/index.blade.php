@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">{{ __('Business Categories') }}
+                    <div class="card-header">{{ __('Occupation Categories') }}
                         <div class="row">
                             <div class="col-md-12 mb-3">
                                 <a href="{{ route('categories.create') }}" class="btn btn-primary float-right" style="margin-top: -27px;">Create Category</a>
@@ -21,7 +21,6 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Name</th>
                                     <th>Created Date</th>
                                     <th>Action</th>
@@ -30,7 +29,6 @@
                             <tbody>
                                 @foreach($categories as $category)
                                 <tr class="category-row">
-                                        <td>{{ $category->id }}</td>
                                         <td>{{ $category->name }}</td>
                                         <td>{{ $category->created_at }}</td>
                                         <td style = "display: inline-flex; gap:70%;">

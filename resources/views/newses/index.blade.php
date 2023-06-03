@@ -21,7 +21,6 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Created At</th>
@@ -31,7 +30,6 @@
                             <tbody>
                                 @foreach ($newses as $news)
                                     <tr class="news-row">
-                                        <td>{{ $news->id }}</td>
                                         <td>{{ $news->title }}</td>
                                         <td>{{ $news->description }}</td>
                                         <td>{{ $news->created_at }}</td>

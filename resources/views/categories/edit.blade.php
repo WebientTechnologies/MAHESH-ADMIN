@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Edit Business Category') }}</div>
+                <div class="card-header">{{ __('Edit Occupation Category') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('categories.update', $category->id) }}">

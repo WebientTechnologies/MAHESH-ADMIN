@@ -36,27 +36,26 @@
                 <a href="#" class="nav-link {{ request()->is('businesses*') || request()->is('categories*') || request()->is('subcategories*') ? 'active' : '' }}">
                     <i class="fas fa-business-time nav-icon"></i>
                     <p>
-                        Business Management
-                        <i class="fas fa-angle-right left"></i>
+                        Occupation Management
                     </p>
                 </a>
                 <ul class="nav nav-treeview" style="display: none;">
                     <li class="nav-item">
                         <a href="{{ route('businesses.index') }}" class="nav-link {{ request()->is('businesses*') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Business</p>
+                            <p>Occupation</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('categories.index') }}" class="nav-link {{ request()->is('categories*') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Business Category</p>
+                            <p>Occupation Category</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('subcategories.index') }}" class="nav-link {{ request()->is('subcategories*') ? 'active' : '' }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Business Sub Category</p>
+                            <p>Occupation Sub Category</p>
                         </a>
                     </li>
                 </ul>
@@ -66,7 +65,7 @@
                 <a href="{{ route('promotions.index') }}" class="nav-link {{ request()->is('promotions*') ? 'active' : '' }}">
                     <i class="nav-icon fas fa-ad"></i>
                     <p>
-                        {{ __('Business Promotion') }}
+                        {{ __('Occupation Promotion') }}
                     </p>
                 </a>
             </li>
