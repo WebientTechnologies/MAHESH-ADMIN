@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .required-field:after {
+        content: "*";
+        color: red;
+        margin-left: 5px;
+    }
+</style>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -12,7 +19,7 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="business_name" class="col-md-4 col-form-label text-md-right">{{ __('Occupation Name') }}</label>
+                            <label for="business_name" class="col-md-4 col-form-label text-md-right">{{ __('Occupation Name') }} <span class="required-field"></span></label>
 
                             <div class="col-md-6">
                                 <input id="business_name" type="text" class="form-control @error('business_name') is-invalid @enderror" name="business_name" value="{{ old('business_name') }}" required autocomplete="business_name" autofocus>
@@ -26,7 +33,7 @@
                         </div>
                         <input type="hidden" name="owner_name" id="owner_name" value="{{ old('owner_name') }}">
                         <div class="form-group row">
-                            <label for="owner" class="col-md-4 col-form-label text-md-right">{{ __('Owner') }}</label>
+                            <label for="owner" class="col-md-4 col-form-label text-md-right">{{ __('Owner') }} <span class="required-field"></span></label>
                             <div class="col-md-6">
                                 <select name="owner_id" id="owner_id" class="form-control select2">
                                     <option value="">Select Owner</option>
@@ -47,7 +54,7 @@
 
 
                         <div class="form-group row">
-                            <label for="category_id" class="col-md-4 col-form-label text-md-right">{{ __('Category') }}</label>
+                            <label for="category_id" class="col-md-4 col-form-label text-md-right">{{ __('Category') }} <span class="required-field"></span></label>
 
                             <div class="col-md-6">
                                 <select id="category_id" name="category_id" class="form-control @error('category_id') is-invalid @enderror" required>
@@ -66,7 +73,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="subcategory_id" class="col-md-4 col-form-label text-md-right">{{ __('Subcategory') }}</label>
+                            <label for="subcategory_id" class="col-md-4 col-form-label text-md-right">{{ __('Subcategory') }} <span class="required-field"></span></label>
 
                             <div class="col-md-6">
                                 <select id="subcategory_id" name="subcategory_id" class="form-control @error('subcategory_id') is-invalid @enderror" required>
@@ -85,7 +92,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }}</label>
+                            <label for="address" class="col-md-4 col-form-label text-md-right">{{ __('Address') }} <span class="required-field"></span></label>
 
                             <div class="col-md-6">
                                 <textarea id="address" type="text" class="form-control @error('address') is-invalid @enderror" name="address" required autocomplete="address">{{ old('address') }}</textarea>
@@ -99,7 +106,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="contact_number" class="col-md-4 col-form-label text-md-right">{{ __('Contact Number') }}</label>
+                            <label for="contact_number" class="col-md-4 col-form-label text-md-right">{{ __('Contact Number') }} <span class="required-field"></span></label>
 
                             <div class="col-md-6">
                                 <input id="contact_number" type="text" class="form-control @error('contact_number') is-invalid @enderror" name="contact_number" value="{{ old('contact_number') }}" required autocomplete="contact_number" maxlength="10">
@@ -113,7 +120,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="image">Image</label>
+                            <label for="image">Image <span class="required-field"></span></label>
                             <input type="file" class="form-control-file" id="image" name="image" required>
                         </div>
 
