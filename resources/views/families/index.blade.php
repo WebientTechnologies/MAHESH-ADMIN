@@ -13,14 +13,18 @@
                                 <a href="{{ route('families.create') }}" class="btn btn-primary float-right" style="margin-top: -27px;">Create Family</a>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <input type="text" id="searchInput" class="form-control" placeholder="Search">
-                            </div>
-                        </div>
                     </div>
 
                     <div class="card-body">
+                    <div class="mb-3">
+                        <form action="{{ route('families.index') }}" method="GET" class="form-inline">
+                            <div class="form-group mr-2">
+                                <input type="text" name="search" class="form-control" placeholder="Search by Name" value="{{ request('search') }}">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                            <a href="{{ route('families.index') }}" class="btn btn-secondary ml-2">Reset</a>
+                        </form>
+                    </div>
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -58,7 +62,7 @@
                             @endforeach
                         </tbody>
                     </table>
-                   
+                    {{ $families->appends(request()->query())->links() }}
                     </div>
                 </div>
             </div>
@@ -115,20 +119,6 @@
         }
     }
 </script>
-
-@section('scripts')
-    <script>
-        $(document).ready(function() {
-            debugger;
-            $('#searchInput').on('keyup', function() {
-                var value = $(this).val().toLowerCase();
-                $('.family-row').filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                });
-            });
-        });
-    </script>
-@endsection
 
 @endsection
 

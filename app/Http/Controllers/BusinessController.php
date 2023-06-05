@@ -13,10 +13,18 @@ use Illuminate\Support\Facades\Storage;
 
 class BusinessController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $businesses = Business::with('category')->with('subcategories')->orderBy('id', 'desc')->get();
-        //dd($businesses);
+        $query = Business::query();
+
+        // Search by occupation name
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where('business_name', 'like', "%$search%")->orWhere('owner_name', 'like', "%$search%");
+        }
+
+        $businesses = $query->with('category')->orderBy('id', 'desc')->paginate(10);
+
         return view('businesses.index', compact('businesses'));
     }
 

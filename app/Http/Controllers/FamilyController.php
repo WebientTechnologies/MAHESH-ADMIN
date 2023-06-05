@@ -18,9 +18,16 @@ use Illuminate\Support\Facades\Storage;
 
 class FamilyController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $families = Family::withCount('members')->orderBy('id', 'desc')->get();
+        $query = Family::query();
+
+        // Search by occupation name
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where('head_first_name', 'like', "%$search%")->orWhere('head_middle_name', 'like', "%$search%")->orWhere('head_last_name', 'like', "%$search%");
+        }
+        $families = $query->withCount('members')->orderBy('id', 'desc')->paginate(10);
         //dd( $families);
         return view('families.index', compact('families'));
     }

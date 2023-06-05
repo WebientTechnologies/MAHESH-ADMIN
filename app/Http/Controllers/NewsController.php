@@ -20,9 +20,16 @@ class NewsController extends Controller
         
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $newses = News::orderBy('id', 'desc')->get();
+        $query = News::query();
+
+        // Search by occupation name
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where('title', 'like', "%$search%")->orWhere('description', 'like', "%$search%");
+        }
+        $newses = $query->orderBy('id', 'desc')->paginate(10);
         return view('newses.index', compact('newses'));
     }
 

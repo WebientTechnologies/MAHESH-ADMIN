@@ -78,9 +78,6 @@
                             <div class="col-md-6">
                                 <select id="subcategory_id" name="subcategory_id" class="form-control @error('subcategory_id') is-invalid @enderror" required>
                                     <option value="">-- Select Subcategory --</option>
-                                    @foreach ($subcategories as $subcategory)
-                                    <option value="{{ $subcategory->id }}" @if(old('subcategory_id') == $subcategory->id) selected @endif>{{ $subcategory->name }}</option>
-                                    @endforeach
                                 </select>
 
                                 @error('subcategory_id')
@@ -136,7 +133,42 @@
         </div>
     </div>
 </div>
-@endsection
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Initialize subcategory options
+        var subcategories = @json($subcategories);
+        var initialCategory = $('#category_id').val();
+        updateSubcategoryOptions(initialCategory);
+
+        // Update subcategory options when the category is changed
+        $('#category_id').change(function () {
+            var selectedCategory = $(this).val();
+            updateSubcategoryOptions(selectedCategory);
+        });
+
+        // Function to update subcategory options based on the selected category
+        function updateSubcategoryOptions(categoryId) {
+            var subcategorySelect = $('#subcategory_id');
+            subcategorySelect.empty();
+
+            // Add the default option
+            subcategorySelect.append('<option value="">-- Select Subcategory --</option>');
+
+            // Add the subcategories related to the selected category
+            var relatedSubcategories = subcategories.filter(function (subcategory) {
+                return subcategory.category_id == categoryId;
+            });
+
+            relatedSubcategories.forEach(function (subcategory) {
+                subcategorySelect.append('<option value="' + subcategory.id + '">' + subcategory.name + '</option>');
+            });
+        }
+    });
+</script>
+
+
 
 @section('scripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -157,4 +189,6 @@
          $('#owner_name').val(ownerName);
     });
 </script>
+@endsection
+
 @endsection
