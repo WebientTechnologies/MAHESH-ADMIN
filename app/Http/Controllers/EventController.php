@@ -15,9 +15,16 @@ class EventController extends Controller
         
     }
     
-    public function index()
+    public function index(Request $request)
     {
-        $events = Event::orderBy('id', 'desc')->get();
+        $query = Event::query();
+
+        // Search by occupation name
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where('title', 'like', "%$search%")->orWhere('description', 'like', "%$search%");
+        }
+        $events = $query->orderBy('id', 'desc')->paginate(10);
         return view('events.index', compact('events'));
     }
 

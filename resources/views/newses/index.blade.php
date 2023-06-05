@@ -8,20 +8,23 @@
                     <div class="card-header">
                         News List
                         <a href="{{ route('newses.create') }}" class="btn btn-primary btn-sm float-right">Add News</a>
-                    </div>
-                    <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <input type="text" id="searchInput" class="form-control" placeholder="Search">
-                            </div>
-                    </div>
+                    </div> 
                     <div class="card-body">
+                    <div class="mb-3">
+                        <form action="{{ route('newses.index') }}" method="GET" class="form-inline">
+                            <div class="form-group mr-2">
+                                <input type="text" name="search" class="form-control" placeholder="Search....." value="{{ request('search') }}">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                            <a href="{{ route('newses.index') }}" class="btn btn-secondary ml-2">Reset</a>
+                        </form>
+                    </div>
                         @if (session('success'))
                             <div class="alert alert-success">{{ session('success') }}</div>
                         @endif
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>#</th>
                                     <th>Title</th>
                                     <th>Description</th>
                                     <th>Created At</th>
@@ -31,7 +34,6 @@
                             <tbody>
                                 @foreach ($newses as $news)
                                     <tr class="news-row">
-                                        <td>{{ $news->id }}</td>
                                         <td>{{ $news->title }}</td>
                                         <td>{{ $news->description }}</td>
                                         <td>{{ $news->created_at }}</td>
@@ -49,22 +51,10 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{ $newses->appends(request()->query())->links() }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    @section('scripts')
-    <script>
-        $(document).ready(function() {
-            debugger;
-            $('#searchInput').on('keyup', function() {
-                var value = $(this).val().toLowerCase();
-                $('.news-row').filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                });
-            });
-        });
-    </script>
-@endsection
 @endsection

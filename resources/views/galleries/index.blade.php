@@ -57,13 +57,13 @@
                                 @foreach($media->where('source', 'news') as $gallery)
                                 <div class="col-sm-4 mb-4">
                                     <div class="card">
-                                        <form action="{{ route('galleries.destroy', $gallery['id']) }}" method="POST" style="display: inline-block; margin-top: 8px;">
+                                        <!-- <form action="{{ route('galleries.destroy', $gallery['id']) }}" method="POST" style="display: inline-block; margin-top: 8px;">
                                             @csrf
                                             @method('DELETE')
                                             <a href="javascript:void(0)" onclick="if (confirm('Are you sure you want to delete this file?')) { $(this).closest('form').submit(); } else { return false; }" style="float: right; margin-right: 17px">
                                                 <i class="fa fa-trash"></i> 
                                             </a>
-                                        </form>
+                                        </form> -->
                                         @if ($gallery['type'] === 'video')
                                             <video src="{{ $gallery['name'] }}" class="card-img-top" style="object-fit: cover; height: 200px;" controls></video>
                                         @else
@@ -83,13 +83,13 @@
                                 @foreach($media->where('source', 'event') as $gallery)
                                 <div class="col-sm-4 mb-4">
                                     <div class="card">
-                                        <form action="{{ route('galleries.destroy', $gallery['id']) }}" method="POST" style="display: inline-block; margin-top: 8px;">
+                                        <!-- <form action="{{ route('galleries.destroy', $gallery['id']) }}" method="POST" style="display: inline-block; margin-top: 8px;">
                                             @csrf
                                             @method('DELETE')
                                             <a href="javascript:void(0)" onclick="if (confirm('Are you sure you want to delete this file?')) { $(this).closest('form').submit(); } else { return false; }" style="float: right; margin-right: 17px">
                                                 <i class="fa fa-trash"></i> 
                                             </a>
-                                        </form>
+                                        </form> -->
                                         @if ($gallery['type'] === 'video')
                                             <video src="{{ $gallery['name'] }}" class="card-img-top" style="object-fit: cover; height: 200px;" controls></video>
                                         @else

@@ -14,7 +14,6 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>#</th>
                             <th>Thumbnail</th>
                             <th>Start Date</th>
                             <th>End Date</th>
@@ -26,7 +25,6 @@
                     <tbody>
                     @forelse ($promotions as $promotion)
                          <tr class="promotion-row">
-                            <td>{{ $promotion['id'] }}</td>
                             <td><img src="{{ $promotion['file'] }}" width="50"></td>
                             <td>{{ $promotion['start_date'] }}</td>
                             <td>{{ $promotion['end_date'] }}</td>

@@ -30,7 +30,6 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>Thumbnail</th>
                                 <th>Start Time</th>
                                 <th>End Time</th>
@@ -42,7 +41,6 @@
                         <tbody>
                             @forelse ($quizes as $quiz)
                                 <tr class="quiz-row">
-                                    <td>{{ $quiz['id'] }}</td>
                                     <td><img src="{{ $quiz['file'] }}" width="50"></td>
                                     <td>{{ $quiz['start_time'] }}</td>
                                     <td>{{ $quiz['end_time'] }}</td>

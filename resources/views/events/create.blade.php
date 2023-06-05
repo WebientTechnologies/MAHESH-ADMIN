@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .required-field:after {
+        content: "*";
+        color: red;
+        margin-left: 5px;
+    }
+</style>
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
@@ -12,7 +19,7 @@
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                                <label for="title" class="col-md-4 control-label">Title</label>
+                                <label for="title" class="col-md-4 control-label">Title <span class="required-field"></label>
 
                                 <div class="col-md-6">
                                     <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}" required autofocus>
@@ -26,7 +33,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                                <label for="description" class="col-md-4 control-label">Description</label>
+                                <label for="description" class="col-md-4 control-label">Description <span class="required-field"></label>
 
                                 <div class="col-md-6">
                                     <textarea id="description" class="form-control" name="description" required>{{ old('description') }}</textarea>
@@ -40,7 +47,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('event_start_at') ? ' has-error' : '' }}">
-                                <label for="event_start_at" class="col-md-4 control-label">Start Date and Time</label>
+                                <label for="event_start_at" class="col-md-4 control-label">Start Date and Time <span class="required-field"></label>
 
                                 <div class="col-md-6">
                                     <input id="event_start_at" type="datetime-local" class="form-control" name="event_start_at" value="{{ old('event_start_at') }}" required>
@@ -54,7 +61,7 @@
                             </div>
 
                             <div class="form-group{{ $errors->has('event_end_at') ? ' has-error' : '' }}">
-                                <label for="event_end_at" class="col-md-4 control-label">End Date and Time</label>
+                                <label for="event_end_at" class="col-md-4 control-label">End Date and Time <span class="required-field"></label>
 
                                 <div class="col-md-6">
                                     <input id="event_end_at" type="datetime-local" class="form-control" name="event_end_at" value="{{ old('event_end_at') }}" required>
@@ -67,7 +74,7 @@
                                 </div>
                             </div>
                             <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
-                                <label for="address" class="col-md-4 control-label">Address</label>
+                                <label for="address" class="col-md-4 control-label">Address <span class="required-field"></label>
 
                                 <div class="col-md-6">
                                     <textarea id="address" type="text" class="form-control" name="address" value="{{ old('address') }}" ></textarea>
@@ -80,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="form-group{{ $errors->has('contact_number') ? ' has-error' : '' }}">
-                                <label for="contact_number" class="col-md-4 control-label">Contact Number</label>
+                                <label for="contact_number" class="col-md-4 control-label">Contact Number <span class="required-field"></label>
 
                                 <div class="col-md-6">
                                     <input id="contact_number" type="text" class="form-control" name="contact_number" value="{{ old('contact_number') }}" >
@@ -94,7 +101,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="file">File</label>
+                                <label for="file">File <span class="required-field"></label>
                                  <input id="file" type="file" class="form-control" name="file[]" accept="image/*,video/*" multiple required>
                             </div>
 

@@ -1,4 +1,11 @@
 @extends('layouts.app')
+<style>
+    .required-field:after {
+        content: "*";
+        color: red;
+        margin-left: 5px;
+    }
+</style>
 
 @push('style')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -17,7 +24,7 @@
             @csrf
 
             <div class="form-group">
-                <label for="quiz_id">Quiz:</label>
+                <label for="quiz_id">Quiz<span class="required-field">:</label>
                 <select name="quiz_id" id="quiz_id" class="form-control quiz">
                     <option value="">Select Quiz</option>
                     @foreach ($quizzes as $quiz)
@@ -27,7 +34,7 @@
             </div>
 
             <div class="form-group">
-                <label for="first_winner">First Winner:</label>
+                <label for="first_winner">First Winner<span class="required-field">:</label>
                 <select name="first_winner" id="first_winner" class="form-control select2">
                     <option value="">Select First Winner</option>
                     @foreach ($heads as $head)
@@ -40,7 +47,7 @@
             </div>
 
             <div class="form-group">
-                <label for="second_winner">Second Winner:</label>
+                <label for="second_winner">Second Winner<span class="required-field">:</label>
                 <select name="second_winner" id="second_winner" class="form-control select2">
                     <option value="">Select Second Winner</option>
                     @foreach ($heads as $head)
@@ -53,7 +60,7 @@
             </div>
 
             <div class="form-group">
-                <label for="third_winner">Third Winner:</label>
+                <label for="third_winner">Third Winner<span class="required-field">:</label>
                 <select name="third_winner" id="third_winner" class="form-control select2">
                     <option value="">Select Thired Winner</option>
                     @foreach ($heads as $head)

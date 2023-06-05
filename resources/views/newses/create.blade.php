@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    .required-field:after {
+        content: "*";
+        color: red;
+        margin-left: 5px;
+    }
+</style>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -34,15 +41,15 @@
 
                             
                             <div class="form-group">
-                                <label for="title">Title</label>
+                                <label for="title">Title <span class="required-field"></label>
                                 <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}">
                             </div>
                             <div class="form-group">
-                                <label for="description">Description</label>
+                                <label for="description">Description <span class="required-field"></label>
                                 <textarea name="description" id="description" rows="5" class="form-control">{{ old('description') }}</textarea>
                             </div>
                             <div class="form-group">
-                                <label for="file">File</label>
+                                <label for="file">File <span class="required-field"></label>
                                  <input id="file" type="file" class="form-control" name="file[]" accept="image/*,video/*" multiple required>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
