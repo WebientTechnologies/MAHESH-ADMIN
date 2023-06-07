@@ -219,4 +219,12 @@ public function update(Request $request, $id)
 
         return redirect()->route('families.index');
     }
+
+    public function deleteMember($id)
+    {
+        $member = FamilyMember::findOrFail($id);
+        $member->delete();
+
+        return redirect()->route('families.index');
+    }
 }
