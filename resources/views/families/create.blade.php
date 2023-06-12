@@ -58,6 +58,7 @@
                                 
                                 <div class="form-group">
                                     <div class="row">
+                                    
                                         <div class="col-sm-4">
                                             <label for="head_occupation">{{ __('Occupation') }}</label>
                                             <select name="head_occupation" class="form-control" id="head_occupation" >
@@ -66,7 +67,10 @@
                                                     <option value="{{ $occup->name }}">{{ $occup->name }}</option>
                                                 @endforeach
                                             </select>
+                                            <input type="text" name="head_occupation" class="form-control other-field" id="head_occupation_other" style="display: none;">
                                         </div>
+                                        
+                                        
                                         <div class="col-sm-4">
                                             <label for="head_mobile_number">{{ __('Mobile Number') }}</label>
                                             <input type="text" name="head_mobile_number" class="form-control" id="head_mobile_number" maxlength="10">
@@ -95,6 +99,7 @@
                                                     <option value="{{ $qualification->name }}">{{ $qualification->name }}</option>
                                                 @endforeach
                                             </select>
+                                            <input type="text" name="qualification" class="form-control other-field" id="qualification_other" style="display: none;">
                                         </div>
                                         <div class="col-sm-4">
                                             <label for="degree">{{ __('Degree') }}</label>
@@ -104,6 +109,7 @@
                                                     <option value="{{ $degree->name }}">{{ $degree->name }}</option>
                                                 @endforeach
                                             </select>
+                                            <input type="text" name="degree" class="form-control other-field" id="degree_other" style="display: none;">
                                         </div>
                                     </div>
                                 </div>
@@ -204,7 +210,6 @@
                                                             <option value="{{ $qualification->name }}">{{ $qualification->name }}</option>
                                                         @endforeach
                                                     </select>
-                                                       
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <label for="member_degree_0">{{ __('Degree') }}</label>
@@ -214,7 +219,6 @@
                                                             <option value="{{ $degree->name }}">{{ $degree->name }}</option>
                                                         @endforeach
                                                     </select>
-                                                       
                                                 </div>
                                             </div>
                                         </div>
@@ -243,8 +247,39 @@
                 </div>
             </div>
         </div>
+
+        
     <script>
         $(document).ready(function() {
+
+            $('#head_occupation').change(function() {
+                var selectedOption = $(this).val();
+                if (selectedOption === 'Others') {
+                    $('#head_occupation_other').show();
+                } else {
+                    $('#head_occupation_other').hide();
+                }
+            });
+
+            $('#qualification').change(function() {
+                var selectedOption = $(this).val();
+                if (selectedOption === 'Others') {
+                $('#qualification_other').show();
+                } else {
+                    $('#qualification_other').hide();
+                }
+            });
+
+            $('#degree').change(function() {
+                var selectedOption = $(this).val();
+                if (selectedOption === 'Others') {
+                    $('#degree_other').show();
+                } else {
+                    $('#degree_other').hide();
+                }
+            });
+
+
             var nextMemberIndex = 1;
 
             $('#add_member_button').click(function() {
@@ -267,6 +302,27 @@
                 $('.member-form').last().after($('<hr>'));
                 newMemberForm.appendTo('#members_section');
                 nextMemberIndex++;
+            });
+
+            $('form').submit(function() {
+                var selectedOccupation = $('#head_occupation').val();
+                var selectedQualification = $('#qualification').val();
+                var selectedDegree = $('#degree').val();
+
+                if (selectedOccupation === 'Others') {
+                    var otherInputValue = $('#head_occupation_other').val();
+                    $('#head_occupation').val(otherInputValue);
+                }
+
+                if (selectedQualification === 'Others') {
+                    var otherInputValue = $('#qualification_other').val();
+                    $('#qualification').val(otherInputValue);
+                }
+
+                if (selectedDegree === 'Others') {
+                    var otherInputValue = $('#degree_other').val();
+                    $('#degree').val(otherInputValue);
+                }
             });
 
             $(document).on('change', 'input[type="checkbox"][name^="members"][name$="[same_address]"]', function() {
@@ -304,5 +360,7 @@
             format: 'yyyy-mm-dd'
         });
     </script>
+
+
     
 @endsection

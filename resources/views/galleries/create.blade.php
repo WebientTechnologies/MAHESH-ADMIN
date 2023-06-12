@@ -19,7 +19,7 @@
                         @csrf
 
                         <div class="form-group row">
-                            <label for="album_name" class="col-md-4 col-form-label text-md-right">{{ __('Album Name') }}</label>
+                            <label for="album_name" class="col-md-4 col-form-label text-md-right">{{ __('Album Name') }} <span class="required-field"></span></label>
 
                             <div class="col-md-6">
                                 <input id="album_name" type="text" class="form-control" name="album_name" value="{{ old('album_name') }}">
@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="form-group row">
-                            <label for="event_name" class="col-md-4 col-form-label text-md-right">{{ __('Event Name') }}</label>
+                            <label for="event_name" class="col-md-4 col-form-label text-md-right">{{ __('Event Name') }} <span class="required-field"></span></label>
 
                             <div class="col-md-6">
                                 <input id="event_name" type="text" class="form-control" name="event_name" value="{{ old('event_name') }}" >
