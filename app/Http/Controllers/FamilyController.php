@@ -28,8 +28,16 @@ class FamilyController extends Controller
             $query->where('head_first_name', 'like', "%$search%")->orWhere('head_middle_name', 'like', "%$search%")->orWhere('head_last_name', 'like', "%$search%");
         }
         $families = $query->withCount('members')->orderBy('id', 'desc')->paginate(10);
-        //dd( $families);
-        return view('families.index', compact('families'));
+        
+        $query1 = FamilyMember::query();
+
+        if ($request->filled('search')) {
+            $search = $request->input('search');
+            $query->where('head_first_name', 'like', "%$search%")->orWhere('head_middle_name', 'like', "%$search%")->orWhere('head_last_name', 'like', "%$search%");
+        }
+        $fmembers = $query1->orderBy('id', 'desc')->paginate(10);
+        // dd($fmembers);
+        return view('families.index', compact('families', 'fmembers'));
     }
 
     public function search(Request $request)
@@ -171,34 +179,36 @@ public function update(Request $request, $id)
     ]);
     
     // Update members
-    $membersData = collect($request->input('members'))->map(function ($member) {
-        return [
-            'first_name' => $member['first_name'],
-            'middle_name' => $member['middle_name'],
-            'last_name' => $member['last_name'],
-            'occupation' => $member['occupation'],
-            'dob' => $member['dob'],
-            'mobile_number' => $member['mobile_number'],
-            'relationship_with_head' => $member['relationship_with_head'],
-            'qualification' => $member['qualification'],
-            'degree' => $member['degree'],
-            'address' => $member['address'],
-            'marital_status' => $member['marital_status'],
-            'date_of_anniversary' => isset($member['date_of_anniversary']) ? $member['date_of_anniversary'] : null,
-            'gender' => $member['gender'],
-        ];
+    $memberIds = collect($request->input('members'))->pluck('id')->filter(); // Retrieve existing member IDs
+    
+    FamilyMember::whereIn('id', $memberIds)->update(['deleted_at' => null]); // Restore deleted members
+    
+    collect($request->input('members'))->each(function ($member) use ($family) {
+        if (isset($member['id'])) {
+            $existingMember = FamilyMember::findOrFail($member['id']);
+            $existingMember->update([
+                'first_name' => $member['first_name'],
+                'middle_name' => $member['middle_name'],
+                'last_name' => $member['last_name'],
+                'occupation' => $member['occupation'],
+                'dob' => $member['dob'],
+                'mobile_number' => $member['mobile_number'],
+                'relationship_with_head' => $member['relationship_with_head'],
+                'qualification' => $member['qualification'],
+                'degree' => $member['degree'],
+                'address' => $member['address'],
+                'marital_status' => $member['marital_status'],
+                'date_of_anniversary' => isset($member['date_of_anniversary']) ? $member['date_of_anniversary'] : null,
+                'gender' => $member['gender'],
+            ]);
+        } else {
+            $family->members()->create($member);
+        }
     });
-    
-    $family->members()->delete(); // Delete existing members
-    
-    $members = collect($membersData)->map(function ($member) use ($family) {
-        return new FamilyMember($member);
-    });
-    
-    $family->members()->saveMany($members); // Save updated members
     
     return redirect()->route('families.index');
 }
+
 
     public function destroy(Family $family)
     {
@@ -206,6 +216,14 @@ public function update(Request $request, $id)
         $familyMembers = FamilyMember::where('family_id', $memberId)->get();
         FamilyMember::where('family_id', $memberId)->delete(); // delete all family members associated with the family
         $family->delete();
+
+        return redirect()->route('families.index');
+    }
+
+    public function deleteMember($id)
+    {
+        $member = FamilyMember::findOrFail($id);
+        $member->delete();
 
         return redirect()->route('families.index');
     }

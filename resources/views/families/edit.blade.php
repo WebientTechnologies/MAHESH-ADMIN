@@ -217,8 +217,6 @@
                                     <input type="text" name="members[{{ $index }}][address]" class="form-control" id="member_address_{{ $index }}" value="{{ $member['address'] }}">
                                 </div>
                                  
-
-                                <button type="button" class="btn btn-danger" onclick="$(this).closest('.member-form').remove()">{{ __('Delete Member') }}</button>
                             </div>
                             @php
                                 $memberIndex++;

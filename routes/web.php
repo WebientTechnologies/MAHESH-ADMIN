@@ -38,6 +38,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/search-family', 'FamilyController@search')->name('families.search');
     Route::get('/family-members/{familyId}', [FamilyController::class,'getFamilyMembers']);
     Route::get('/families/search', 'FamilyController@search')->name('families.search');
+    Route::delete('/delete-members/{id}', [FamilyController::class,'deleteMember'])->name('delete-members');
 
 
     Route::resource('families.members', 'App\Http\Controllers\FamilyMemberController');

@@ -50,6 +50,11 @@
                                 </div>
                                 @endforeach
                             </div>
+                                <div class="row mt-4">
+                                    <div class="col-md-12">
+                                    {{ $galleries->links() }}
+                                    </div>
+                                </div>
                         </div>
 
                         <div class="tab-pane fade" id="news">
@@ -76,6 +81,11 @@
                                 </div>
                                 @endforeach
                             </div>
+                                <div class="row mt-4">
+                                    <div class="col-md-12">
+                                    {{ $galleries->links() }}
+                                    </div>
+                                </div>
                         </div>
 
                         <div class="tab-pane fade" id="event">
@@ -102,6 +112,11 @@
                                 </div>
                                 @endforeach
                             </div>
+                                <div class="row mt-4">
+                                    <div class="col-md-12">
+                                    {{ $galleries->links() }}
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </div>

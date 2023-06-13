@@ -16,19 +16,27 @@ class GalleryController extends Controller
 {
     public function index()
     {
-        $galleries = Gallery::where('deleted_at',null)->get(['id', 'name', 'event_name', 'album_name', 'type', 'source']);
-        // $media = Gallery::where('deleted_at',null)->get(['id', 'name', 'event_name', 'album_name', 'type', 'source']);
+        $galleries = Gallery::where('deleted_at', null)->paginate(10, ['id', 'name', 'event_name', 'album_name', 'type', 'source']);
         $media = [];
-        for($i = 0; $i < sizeof($galleries); $i++){
-            $temporarySignedUrl = Storage::disk('s3')->temporaryUrl($galleries[$i]['name'], now()->addMinutes(10));
-            //print($temporarySignedUrl);
 
-            $media[] = ["id" => $galleries[$i]['id'],"name" => $temporarySignedUrl, "type" => $galleries[$i]['type'], "source" => $galleries[$i]['source'], "album_name" => $galleries[$i]['album_name'], "event_name" => $galleries[$i]['event_name'],];                        
+        foreach ($galleries as $gallery) {
+            $temporarySignedUrl = Storage::disk('s3')->temporaryUrl($gallery->name, now()->addMinutes(10));
+
+            $media[] = [
+                "id" => $gallery->id,
+                "name" => $temporarySignedUrl,
+                "type" => $gallery->type,
+                "source" => $gallery->source,
+                "album_name" => $gallery->album_name,
+                "event_name" => $gallery->event_name,
+            ];
         }
-       
+
         $media = collect($media);
-        return view('galleries.index', compact('media'));
+
+        return view('galleries.index', compact('media'))->with('galleries', $galleries);
     }
+
 
     public function create()
     {
