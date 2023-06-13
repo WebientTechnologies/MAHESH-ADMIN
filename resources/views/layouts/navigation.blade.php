@@ -1,9 +1,9 @@
 <!-- Sidebar -->
-<div class="sidebar">
+<div class="sidebar" style="overflow-y: hidden;">
     <!-- Sidebar user panel (optional) -->
  
     <!-- Sidebar Menu -->
-    <nav class="mt-2">
+    <nav class="mt-2" >
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
                 <a href="{{ route('home') }}" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
@@ -104,6 +104,11 @@
                 </a>
             </li>
         </ul>
+
+        <div class="custom-text" style="position: absolute; bottom: 20px; width: 100%;">
+            <p style="color: white;">Designed and developed by MAK Online Solution </p>
+            <a href="https://www.makos.com" target="https://www.makos.com" style="color: yellow;">www.makos.com</a>
+        </div>
     </nav>
     <!-- /.sidebar-menu -->
 </div>
