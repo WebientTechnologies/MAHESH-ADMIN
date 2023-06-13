@@ -46,10 +46,10 @@
                 </div>
 
                 <div class="col-md-6">
-                    <div class="card">
+                    <div class="card" style="height: 360px;">
                         <div class="card-body">
                             <h5 class="card-title">Pie Chart</h5>
-                            <canvas id="pieChart" style="height: 300px; width: 100%;"></canvas>
+                            <canvas id="pieChart" style="height: 200px; width: 100%;"></canvas>
                         </div>
                     </div>
                 </div>

@@ -107,7 +107,7 @@
 
         <div class="custom-text" style="position: absolute; bottom: 20px; width: 100%;">
             <p style="color: white;">Designed and developed by MAK Online Solution </p>
-            <a href="https://www.makos.com" target="https://www.makos.com" style="color: yellow;">www.makos.com</a>
+            <a href="https://www.makonlinesolutions.com" target="https://www.makonlinesolutions.com" style="color: yellow;">www.makonlinesolutions.com</a>
         </div>
     </nav>
     <!-- /.sidebar-menu -->
