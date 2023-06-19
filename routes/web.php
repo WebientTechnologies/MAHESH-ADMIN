@@ -79,4 +79,9 @@ Route::middleware('auth')->group(function () {
 
     // Route to show the list of notifications
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+
+    
 });
+Route::get('/privacy', function () {
+        return view('privacy');
+    });
