@@ -117,8 +117,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="image">Image <span class="required-field"></span></label>
-                            <input type="file" class="form-control-file" id="image" name="image" required>
+                            <label for="image">Image</label>
+                            <input type="file" class="form-control-file" id="image" name="image">
                         </div>
 
                         <div class="form-group row mb-0">
