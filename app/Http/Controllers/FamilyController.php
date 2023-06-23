@@ -25,7 +25,7 @@ class FamilyController extends Controller
         // Search by occupation name
         if ($request->filled('search')) {
             $search = $request->input('search');
-            $query->where('head_first_name', 'like', "%$search%")->orWhere('head_middle_name', 'like', "%$search%")->orWhere('head_last_name', 'like', "%$search%");
+            $query->where('head_first_name', 'like', "%$search%")->orWhere('head_middle_name', 'like', "%$search%")->orWhere('head_last_name', 'like', "%$search%")->orWhere('head_mobile_number', 'like', "%$search%");
         }
         $families = $query->withCount('members')->orderBy('id', 'desc')->paginate(10);
         
@@ -33,7 +33,7 @@ class FamilyController extends Controller
 
         if ($request->filled('search')) {
             $search = $request->input('search');
-            $query->where('head_first_name', 'like', "%$search%")->orWhere('head_middle_name', 'like', "%$search%")->orWhere('head_last_name', 'like', "%$search%");
+            $query1->where('first_name', 'like', "%$search%")->orWhere('middle_name', 'like', "%$search%")->orWhere('last_name', 'like', "%$search%")->orWhere('mobile_number', 'like', "%$search%");
         }
         $fmembers = $query1->orderBy('id', 'desc')->paginate(10);
         // dd($fmembers);
