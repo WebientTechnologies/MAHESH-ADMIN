@@ -31,26 +31,31 @@
                                 @enderror
                             </div>
                         </div>
-                        <input type="hidden" name="owner_name" id="owner_name" value="{{ old('owner_name') }}">
                         <div class="form-group row">
-                            <label for="owner" class="col-md-4 col-form-label text-md-right">{{ __('Owner') }} <span class="required-field"></span></label>
+                            <label for="owner" class="col-md-4 col-form-label text-md-right">{{ __('Owner Id') }} <span class="required-field"></span></label>
                             <div class="col-md-6">
-                                <select name="owner_id" id="owner_id" class="form-control select2">
+                                <input type="text" id="owner_input" class="form-control" list="owners" name="owner_id">
+                                <datalist id="owners">
                                     <option value="">Select Owner</option>
                                     @foreach ($heads as $head)
-                                    <option value="{{ $head->id }}" data-name="{{ $head->head_first_name }} {{ $head->head_middle_name }} {{ $head->head_last_name }}">Head - {{ $head->head_first_name }} {{ $head->head_middle_name }} {{ $head->head_last_name }}</option>
+                                        <option value="{{ $head->id }}" data-name="{{ $head->head_first_name }} {{ $head->head_middle_name }} {{ $head->head_last_name }}">{{ $head->head_first_name }} {{ $head->head_middle_name }} {{ $head->head_last_name }}</option>
                                     @endforeach
                                     @foreach ($members as $member)
-                                    <option value="{{ $member->id }}" data-name="{{ $member->first_name }} {{ $member->middle_name }} {{ $member->last_name }}">Member - {{ $member->first_name }} {{ $member->middle_name }} {{ $member->last_name }}</option>
+                                        <option value="{{ $member->id }}" data-name="{{ $member->first_name }} {{ $member->middle_name }} {{ $member->last_name }}">{{ $member->first_name }} {{ $member->middle_name }} {{ $member->last_name }}</option>
                                     @endforeach
-                                </select>
+                                </datalist>
                                 @error('owner_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
                                 @enderror
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="owner" class="col-md-4 col-form-label text-md-right">{{ __('Owner Name') }} <span class="required-field"></span></label>
+                            <input  name="owner_name" id="owner_name" value="{{ old('owner_name') }}" readonly>
+                        </div>
+                        
 
 
                         <div class="form-group row">
@@ -189,6 +194,40 @@
          $('#owner_name').val(ownerName);
     });
 </script>
+
+<script>
+    const ownerInput = document.getElementById('owner_input');
+    const ownersList = document.getElementById('owners');
+    const ownerNameInput = document.getElementById('owner_name');
+
+    ownerInput.addEventListener('input', function(event) {
+        const inputValue = event.target.value.toLowerCase();
+        const options = ownersList.options;
+
+        for (let i = 0; i < options.length; i++) {
+            const option = options[i];
+            const optionValue = option.value.toLowerCase();
+            const optionName = option.getAttribute('data-name').toLowerCase();
+            
+            if (optionValue.includes(inputValue) || optionName.includes(inputValue)) {
+                option.style.display = '';
+            } else {
+                option.style.display = 'none';
+            }
+        }
+    });
+
+    ownerInput.addEventListener('change', function(event) {
+        const selectedOption = ownersList.querySelector(`option[value="${event.target.value}"]`);
+        const ownerName = selectedOption.getAttribute('data-name');
+        ownerNameInput.value = ownerName;
+    });
+
+    // Set the initial owner name if available
+    const initialOwnerName = "{{ old('owner_name') }}";
+    ownerNameInput.value = initialOwnerName;
+</script>
+
 @endsection
 
 @endsection
