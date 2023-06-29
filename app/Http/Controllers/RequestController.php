@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Request ;
+use App\Models\Business ;
 use Illuminate\Http\Request as HttpRequest;
 use Illuminate\Support\Facades\Storage;
 
@@ -27,9 +28,18 @@ class RequestController extends Controller
 
     public function update(HttpRequest $request, $id)
     {
+        $status = $request->status;
         $requestModel = Request::findOrFail($id);
-        $requestModel->status = $request->status;
-        $requestModel->save();
+        $requestModel->status = $status;
+        if($requestModel->save()){
+            $business = Business::findOrFail($requestModel->business_id);
+            if($status == "approved"){
+            $business->is_image_approved = 1;
+            }else{
+                $business->is_image_approved = 0; 
+            }
+            $business->save();
+        }
 
         return redirect()->route('requests.index')->with('success', 'Request status updated successfully.');
     }
