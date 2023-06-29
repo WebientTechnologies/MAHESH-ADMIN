@@ -33,9 +33,8 @@ class BusinessController extends Controller
         
         $categories = Category::all();
         $subcategories = SubCategory::all();
-        $heads = Family::select('id', 'head_first_name', 'head_middle_name', 'head_last_name')->get();
-        $members = FamilyMember::select('id', 'first_name', 'middle_name', 'last_name')->get();
-
+        $heads = Family::select('id', 'head_first_name', 'head_middle_name', 'head_last_name')->orderBy('head_first_name','asc')->get();
+        $members = FamilyMember::select('id', 'first_name', 'middle_name', 'last_name')->orderBy('first_name','asc')->get();
         return view('businesses.create', compact('categories', 'subcategories', 'heads', 'members'));
     }
 
@@ -49,7 +48,7 @@ class BusinessController extends Controller
         ]);
         $ownerId = $request->input('owner_id');
         $ownerName = $request->input('owner_name');
-        $filename = null;
+        $filename = 'image.png';
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time().'.'.$image->getClientOriginalExtension();
@@ -77,9 +76,8 @@ class BusinessController extends Controller
         
         $categories = Category::all();
         $subcategories = SubCategory::all();
-        $heads = Family::select('id', 'head_first_name', 'head_middle_name', 'head_last_name')->get();
-        $members = FamilyMember::select('id', 'first_name', 'middle_name', 'last_name')->get();
-
+        $heads = Family::select('id', 'head_first_name', 'head_middle_name', 'head_last_name')->orderBy('head_first_name','asc')->get();
+        $members = FamilyMember::select('id', 'first_name', 'middle_name', 'last_name')->orderBy('first_name','asc')->get();
         return view('businesses.edit', compact('business', 'categories', 'subcategories' , 'heads', 'members'));
     }
 

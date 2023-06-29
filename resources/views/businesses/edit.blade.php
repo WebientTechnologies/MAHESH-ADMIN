@@ -33,10 +33,10 @@
                                     <select name="owner_id" id="owner_id" class="form-control">
                                         <option value="">Select Owner</option>
                                         @foreach ($heads as $head)
-                                            <option value="{{ $head->id }}" data-name="{{ $head->head_first_name }} {{ $head->head_middle_name }} {{ $head->head_last_name }}">Head - {{ $head->head_first_name }} {{ $head->head_middle_name }} {{ $head->head_last_name }}</option>
+                                            <option value="{{ $head->id }}" data-name="{{ $head->head_first_name }} {{ $head->head_middle_name }} {{ $head->head_last_name }}">{{ $head->head_first_name }} {{ $head->head_middle_name }} {{ $head->head_last_name }} (HEAD)</option>
                                         @endforeach
                                         @foreach ($members as $member)
-                                            <option value="{{ $member->id }}" data-name="{{ $member->first_name }} {{ $member->middle_name }} {{ $member->last_name }}">Member - {{ $member->first_name }} {{ $member->middle_name }} {{ $member->last_name }}</option>
+                                            <option value="{{ $member->id }}" data-name="{{ $member->first_name }} {{ $member->middle_name }} {{ $member->last_name }}">{{ $member->first_name }} {{ $member->middle_name }} {{ $member->last_name }} (Member)</option>
                                         @endforeach
                                     </select>
                                 </div>
