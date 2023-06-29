@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RequestControlle;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,7 +65,10 @@ Route::middleware('auth')->group(function () {
     //Event Route//
     Route::resource('events', 'App\Http\Controllers\EventController');
 
-    //QUize Route//
+    //Request Route//
+    Route::resource('requests', 'App\Http\Controllers\RequestController');
+    Route::put('/requests/{request}', [App\Http\Controllers\RequestController::class, 'update'])->name('requests.update');
+
     //Event Route//
     Route::resource('quizzes', 'App\Http\Controllers\QuizController');
 

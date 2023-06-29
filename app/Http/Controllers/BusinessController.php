@@ -49,6 +49,7 @@ class BusinessController extends Controller
         ]);
         $ownerId = $request->input('owner_id');
         $ownerName = $request->input('owner_name');
+        $filename = null;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $filename = time().'.'.$image->getClientOriginalExtension();
