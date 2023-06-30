@@ -26,11 +26,13 @@ class FamilyExport implements FromCollection, WithHeadings
                 'Middle Name' => $family->head_middle_name,
                 'Last Name' => $family->head_last_name,
                 'Relationship With Head' => 'Self',
-                'Qualification' => $family->head_qualification,
-                'Degree' => $family->head_degree,
+                'Qualification' => $family->qualification,
+                'Degree' => $family->degree,
                 'Occupation' => $family->head_occupation,
                 'Mobile Number' => $family->head_mobile_number,
-                'Address' => $family->head_address,
+                'Address' => $family->address,
+                'Marital Status'=> $family->marital_status,
+                'DOB' => $family->head_dob,
             ];
     
             $data[] = $row;
@@ -47,6 +49,8 @@ class FamilyExport implements FromCollection, WithHeadings
                     'Occupation' => $familyMember->occupation,
                     'Mobile Number' => $familyMember->mobile_number,
                     'Address' => $familyMember->address,
+                    'Marital Status'=> $familyMember->marital_status,
+                    'DOB' => $familyMember->dob,
                 ];
     
                 $data[] = $memberRow;
@@ -68,6 +72,8 @@ class FamilyExport implements FromCollection, WithHeadings
             'Occupation',
             'Mobile Number',
             'Address',
+            'Marital Status',
+            'DOB',
         ];
     }
     
