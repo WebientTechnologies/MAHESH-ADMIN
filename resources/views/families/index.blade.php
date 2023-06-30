@@ -35,6 +35,7 @@
                                     <button type="submit" class="btn btn-primary">Search</button>
                                     <a href="{{ route('families.index') }}" class="btn btn-secondary ml-2">Reset</a>
                                 </form>
+                                <a href="{{ route('families.exportExcel') }}"  class="btn btn-success float-right" style="margin-top: -27px;">Export Data</a>
                             </div>
                             <table class="table table-bordered table-striped">
                                 <thead>

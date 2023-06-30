@@ -15,6 +15,8 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\FamilyExport;
 
 class FamilyController extends Controller
 {
@@ -226,5 +228,12 @@ public function update(Request $request, $id)
         $member->delete();
 
         return redirect()->route('families.index');
+    }
+
+    public function exportExcel()
+    {
+        $families = Family::with('members')->get();
+        // dd($families);
+        return Excel::download(new FamilyExport($families), 'families_with_members.xlsx');
     }
 }
