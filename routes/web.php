@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\RequestControlle;
+use App\Http\Controllers\RequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/family-members/{familyId}', [FamilyController::class,'getFamilyMembers']);
     Route::get('/families/search', 'FamilyController@search')->name('families.search');
     Route::delete('/delete-members/{id}', [FamilyController::class,'deleteMember'])->name('delete-members');
-
+    Route::get('/export', [FamilyController::class, 'exportExcel'])->name('families.exportExcel');
 
     Route::resource('families.members', 'App\Http\Controllers\FamilyMemberController');
 

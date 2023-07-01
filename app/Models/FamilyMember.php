@@ -27,11 +27,6 @@ class FamilyMember extends Model
     ];
 
 
-    // public function family()
-    // {
-    //     return $this->belongsTo(Family::class);
-    // }
-
     public function family()
     {
         return $this->belongsTo('App\Models\Family', 'family_id');

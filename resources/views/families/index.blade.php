@@ -7,16 +7,16 @@
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" id="families-tab" data-toggle="tab" href="#families">Families</a>
+                    <a class="nav-link{{ request('tab') !== 'members' ? ' active' : '' }}" id="families-tab" data-toggle="tab" href="#families">Families</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="members-tab" data-toggle="tab" href="#members">Members</a>
+                    <a class="nav-link{{ request('tab') === 'members' ? ' active' : '' }}" id="members-tab" data-toggle="tab" href="#members">Members</a>
                     </li>
                 </ul>
 
 
                 <div class="tab-content">
-                    <div class="tab-pane fade show active" id="families">
+                    <div class="tab-pane fade{{ request('tab') !== 'members' ? ' show active' : '' }}" id="families">
                         <div class="card">
                             <div class="card-header" style="height: 56px;">{{ __('Families') }}
                                 <div class="row">
@@ -35,6 +35,7 @@
                                     <button type="submit" class="btn btn-primary">Search</button>
                                     <a href="{{ route('families.index') }}" class="btn btn-secondary ml-2">Reset</a>
                                 </form>
+                                <a href="{{ route('families.exportExcel') }}"  class="btn btn-success float-right" style="margin-top: -27px;">Export Data</a>
                             </div>
                             <table class="table table-bordered table-striped">
                                 <thead>
@@ -73,42 +74,43 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{ $families->appends(request()->query())->links() }}
+                            {{ $families->appends(['tab' => ''])->links() }}
                             </div>
                         </div>
                     </div>
-                    <div class="tab-pane fade" id="members">
+                    <div class="tab-pane fade{{ request('tab') === 'members' ? ' show active' : '' }}" id="members">
+                        <input type="hidden" name="tab" value="members">
                         <div class="card">
                             <div class="card-body">
-                            <div class="mb-3">
-                                <form action="{{ route('families.index') }}" method="GET" class="form-inline">
-                                    <div class="form-group mr-2">
-                                        <input type="text" name="search" class="form-control" placeholder="Search by Name" value="{{ request('search') }}">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Search</button>
-                                    <a href="{{ route('families.index') }}" class="btn btn-secondary ml-2">Reset</a>
-                                </form>
-                            </div>
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Mobile Number</th>
-                                        <th>Relationship</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                                <div class="mb-3">
+                                    <form action="{{ route('families.index') }}" method="GET" class="form-inline">
+                                        <input type="hidden" name="tab" value="members">
+                                        <div class="form-group mr-2">
+                                            <input type="text" name="search" class="form-control" placeholder="Search by Name" value="{{ request('search') }}">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Search</button>
+                                        <a href="{{ route('families.index') }}" class="btn btn-secondary ml-2">Reset</a>
+                                    </form>
+                                </div>
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Mobile Number</th>
+                                            <th>Relationship</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                         @foreach($fmembers as $member)
                                             <tr>
-                                            
                                                 <td>{{ $member->first_name }} {{ $member->middle_name }} {{ $member->last_name }}</td>
                                                 <td>{{ $member->mobile_number }}</td>
                                                 <td>{{ $member->relationship_with_head }}</td>
                                             </tr>
                                         @endforeach
-                                </tbody>
-                            </table>
-                            {{ $families->appends(request()->query())->links() }}
+                                    </tbody>
+                                </table>
+                                {{ $fmembers->appends(['tab' => 'members'])->links() }}
                             </div>
                         </div>
                     </div>
@@ -199,6 +201,28 @@
     }
 </script>
 
+<script>
+    $(document).ready(function() {
+        debugger;
+        // Set the active tab based on query parameter 'tab'
+        var activeTab = '{{ request()->query('tab') }}';
+
+        if (activeTab === 'members') {
+            console.log(activeTab);
+            $('#members-tab').tab('show');
+        } else {
+            console.log(activeTab);
+            $('#families-tab').tab('show');
+        }
+        
+        // Update the active tab when a new tab is clicked
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var tab = $(e.target).attr('href');
+            var tabParam = tab === '#members' ? 'members' : '';
+            history.replaceState(null, null, '?tab=' + tabParam);
+        });
+    });
+</script>
 
 
 @endsection
