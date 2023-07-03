@@ -205,8 +205,8 @@ class FamilyController extends Controller
             'date_of_anniversary' => $headAnniversary,
             'gender' => $request->input('gender'),
         ]);
-        
-        if($family->save()){
+        $family->save();
+        if($request->input('business_name') != '' || $request->input('business_name')!=null){
             $ownerName = $request->input('head_first_name'). ' ' .$request->input('head_middle_name'). ' '.$request->input('head_last_name');
             $business = new Business();
             $business->business_name = $request->input('business_name');

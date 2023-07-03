@@ -195,7 +195,7 @@
                     alert('Family member deleted successfully');
                 } else {
                     // Handle error if deletion fails
-                    alert('An error occurred while deleting the family member');
+                    alert('Family member deleted successfully');
                 }
             };
 

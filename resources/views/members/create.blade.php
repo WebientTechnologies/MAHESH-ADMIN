@@ -18,18 +18,20 @@
                         @csrf
 
                         <div class="form-group">
+                            <div class="row mx-5">
                             <label for="family_id">Family Head:</label>
                             <select id="family_id" name="family_id" class="form-control select2">
                                 <option value="">Select Family Head</option>
                                 @foreach($family as $f)
-                                    <option value="{{ $f->id }}">{{ $f->head_first_name }} {{ $f->head_middle_name }} {{ $f->head_last_name }}</option>
+                                <option value="{{ $f->id }}" {{ old('family_id') == $f->id ? 'selected' : '' }}>{{ $f->head_first_name }} {{ $f->head_middle_name }} {{ $f->head_last_name }}</option>
                                 @endforeach
                             </select>
+                            </div>
                         </div>
 
 
                         <div class="form-group">
-                            <div class="row">
+                            <div class="row mx-5">
                                 <div class="col-sm-4">
                                     <label for="first_name">{{ __('First Name') }}</label>
                                     <input type="text" name="first_name" class="form-control" id="first_name">
@@ -46,7 +48,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="row">
+                            <div class="row mx-5">
                                 <div class="col-sm-4">
                                     <label for="gender">{{ __('Gender') }}</label>
                                     <select name="gender" class="form-control" id="gender" >
@@ -73,7 +75,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="row">
+                            <div class="row mx-5">
                             
                                 <div class="col-sm-4">
                                     <label for="occupation">{{ __('Occupation') }}</label>
@@ -104,7 +106,7 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="row">
+                            <div class="row mx-5">
                                 <div class="col-sm-4">
                                     <label for="relationship_with_head">{{ __('Relationship With Head') }}</label>
                                     <select name="relationship_with_head" class="form-control" id="relationship_with_head" >
@@ -137,14 +139,14 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="row">
+                            <div class="row mx-5">
                                 <div class="col-sm-4">
                                     <label for="address">{{ __('Address') }}</label>
                                     <textarea type="text" name="address" class="form-control" id="address" ></textarea>
                                 </div>
                                 <div class="col-sm-4">
                                     <label for="dob">Date of Birth:</label>
-                                    <input type="date" name="dob" class="form-control"  id="dob">
+                                    <input type="date" name="dob" class="form-control"  id="dob" placeholder="yyyy-mm-dd">
                                 </div>
                                 <div class="col-sm-4">
                                     <label for="mobile_number">{{ __('Mobile Number') }}</label>
@@ -153,7 +155,14 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <div class="row">
+                        <div class="col-sm-6">
+                            <button type="submit" class="btn btn-primary float-right" style=" margin-right: -255px;">Create and Submit</button>
+                        </div>
+                        <div class="col-sm-5">
+                            <button type="submit" name="continue" class="btn btn-primary float-right">Create and Continue</button>
+                        </div>
+                    </div>
                     </form>
                     <div class="card-body">
                     </div>
@@ -191,23 +200,70 @@
 
 <script>
 $(document).ready(function() {
-    
-  $('#family_id').on('change', function() {
-    var familyId = $(this).val(); 
-    var selectedFamily = $('option:selected', this).text(); 
+  var selectedFamily = '';
+  var lastName = '';
+  var address = '';
+  var selectedFamilyOption = '';
+  
+  // Function to fill last_name and address fields based on selected family
+  function fillFields(selectedFamily) {
     $('#last_name').val(selectedFamily.split(' ').pop());
     $.ajax({
       url: '/get-address',
       type: 'GET',
-      data: {familyId: familyId},
+      data: {familyId: $('#family_id').val()},
       success: function(response) {
         $('#address').val(response.address);
       },
       error: function(xhr, status, error) {
+        // Handle error if necessary
       }
     });
+  }
+  
+  $('#family_id').on('change', function() {
+    selectedFamily = $('option:selected', this).text();
+    selectedFamilyOption = $(this).find('option:selected').val();
+    fillFields(selectedFamily);
+  });
+
+  $('form').on('submit', function(event) {
+    if ($(event.target).find('button[name="continue"]').length > 0) {
+      event.preventDefault();
+      selectedFamily = $('option:selected', '#family_id').text(); 
+      lastName = $('#last_name').val();
+      address = $('#address').val();
+      fillFields(selectedFamily);
+      
+      // Serialize form data
+      var formData = $(event.target).serialize();
+      
+      // Submit form data using AJAX
+      $.ajax({
+        url: $(event.target).attr('action'),
+        type: 'POST',
+        data: formData,
+        success: function(response) {
+          // Handle the response as needed
+          console.log(response);
+          // Clear the form fields if required
+          $(event.target).trigger('reset');
+          // Optionally show a success message
+          alert('Record saved successfully!');
+          
+          // Repopulate fields with last selected values
+          $('#family_id').val(selectedFamilyOption);
+          $('#last_name').val(lastName);
+          $('#address').val(address);
+        },
+        error: function(xhr, status, error) {
+          // Handle error if necessary
+        }
+      });
+    }
   });
 });
+
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {

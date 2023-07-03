@@ -115,8 +115,8 @@ class FamilyMemberController extends Controller
             'date_of_anniversary' => $request->input('date_of_anniversary'),
             'gender' => $request->input('gender'),
         ]);
-
-        if($familyMember->save()){
+        $familyMember->save();
+        if($request->input('business_name') != '' || $request->input('business_name')!=null){
             $ownerName = $request->input('first_name'). ' ' .$request->input('middle_name'). ' '.$request->input('last_name');
             $business = new Business();
             $business->business_name = $request->input('business_name');
@@ -129,7 +129,13 @@ class FamilyMemberController extends Controller
             $business->contact_number = $request->input('mobile_number');
             $business->save();
         }
-        return redirect()->route('families.index', $family);
+
+        if ($request->has('continue')) {
+            return redirect()->route('members.create')->withInput(['family_id' => $request->input('family_id')]);
+        } else {
+            return redirect()->route('families.index', $family);
+        }
+        
     }
 
 

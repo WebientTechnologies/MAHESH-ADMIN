@@ -18,7 +18,7 @@
                     @method('PUT')
 
                     <div class="form-group">
-                        <div class="row">
+                        <div class="row mx-5">
                             <div class="col-sm-4">
                                 <label for="head_first_name">{{ __('First Name') }}</label>
                                 <input type="text" name="head_first_name" class="form-control" id="head_first_name" value="{{ $family->head_first_name }}">
@@ -35,7 +35,7 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="row">
+                        <div class="row mx-5">
                             <div class="col-sm-4">
                                 <label for="gender">{{ __('Gender') }}</label>
                                 <select name="gender" class="form-control" id="gender">
@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="row">
+                        <div class="row mx-5">
                             <div class="col-sm-4">
                                 <label for="head_occupation">{{ __('Occupation') }}</label>
                                 <select name="head_occupation" class="form-control" id="head_occupation">
@@ -97,7 +97,7 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="row">
+                        <div class="row mx-5">
                             <div class="col-sm-4">
                                 <label for="relationship_with_head">{{ __('Relationship With Head') }}</label>
                                 <select name="relationship_with_head" class="form-control" id="relationship_with_head">
@@ -132,7 +132,7 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="row">
+                        <div class="row mx-5">
                             <div class="col-sm-6">
                                 <label for="address">{{ __('Address') }}</label>
                                 <textarea type="text" name="address" class="form-control" id="address">{{ $family->address }}</textarea>
