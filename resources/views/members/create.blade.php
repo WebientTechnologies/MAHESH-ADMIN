@@ -155,14 +155,12 @@
                             </div>
                         </div>
 
-                        <div class="row">
-                        <div class="col-sm-6">
-                            <button type="submit" class="btn btn-primary float-right" style=" margin-right: -255px;">Create and Submit</button>
+                        <div class="row mx-5">
+                            
+                            <div class="col-sm-12">
+                                <button type="submit" name="continue" class="btn btn-primary float-right">Create and Continue</button>
+                            </div>
                         </div>
-                        <div class="col-sm-5">
-                            <button type="submit" name="continue" class="btn btn-primary float-right">Create and Continue</button>
-                        </div>
-                    </div>
                     </form>
                     <div class="card-body">
                     </div>

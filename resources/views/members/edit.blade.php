@@ -19,6 +19,7 @@
                     @method('PUT')
 
                     <div class="form-group">
+                        <div class="row mx-5">
                         <label for="family_id">Family Head:</label>
                         <select id="family_id" name="family_id" class="form-control select2">
                             <option value="">Select Family Head</option>
@@ -27,10 +28,11 @@
                                 {{ $f->head_first_name }} {{ $f->head_first_name }} {{ $f->head_last_name }}</option>
                             @endforeach
                         </select>
+                        </div>
                     </div>
 
                     <div class="form-group">
-                        <div class="row">
+                        <div class="row mx-5">
                             <div class="col-sm-4">
                                 <label for="first_name">{{ __('First Name') }}</label>
                                 <input type="text" name="first_name" class="form-control" id="first_name"
@@ -50,7 +52,7 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="row">
+                        <div class="row mx-5">
                             <div class="col-sm-4">
                                 <label for="gender">{{ __('Gender') }}</label>
                                 <select name="gender" class="form-control" id="gender">
@@ -77,7 +79,7 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="row">
+                        <div class="row mx-5">
                             <div class="col-sm-4">
                                 <label for="occupation">{{ __('Occupation') }}</label>
                                 <select name="occupation" class="form-control" id="occupation">
@@ -108,7 +110,7 @@
                     </div>
 
                     <div class="form-group">
-                        <div class="row">
+                        <div class="row mx-5">
                             <div class="col-sm-4">
                                 <label for="relationship_with_head">{{ __('Relationship With Head') }}</label>
                                 <select name="relationship_with_head" class="form-control" id="relationship_with_head">
@@ -141,7 +143,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="row">
+                        <div class="row mx-5">
                             <div class="col-sm-6">
                                 <label for="address">{{ __('Address') }}</label>
                                 <textarea type="text" name="address" class="form-control"
