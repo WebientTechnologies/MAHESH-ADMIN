@@ -23,6 +23,9 @@
                                     <div class="col-md-12">
                                         <a href="{{ route('families.create') }}" class="btn btn-primary float-right" style="margin-top: -27px;">Create Family</a>
                                     </div>
+                                    <div class="col-md-6">
+                                        <a href="{{ route('members.create') }}" class="btn btn-primary float-right" style="margin-top: -37px; margin-right: -376px">Add Member</a>
+                                    </div>
                                 </div>
                             </div>
 
@@ -61,15 +64,15 @@
                                                 </a>
                                             </td>
                                             <td style = "display: inline-flex; gap:70%;">
-                                                    <a href="{{ route('families.edit', $family->id) }}" ><i class="fa fa-edit"></i> </a>
-                                                    <form action="{{ route('families.destroy', $family->id) }}" method="POST">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <a href="javascript:void(0)" onclick="if (confirm('Are you sure you want to delete this Family?')) { $(this).closest('form').submit(); } else { return false; }">
-                                                        <i class="fa fa-trash"></i> 
-                                                    </a>
-                                                    </form>
-                                                </td>
+                                                <a href="{{ route('families.edit', $family->id) }}" ><i class="fa fa-edit"></i> </a>
+                                                <form action="{{ route('families.destroy', $family->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <a href="javascript:void(0)" onclick="if (confirm('Are you sure you want to delete this Family?')) { $(this).closest('form').submit(); } else { return false; }">
+                                                    <i class="fa fa-trash"></i> 
+                                                </a>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -154,7 +157,7 @@
 
             familyMembers.forEach(function(familyMember) {
                 var tr = document.createElement('tr');
-                tr.innerHTML = '<td>'+ familyMember.first_name + ' ' + (familyMember.middle_name ? familyMember.middle_name + ' ' : '') + familyMember.last_name +'</td><td>' + familyMember.dob + '</td><td>' + familyMember.mobile_number + '</td><td>' + familyMember.occupation + '</td><td><button onclick="deleteFamilyMember(' + familyMember.id + ')">Delete</button></td>';
+                tr.innerHTML = '<td>'+ familyMember.first_name + ' ' + (familyMember.middle_name ? familyMember.middle_name + ' ' : '') + familyMember.last_name +'</td><td>' + familyMember.dob + '</td><td>' + familyMember.mobile_number + '</td><td>' + familyMember.occupation +'</td><td><a href="/members/' + familyMember.id + '/edit"><i class="fa fa-edit"></i></a><a onclick="deleteFamilyMember(' + familyMember.id + ')"><i class="fa fa-trash"></i></a></td>';
                 tableBody.appendChild(tr);
             });
 

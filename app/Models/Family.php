@@ -14,6 +14,7 @@ class Family extends Model
         'head_middle_name',
         'head_last_name',
         'head_occupation',
+        'sub_occupation',
         'head_mobile_number',
         'head_dob',
         'marital_status',
@@ -37,9 +38,14 @@ class Family extends Model
         return $this->belongsTo(MaritalStatus::class);
     }
 
-    public function occupation()
+    public function category()
     {
-        return $this->belongsTo(Occupation::class);
+        return $this->belongsTo(Category::class);
+    }
+
+    public function subcategory()
+    {
+        return $this->belongsTo(Subcategory::class);
     }
 
     public function qualification()

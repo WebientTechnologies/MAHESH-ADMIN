@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+    <!-- CSS files -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css">
+
     <link rel="icon" type="image/png" href="{{ asset('images/mpm_logo.png') }}">
     <title>{{ config('app.name', 'Community') }}</title>
 
@@ -22,8 +24,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
 
   <style>
     /* The Modal (background) */
@@ -147,13 +148,17 @@
     </footer>
 </div>
 <!-- ./wrapper -->
-
 <!-- REQUIRED SCRIPTS -->
 
 @vite('resources/js/app.js')
 <!-- AdminLTE App -->
 <script src="{{ asset('js/adminlte.min.js') }}" defer></script>
 
+ <!-- Include jQuery -->
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 @yield('scripts')
 </body>
 </html>

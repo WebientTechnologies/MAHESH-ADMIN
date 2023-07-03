@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FamilyController;
+use App\Http\Controllers\FamilyMemberController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RequestController;
@@ -41,8 +42,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/families/search', 'FamilyController@search')->name('families.search');
     Route::delete('/delete-members/{id}', [FamilyController::class,'deleteMember'])->name('delete-members');
     Route::get('/export', [FamilyController::class, 'exportExcel'])->name('families.exportExcel');
+    Route::get('subcategories/{category?}', [FamilyController::class, 'getSubcategories'])->name('subcategories');
+    Route::get('/get-address', [FamilyController::class, 'getAddress']);
 
-    Route::resource('families.members', 'App\Http\Controllers\FamilyMemberController');
+    Route::resource('members', 'App\Http\Controllers\FamilyMemberController');
+
 
     //Gallery Route//
     Route::resource('galleries', 'App\Http\Controllers\GalleryController');

@@ -12,23 +12,35 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Add Family Head</div>
-                    <form method="POST" action="{{ route('families.store') }}">
+                    <div class="card-header">Add Family Member</div>
+                    <form method="POST" action="{{ route('members.store') }}">
+
                         @csrf
+
+                        <div class="form-group">
+                            <label for="family_id">Family Head:</label>
+                            <select id="family_id" name="family_id" class="form-control select2">
+                                <option value="">Select Family Head</option>
+                                @foreach($family as $f)
+                                    <option value="{{ $f->id }}">{{ $f->head_first_name }} {{ $f->head_middle_name }} {{ $f->head_last_name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
 
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-4">
-                                    <label for="head_first_name">{{ __('First Name') }}</label>
-                                    <input type="text" name="head_first_name" class="form-control" id="head_first_name">
+                                    <label for="first_name">{{ __('First Name') }}</label>
+                                    <input type="text" name="first_name" class="form-control" id="first_name">
                                 </div>
                                 <div class="col-sm-4">
-                                    <label for="head_middle_name">{{ __('Middle Name') }}</label>
-                                    <input type="text" name="head_middle_name" class="form-control" id="head_middle_name">
+                                    <label for="middle_name">{{ __('Middle Name') }}</label>
+                                    <input type="text" name="middle_name" class="form-control" id="middle_name">
                                 </div>
                                 <div class="col-sm-4">
-                                    <label for="head_last_name">{{ __('Last Name') }}</label>
-                                    <input type="text" name="head_last_name" class="form-control" id="head_last_name">
+                                    <label for="last_name">{{ __('Last Name') }}</label>
+                                    <input type="text" name="last_name" class="form-control" id="last_name">
                                 </div>
                             </div>
                         </div>
@@ -64,26 +76,25 @@
                             <div class="row">
                             
                                 <div class="col-sm-4">
-                                    <label for="head_occupation">{{ __('Occupation') }}</label>
-                                    <select name="head_occupation" class="form-control"  id="head_occupation">
+                                    <label for="occupation">{{ __('Occupation') }}</label>
+                                    <select name="occupation" class="form-control"  id="occupation">
                                         <option value="">Select Occupation</option>
                                         @foreach ($categories as $category)
                                             <option value="{{ $category->name }}" data-category-id="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
                                     <input type="hidden" name="category_id" id="category_id">
-                                    <input type="text" name="head_occupation_other" class="form-control other-field" id="occupation_other" style="display: none;">
+                                    <input type="text" name="occupation_other" class="form-control other-field" id="occupation_other" style="display: none;">
                                 </div>
                                 <div class="col-sm-4">
                                     <label for="sub_occupation">Sub Occupation:</label>
-                                    <select name="sub_occupation" class="form-control"  id="sub_occupation">
+                                    <select name="sub_occupation" class="form-control" id="sub_occupation">
                                         <option value="">Select Sub Occupation</option>
                                         @foreach ($subcategories as $subcategory)
                                             <option value="{{ $subcategory->name }}" data-sub-category-id="{{ $subcategory->id }}">{{ $subcategory->name }}</option>
                                         @endforeach
                                     </select>
                                     <input type="hidden" name="subcategory_id" id="sub_category_id">
-
                                 </div>
                                 <div class="col-sm-4">
                                     <label for="business_name">{{ __('Business Name') }}</label>
@@ -97,7 +108,10 @@
                                 <div class="col-sm-4">
                                     <label for="relationship_with_head">{{ __('Relationship With Head') }}</label>
                                     <select name="relationship_with_head" class="form-control" id="relationship_with_head" >
-                                        <option value="Self">Self</option>
+                                            <option value="">Select Relation</option>
+                                        @foreach ($relationships as $relation)
+                                            <option value="{{ $relation->name }}">{{ $relation->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-sm-4">
@@ -129,12 +143,12 @@
                                     <textarea type="text" name="address" class="form-control" id="address" ></textarea>
                                 </div>
                                 <div class="col-sm-4">
-                                    <label for="head_dob">Head Date of Birth:</label>
-                                    <input type="date" name="head_dob" class="form-control"  id="head_dob">
+                                    <label for="dob">Date of Birth:</label>
+                                    <input type="date" name="dob" class="form-control"  id="dob">
                                 </div>
                                 <div class="col-sm-4">
-                                    <label for="head_mobile_number">{{ __('Mobile Number') }}</label>
-                                    <input type="text" name="head_mobile_number" class="form-control" id="head_mobile_number" maxlength="10">
+                                    <label for="mobile_number">{{ __('Mobile Number') }}</label>
+                                    <input type="text" name="mobile_number" class="form-control" id="mobile_number" maxlength="10">
                                 </div>
                             </div>
                         </div>
@@ -148,8 +162,7 @@
         </div>
     </div>
 <script>
-    $('#head_occupation').on('change', function() {
-       
+    $('#occupation').on('change', function() {
     var category = $(this).val();
 
     if (category) {
@@ -177,9 +190,30 @@
 </script>
 
 <script>
+$(document).ready(function() {
+    
+  $('#family_id').on('change', function() {
+    var familyId = $(this).val(); 
+    var selectedFamily = $('option:selected', this).text(); 
+    $('#last_name').val(selectedFamily.split(' ').pop());
+    $.ajax({
+      url: '/get-address',
+      type: 'GET',
+      data: {familyId: familyId},
+      success: function(response) {
+        $('#address').val(response.address);
+      },
+      error: function(xhr, status, error) {
+      }
+    });
+  });
+});
+</script>
+<script>
     document.addEventListener('DOMContentLoaded', function () {
         // Occupation dropdown change event handler
-        document.getElementById('head_occupation').addEventListener('change', function () {
+        document.getElementById('occupation').addEventListener('change', function () {
+            
             var occupationValue = this.value;
             var occupationOtherField = document.getElementById('occupation_other');
             var categoryIdInput = document.getElementById('category_id');
@@ -212,34 +246,6 @@
             subCategoryIdInput.value = subCategoryId;
         });
 
-        // Function to fetch sub_occupation options based on the selected category
-        function fetchSubOccupations(categoryId) {
-            $.ajax({
-                url: '{{ route('subcategories', ['category' => '']) }}/' + categoryId,
-                type: 'GET',
-                dataType: 'json',
-                success: function (data) {
-                    var subOccupationDropdown = document.getElementById('sub_occupation');
-                    subOccupationDropdown.innerHTML = '';
-
-                    if (data.length > 0) {
-                        data.forEach(function (subcategory) {
-                            var option = document.createElement('option');
-                            option.value = subcategory.name;
-                            option.text = subcategory.name;
-                            option.setAttribute('data-sub-category-id', subcategory.id);
-                            subOccupationDropdown.appendChild(option);
-                        });
-                    } else {
-                        var option = document.createElement('option');
-                        option.value = '';
-                        option.text = 'No Sub Occupation Found';
-                        subOccupationDropdown.appendChild(option);
-                    }
-                }
-            });
-        }
-
         // Qualification dropdown change event handler
         document.getElementById('qualification').addEventListener('change', function () {
             var qualificationValue = this.value;
@@ -267,4 +273,5 @@
         });
     });
 </script>
+
 @endsection
